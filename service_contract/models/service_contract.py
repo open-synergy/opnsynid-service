@@ -520,7 +520,8 @@ class ServiceContract(models.Model):
     def constrains_cancel(self):
         msg_error = _("Please delete all payment term invoice")
         for record in self:
-            if not record._check_all_payment_term_uninvoiced():
+            if record.state == "cancel" and \
+                    not record._check_all_payment_term_uninvoiced():
                 raise UserError(msg_error)
 
     @api.multi
