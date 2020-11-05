@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+service_contract_type_operating_unit_employee,service.contract_type_operating_unit - user,model_service_contract_type_operating_unit,base.group_user,1,1,1,1
+service_contract_type_operating_unit_all,service.contract_type_operating_unit - all,model_service_contract_type_operating_unit,,1,0,0,0

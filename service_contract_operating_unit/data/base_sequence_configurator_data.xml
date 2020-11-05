@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+<record id="service_contract.base_sequence_service_contract_line" model="base.sequence_configurator_line">
+    <field name="generator_id" ref="service_contract.base_sequence_service_contract"/>
+    <field name="sequence" eval="1"/>
+    <field name="domain">result = False
+if not document.operating_unit_id:
+    result = True</field>
+    <field name="sequence_computation_code">result = document.type_id.contract_sequence_id</field>
+</record>
+
+<record id="base_sequence_service_contract_line_ou" model="base.sequence_configurator_line">
+    <field name="generator_id" ref="service_contract.base_sequence_service_contract"/>
+    <field name="sequence" eval="5"/>
+    <field name="domain">result = False
+if document.operating_unit_id:
+    result = True</field>
+    <field name="sequence_computation_code">ou = document.operating_unit_id
+obj_ou = env['service.contract_type_operating_unit']
+criteria = [
+    ('type_id', '=', document.type_id.id),
+    ('operating_unit_id', '=', document.operating_unit_id.id),
+]
+setting = obj_ou.search(criteria)
+if len(setting) > 0:
+    result = setting[0].contract_sequence_id
+else:
+    result = document.type_id.contract_sequence_id</field>
+</record>
+</data>
+</openerp>
