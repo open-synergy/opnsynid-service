@@ -52,6 +52,10 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         required=True,
         default=5,
     )
+    name = fields.Char(
+        string="Description",
+        required=True,
+    )
     product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",
@@ -125,6 +129,12 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         self.tax_ids = []
         if self.product_id:
             self.tax_ids = self.product_id.taxes_id
+
+    @api.onchange
+    def onchange_name(self):
+        self.name = ""
+        if self.product_id:
+            self.name = self.product_id.display_name
 
     @api.multi
     def _create_invoice_line(self):

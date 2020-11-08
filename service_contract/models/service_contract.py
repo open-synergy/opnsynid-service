@@ -135,6 +135,10 @@ class ServiceContract(models.Model):
             ],
         },
     )
+    date = fields.Date(
+        string="Contract Date",
+        required=True,
+    )
     date_start = fields.Date(
         string="Date Start",
         required=True,
@@ -342,12 +346,12 @@ class ServiceContract(models.Model):
     def action_approve(self):
         for record in self:
             record.write(record._prepare_approve_data())
+            record._create_analytic_account()
 
     @api.multi
     def action_start(self):
         for record in self:
             record.write(record._prepare_start_data())
-            record._create_analytic_account()
 
     @api.multi
     def action_finish(self):

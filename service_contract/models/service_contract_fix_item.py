@@ -21,6 +21,10 @@ class ServiceContractFixItem(models.Model):
         string="Product",
         comodel_name="product.product",
     )
+    name = fields.Char(
+        string="Description",
+        required=True,
+    )
     price_unit = fields.Float(
         string="Price Unit",
     )
@@ -47,6 +51,7 @@ class ServiceContractFixItem(models.Model):
             ROW_NUMBER() OVER() AS id,
             c.id AS contract_id,
             a.product_id AS product_id,
+            a.name AS name,
             a.price_unit AS price_unit,
             a.uom_id AS uom_id,
             SUM(a.quantity) AS quantity,
@@ -81,6 +86,7 @@ class ServiceContractFixItem(models.Model):
         group_str = """
         GROUP BY    c.id,
                     a.product_id,
+                    a.name,
                     a.price_unit,
                     a.uom_id
         """

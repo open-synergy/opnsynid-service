@@ -35,6 +35,10 @@
                 <filter name="grp_responsible" string="Responsible" context="{'group_by':'responsible_id'}"/>
                 <filter name="grp_currency" string="Currency" context="{'group_by':'currency_id'}" groups="base.group_multi_currency"/>
                 <filter name="grp_state" string="State" context="{'group_by':'state'}"/>
+                <filter name="grp_date_year" string="Contract Date by Year" context="{'group_by':'date:year'}"/>
+                <filter name="grp_date_month" string="Contract Date by Month" context="{'group_by':'date:month'}"/>
+                <filter name="grp_date_week" string="Contract Date by Week" context="{'group_by':'date:week'}"/>
+                <filter name="grp_date_day" string="Contract Date by Day" context="{'group_by':'date:day'}"/>
                 <filter name="grp_date_start_year" string="Date Start by Year" context="{'group_by':'date_start:year'}"/>
                 <filter name="grp_date_start_month" string="Date Start by Month" context="{'group_by':'date_start:month'}"/>
                 <filter name="grp_date_start_week" string="Date Start by Week" context="{'group_by':'date_start:week'}"/>
@@ -59,6 +63,7 @@
             <field name="partner_id"/>
             <field name="type_id"/>
             <field name="responsible_id"/>
+            <field name="date"/>
             <field name="date_start"/>
             <field name="date_end"/>
             <field name="currency_id" groups="base.group_multi_currency"/>
@@ -145,6 +150,7 @@
                     <group name="group_1_2">
                         <field name="currency_id" groups="base.group_multi_currency"/>
                         <field name="pricelist_id" domain="[('currency_id','=',currency_id),('type','=','scfi')]"/>
+                        <field name="date"/>
                         <field name="date_start"/>
                         <field name="date_end"/>
                     </group>
@@ -161,6 +167,7 @@
                             <field name="fix_item_ids" nolabel="1" colspan="2">
                                 <tree>
                                     <field name="product_id"/>
+                                    <field name="name"/>
                                     <field name="price_unit"/>
                                     <field name="quantity"/>
                                     <field name="uom_id"/>
@@ -194,6 +201,7 @@
                                           <tree editable="top">
                                               <field name="sequence" widget="handle"/>
                                               <field name="product_id" domain="['|',('id','in',parent.fix_item_allowed_product_ids[0][2]),('categ_id','in',parent.fix_item_allowed_product_categ_ids[0][2])]"/>
+                                              <field name="name"/>
                                               <field name="price_unit"/>
                                               <field name="quantity"/>
                                               <field name="allowed_uom_categ_id" invisible="1"/>
