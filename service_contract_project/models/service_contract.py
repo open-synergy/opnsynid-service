@@ -20,9 +20,9 @@ class ServiceContract(models.Model):
     )
 
     @api.multi
-    def action_start(self):
+    def action_approve(self):
         _super = super(ServiceContract, self)
-        _super.action_start()
+        _super.action_approve()
         for record in self:
             record._create_project()
 
