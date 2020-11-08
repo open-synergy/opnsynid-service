@@ -130,7 +130,9 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         if self.product_id:
             self.tax_ids = self.product_id.taxes_id
 
-    @api.onchange
+    @api.onchange(
+        "product_id",
+    )
     def onchange_name(self):
         self.name = ""
         if self.product_id:
