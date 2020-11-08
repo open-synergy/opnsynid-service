@@ -138,21 +138,51 @@ class ServiceContract(models.Model):
     date = fields.Date(
         string="Contract Date",
         required=True,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
     )
     date_start = fields.Date(
         string="Date Start",
         required=True,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
     )
     date_end = fields.Date(
         string="Date End",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
     )
     parent_analytic_account_id = fields.Many2one(
         string="Parent Analytic Account",
         comodel_name="account.analytic.account",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
     )
     analytic_account_id = fields.Many2one(
         string="Analytic Account",
         comodel_name="account.analytic.account",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
     )
     fix_item_ids = fields.One2many(
         string="Fixed Items",
@@ -181,10 +211,22 @@ class ServiceContract(models.Model):
     fix_item_receivable_journal_id = fields.Many2one(
         string="Fix Item Receivable Journal",
         comodel_name="account.journal",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
     )
     fix_item_receivable_account_id = fields.Many2one(
         string="Fix Item Receivable Account",
         comodel_name="account.account",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
     )
     fix_item_payment_term_ids = fields.One2many(
         string="Fix Item Payment Terms",
