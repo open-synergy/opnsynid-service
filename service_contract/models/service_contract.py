@@ -427,8 +427,10 @@ class ServiceContract(models.Model):
     @api.multi
     def _prepare_approve_data(self):
         self.ensure_one()
+        sequence = self._create_sequence()
         return {
             "state": "approve",
+            "name": sequence,
         }
 
     @api.multi
@@ -483,16 +485,6 @@ class ServiceContract(models.Model):
             "terminate_date": False,
             "terminate_user_id": False,
         }
-
-    @api.model
-    def create(self, values):
-        _super = super(ServiceContract, self)
-        result = _super.create(values)
-        sequence = result._create_sequence()
-        result.write({
-            "name": sequence,
-        })
-        return result
 
     @api.onchange(
         "type_id",
@@ -550,16 +542,6 @@ class ServiceContract(models.Model):
             "partner_id": self.partner_id.id,
         }
 
-    @api.multi
-    def unlink(self):
-        strWarning = _("You can only delete data on draft state")
-        for record in self:
-            if record.state != "draft":
-                if not self.env.context.get("force_unlink", False):
-                    raise UserError(strWarning)
-        _super = super(ServiceContract, self)
-        _super.unlink()
-
     @api.constrains(
         "state",
     )
@@ -585,6 +567,16 @@ class ServiceContract(models.Model):
         return result
 
     @api.multi
+    def unlink(self):
+        strWarning = _("You can only delete data on draft state")
+        for record in self:
+            if record.state != "draft":
+                if not self.env.context.get("force_unlink", False):
+                    raise UserError(strWarning)
+        _super = super(ServiceContract, self)
+        _super.unlink()
+
+    @api.multi
     def validate_tier(self):
         _super = super(ServiceContract, self)
         _super.validate_tier()
@@ -598,3 +590,14 @@ class ServiceContract(models.Model):
         _super.restart_validation()
         for record in self:
             record.request_validation()
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for record in self:
+            if record.name == '/':
+                name = '*' + str(record.id)
+            else:
+                name = record.name
+            result.append((record.id, name))
+        return result
