@@ -14,6 +14,9 @@
             <xpath expr="//field[@name='company_id']" position="after">
                 <field name="operating_unit_id" groups="operating_unit.group_multi_operating_unit"/>
             </xpath>
+            <xpath expr="//filter[@name='grp_company']" position="after">
+                <filter name="grp_ou" string="Operating Unit" context="{'group_by':'operating_unit_id'}" groups="operating_unit.group_multi_operating_unit"/>
+            </xpath>
         </data>
     </field>
 </record>
