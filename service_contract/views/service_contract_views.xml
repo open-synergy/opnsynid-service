@@ -57,7 +57,7 @@
     <field name="model">service.contract</field>
     <field name="arch" type="xml">
         <tree>
-            <field name="name"/>
+            <field name="display_name"/>
             <field name="title"/>
             <field name="company_id" groups="base.group_multi_company"/>
             <field name="partner_id"/>
@@ -125,7 +125,8 @@
                 <div class="oe_left" style="width: 500px;">
                     <div class="oe_title" style="width: 500px;">
                         <label for="name" class="oe_edit_only"/>
-                        <field name="name"/>
+                        <field name="name" class="oe_edit_only"/>
+                        <field name="display_name" class="oe_read_only"/>
                         <label for="title" class="oe_edit_only"/>
                         <h1>
                             <field name="title"/>
