@@ -1,59 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
 <data noupdate="1">
 <record id="ir_rule_service_contract_ou" model="ir.rule">
-    <field name="model_id" ref="service_contract.model_service_contract"/>
-    <field name="domain_force">['|', ('operating_unit_id','=',False), ('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+    <field name="model_id" ref="service_contract.model_service_contract" />
+    <field
+                name="domain_force"
+            >['|', ('operating_unit_id','=',False), ('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
     <field name="name">Service Contract - Operating Units</field>
-    <field name="global" eval="True"/>
-    <field eval="0" name="perm_unlink"/>
-    <field eval="0" name="perm_write"/>
-    <field eval="1" name="perm_read"/>
-    <field eval="0" name="perm_create"/>
+    <field name="global" eval="True" />
+    <field eval="0" name="perm_unlink" />
+    <field eval="0" name="perm_write" />
+    <field eval="1" name="perm_read" />
+    <field eval="0" name="perm_create" />
 </record>
 
 <record id="ir_rule_service_contract_team_ou" model="ir.rule">
-    <field name="model_id" ref="service_contract.model_service_contract_team"/>
-    <field name="domain_force">['|', ('contract_id.operating_unit_id','=',False), ('contract_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+    <field name="model_id" ref="service_contract.model_service_contract_team" />
+    <field
+                name="domain_force"
+            >['|', ('contract_id.operating_unit_id','=',False), ('contract_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
     <field name="name">Service Contract Team - Operating Units</field>
-    <field name="global" eval="True"/>
-    <field eval="0" name="perm_unlink"/>
-    <field eval="0" name="perm_write"/>
-    <field eval="1" name="perm_read"/>
-    <field eval="0" name="perm_create"/>
+    <field name="global" eval="True" />
+    <field eval="0" name="perm_unlink" />
+    <field eval="0" name="perm_write" />
+    <field eval="1" name="perm_read" />
+    <field eval="0" name="perm_create" />
 </record>
 
 <record id="ir_rule_service_contract_fix_item_ou" model="ir.rule">
-    <field name="model_id" ref="service_contract.model_service_contract_fix_item"/>
-    <field name="domain_force">['|', ('contract_id.operating_unit_id','=',False), ('contract_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+    <field name="model_id" ref="service_contract.model_service_contract_fix_item" />
+    <field
+                name="domain_force"
+            >['|', ('contract_id.operating_unit_id','=',False), ('contract_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
     <field name="name">Service Contract Fix Item Payment Term - Operating Units</field>
-    <field name="global" eval="True"/>
-    <field eval="0" name="perm_unlink"/>
-    <field eval="0" name="perm_write"/>
-    <field eval="1" name="perm_read"/>
-    <field eval="0" name="perm_create"/>
+    <field name="global" eval="True" />
+    <field eval="0" name="perm_unlink" />
+    <field eval="0" name="perm_write" />
+    <field eval="1" name="perm_read" />
+    <field eval="0" name="perm_create" />
 </record>
 
 <record id="ir_rule_service_contract_fix_item_payment_term_ou" model="ir.rule">
-    <field name="model_id" ref="service_contract.model_service_contract_fix_item_payment_term"/>
-    <field name="domain_force">['|', ('contract_id.operating_unit_id','=',False), ('contract_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+    <field
+                name="model_id"
+                ref="service_contract.model_service_contract_fix_item_payment_term"
+            />
+    <field
+                name="domain_force"
+            >['|', ('contract_id.operating_unit_id','=',False), ('contract_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
     <field name="name">Service Contract Fix Item Payment Term - Operating Units</field>
-    <field name="global" eval="True"/>
-    <field eval="0" name="perm_unlink"/>
-    <field eval="0" name="perm_write"/>
-    <field eval="1" name="perm_read"/>
-    <field eval="0" name="perm_create"/>
+    <field name="global" eval="True" />
+    <field eval="0" name="perm_unlink" />
+    <field eval="0" name="perm_write" />
+    <field eval="1" name="perm_read" />
+    <field eval="0" name="perm_create" />
 </record>
 
 <record id="ir_rule_service_contract_fix_item_payment_term_detail_ou" model="ir.rule">
-    <field name="model_id" ref="service_contract.model_service_contract_fix_item_payment_term_detail"/>
-    <field name="domain_force">['|', ('payment_term_id.contract_id.operating_unit_id','=',False), ('payment_term_id.contract_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
-    <field name="name">Service Contract Fix Item Payment Term Detail - Operating Units</field>
-    <field name="global" eval="True"/>
-    <field eval="0" name="perm_unlink"/>
-    <field eval="0" name="perm_write"/>
-    <field eval="1" name="perm_read"/>
-    <field eval="0" name="perm_create"/>
+    <field
+                name="model_id"
+                ref="service_contract.model_service_contract_fix_item_payment_term_detail"
+            />
+    <field
+                name="domain_force"
+            >['|', ('payment_term_id.contract_id.operating_unit_id','=',False), ('payment_term_id.contract_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+    <field
+                name="name"
+            >Service Contract Fix Item Payment Term Detail - Operating Units</field>
+    <field name="global" eval="True" />
+    <field eval="0" name="perm_unlink" />
+    <field eval="0" name="perm_write" />
+    <field eval="1" name="perm_read" />
+    <field eval="0" name="perm_create" />
 </record>
 </data>
 </openerp>
