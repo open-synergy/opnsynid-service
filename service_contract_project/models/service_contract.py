@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
+from openerp import api, fields, models
 
 
 class ServiceContract(models.Model):
@@ -32,19 +31,18 @@ class ServiceContract(models.Model):
     def onchange_auto_create_project_ok(self):
         self.auto_create_project_ok = False
         if self.type_id:
-            self.auto_create_project_ok = \
-                self.type_id.auto_create_project_ok
+            self.auto_create_project_ok = self.type_id.auto_create_project_ok
 
     @api.multi
     def _create_project(self):
         self.ensure_one()
         if self.auto_create_project_ok and not self.project_id:
-            project = self.env["project.project"].create(
-                self._prepare_project()
+            project = self.env["project.project"].create(self._prepare_project())
+            self.write(
+                {
+                    "project_id": project.id,
+                }
             )
-            self.write({
-                "project_id": project.id,
-            })
 
     @api.multi
     def _prepare_project(self):
