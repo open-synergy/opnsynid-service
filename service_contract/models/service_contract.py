@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api, _
+from openerp import _, api, fields, models
 from openerp.exceptions import Warning as UserError
 
 
@@ -492,8 +491,9 @@ class ServiceContract(models.Model):
     def onchange_fix_item_receivable_journal_id(self):
         self.fix_item_receivable_journal_id = False
         if self.type_id:
-            self.fix_item_receivable_journal_id = \
+            self.fix_item_receivable_journal_id = (
                 self.type_id.fix_item_receivable_journal_id
+            )
 
     @api.onchange(
         "type_id",
@@ -501,8 +501,9 @@ class ServiceContract(models.Model):
     def onchange_fix_item_receivable_account_id(self):
         self.fix_item_receivable_account_id = False
         if self.type_id:
-            self.fix_item_receivable_account_id = \
+            self.fix_item_receivable_account_id = (
                 self.type_id.fix_item_receivable_account_id
+            )
 
     @api.onchange(
         "currency_id",
@@ -516,8 +517,7 @@ class ServiceContract(models.Model):
     def onchange_parent_analytic_account_id(self):
         self.parent_analytic_account_id = False
         if self.type_id:
-            self.parent_analytic_account_id = \
-                self.type_id.parent_analytic_account_id
+            self.parent_analytic_account_id = self.type_id.parent_analytic_account_id
 
     @api.multi
     def _create_analytic_account(self):
@@ -526,9 +526,11 @@ class ServiceContract(models.Model):
             return True
         obj_aa = self.env["account.analytic.account"]
         aa = obj_aa.create(self._prepare_analytic_account())
-        self.write({
-            "analytic_account_id": aa.id,
-        })
+        self.write(
+            {
+                "analytic_account_id": aa.id,
+            }
+        )
 
     @api.multi
     def _prepare_analytic_account(self):
@@ -548,8 +550,10 @@ class ServiceContract(models.Model):
     def constrains_cancel(self):
         msg_error = _("Please delete all payment term invoice")
         for record in self:
-            if record.state == "cancel" and \
-                    not record._check_all_payment_term_uninvoiced():
+            if (
+                record.state == "cancel"
+                and not record._check_all_payment_term_uninvoiced()
+            ):
                 raise UserError(msg_error)
 
     @api.multi
@@ -557,10 +561,7 @@ class ServiceContract(models.Model):
         self.ensure_one()
         result = True
         obj_term = self.env["service.contract_fix_item_payment_term"]
-        criteria = [
-            ("contract_id", "=", self.id),
-            ("invoice_id", "!=", False)
-        ]
+        criteria = [("contract_id", "=", self.id), ("invoice_id", "!=", False)]
         count = obj_term.search_count(criteria)
         if count > 0:
             result = False
@@ -595,8 +596,8 @@ class ServiceContract(models.Model):
     def name_get(self):
         result = []
         for record in self:
-            if record.name == '/':
-                name = '*' + str(record.id)
+            if record.name == "/":
+                name = "*" + str(record.id)
             else:
                 name = record.name
             result.append((record.id, name))
