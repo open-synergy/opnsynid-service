@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api
+from openerp import api, models
 
 
 class ServiceContractFixItemPaymentTerm(models.Model):
@@ -19,7 +18,7 @@ class ServiceContractFixItemPaymentTerm(models.Model):
             obj_setting = self.env["service.contract_type_operating_unit"]
             criteria = [
                 ("type_id", "=", contract.type_id.id),
-                ("operating_unit_id", "=", contract.operating_unit_id.id)
+                ("operating_unit_id", "=", contract.operating_unit_id.id),
             ]
             setting = obj_setting.search(criteria)
             if len(setting) > 0 and setting[0].fix_item_receivable_journal_id:
@@ -35,7 +34,7 @@ class ServiceContractFixItemPaymentTerm(models.Model):
             obj_setting = self.env["service.contract_type_operating_unit"]
             criteria = [
                 ("type_id", "=", contract.type_id.id),
-                ("operating_unit_id", "=", contract.operating_unit_id.id)
+                ("operating_unit_id", "=", contract.operating_unit_id.id),
             ]
             setting = obj_setting.search(criteria)
             if len(setting) > 0 and setting[0].fix_item_receivable_account_id:
