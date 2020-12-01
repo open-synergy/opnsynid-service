@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
+from openerp import api, fields, models
 
 
 class ServiceContractFixItemPaymentTerm(models.Model):
@@ -127,11 +126,12 @@ class ServiceContractFixItemPaymentTerm(models.Model):
     @api.multi
     def _create_invoice(self):
         self.ensure_one()
-        invoice = self.env["account.invoice"].create(
-            self._prepare_invoice_data())
-        self.write({
-            "invoice_id": invoice.id,
-        })
+        invoice = self.env["account.invoice"].create(self._prepare_invoice_data())
+        self.write(
+            {
+                "invoice_id": invoice.id,
+            }
+        )
         for detail in self.detail_ids:
             detail._create_invoice_line()
         invoice.button_reset_taxes()
@@ -168,10 +168,10 @@ class ServiceContractFixItemPaymentTerm(models.Model):
     def _delete_invoice(self):
         self.ensure_one()
         invoice = self.invoice_id
-        self.detail_ids.write({
-            "invoice_line_id": False
-        })
-        self.write({
-            "invoice_id": False,
-        })
+        self.detail_ids.write({"invoice_line_id": False})
+        self.write(
+            {
+                "invoice_id": False,
+            }
+        )
         invoice.unlink()

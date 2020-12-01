@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
+from openerp import api, fields, models
 
 
 class ServiceContractFixItemPaymentTermDetail(models.Model):
@@ -25,7 +24,7 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
                 product=record.product_id,
             )
             amount_untaxed += tax_comp["total"]
-            amount_tax += (tax_comp["total_included"] - tax_comp["total"])
+            amount_tax += tax_comp["total_included"] - tax_comp["total"]
             amount_total += tax_comp["total_included"]
             record.amount_untaxed = amount_untaxed
             record.amount_tax = amount_tax
@@ -141,12 +140,12 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
     @api.multi
     def _create_invoice_line(self):
         self.ensure_one()
-        line = self.env["account.invoice.line"].create(
-            self._prepare_invoice_line()
+        line = self.env["account.invoice.line"].create(self._prepare_invoice_line())
+        self.write(
+            {
+                "invoice_line_id": line.id,
+            }
         )
-        self.write({
-            "invoice_line_id": line.id,
-        })
 
     @api.multi
     def _prepare_invoice_line(self):
