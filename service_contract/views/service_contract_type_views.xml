@@ -46,6 +46,10 @@
                                 name="contract_sequence_id"
                                 domain="[('code','=','service.contract')]"
                             />
+                    <field
+                                name="contract_custom_info_template_id"
+                                domain="[('model','=','service.contract')]"
+                            />
                 </group>
                 <notebook>
                     <page name="fix_item" string="Fix Items Configuration">

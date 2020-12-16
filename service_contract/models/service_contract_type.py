@@ -29,6 +29,10 @@ class ServiceContractType(models.Model):
         comodel_name="ir.sequence",
         company_dependent=True,
     )
+    contract_custom_info_template_id = fields.Many2one(
+        string="Custom Info Template",
+        comodel_name="custom.info.template",
+    )
     team_function_allowed_product_ids = fields.Many2many(
         string="Team Function Allowed Products",
         comodel_name="product.product",
