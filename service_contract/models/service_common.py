@@ -142,6 +142,7 @@ class ServiceCommon(models.AbstractModel):
         comodel_name="service.common_fix_item",
         inverse_name="contract_id",
         readonly=True,
+        copy=False,
     )
     amount_untaxed = fields.Float(
         string="Untaxed",
@@ -171,6 +172,7 @@ class ServiceCommon(models.AbstractModel):
                 ("readonly", False),
             ],
         },
+        copy=True,
     )
     fix_item_allowed_product_ids = fields.Many2many(
         string="Fix Item Allowed Products",
