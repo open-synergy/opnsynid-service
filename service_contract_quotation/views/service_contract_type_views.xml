@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<openerp>
+<data>
+<record id="service_contract_type_view_form" model="ir.ui.view">
+    <field name="name">service.contract_type form</field>
+    <field name="model">service.contract_type</field>
+    <field name="inherit_id" ref="service_contract.service_contract_type_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//page[@name='note']" position="before">
+                <page name="service_quotation" string="Service Quotation Configuration">
+                    <group name="service_quotation_general" colspan="4" col="2">
+                        <field name="quotation_sequence_id" />
+                        <field
+                                    name="quotation_custom_info_template_id"
+                                    domain="[('model','=','service.quotation')]"
+                                />
+                    </group>
+                    <group
+                                name="service_quotation_workflow"
+                                string="Workflow"
+                                colspan="4"
+                                col="2"
+                            >
+                        <field
+                                    name="service_quotation_confirm_grp_ids"
+                                    widget="many2many_tags"
+                                />
+                        <field
+                                    name="service_quotation_restart_approval_grp_ids"
+                                    widget="many2many_tags"
+                                />
+                        <field
+                                    name="service_quotation_won_grp_ids"
+                                    widget="many2many_tags"
+                                />
+                        <field
+                                    name="service_quotation_lost_grp_ids"
+                                    widget="many2many_tags"
+                                />
+                        <field
+                                    name="service_quotation_cancel_grp_ids"
+                                    widget="many2many_tags"
+                                />
+                        <field
+                                    name="service_quotation_restart_grp_ids"
+                                    widget="many2many_tags"
+                                />
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+</data>
+</openerp>

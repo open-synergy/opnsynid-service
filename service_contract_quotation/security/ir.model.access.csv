@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+service_quotation_employee,service.quotation - user,model_service_quotation,base.group_user,1,1,1,1
+service_quotation_all,service.quotation - all,model_service_quotation,,1,0,0,0
+service_quotation_fix_item_employee,service.quotation_fix_item - user,model_service_quotation_fix_item,base.group_user,1,1,1,1
+service_quotation_fix_item_all,service.quotation_fix_item - all,model_service_quotation_fix_item,,1,0,0,0
+service_quotation_fix_item_payment_term_employee,service.quotation_fix_item_payment_term - user,model_service_quotation_fix_item_payment_term,base.group_user,1,1,1,1
+service_quotation_fix_item_payment_term_all,service.quotation_fix_item_payment_term - all,model_service_quotation_fix_item_payment_term,,1,0,0,0
+service_quotation_fix_item_payment_term_detail_employee,service.quotation_fix_item_payment_term_detail - user,model_service_quotation_fix_item_payment_term_detail,base.group_user,1,1,1,1
+service_quotation_fix_item_payment_term_detail_all,service.quotation_fix_item_payment_term_detail - all,model_service_quotation_fix_item_payment_term_detail,,1,0,0,0

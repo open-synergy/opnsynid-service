@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<openerp>
+<data>
+<record id="base_workflow_service_quotation" model="base.workflow_policy">
+    <field name="model_id" ref="service_contract_quotation.model_service_quotation" />
+</record>
+
+<!-- Confirm -->
+<record
+            id="base_workflow_line_service_quotation_confirm"
+            model="base.workflow_policy_line"
+        >
+    <field
+                name="workflow_id"
+                ref="service_contract_quotation.base_workflow_service_quotation"
+            />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','service.quotation'),('name','=','confirm_ok')]"
+            />
+    <field
+                name="python_code"
+            >result = document.type_id.service_quotation_confirm_grp_ids.ids</field>
+</record>
+
+<!-- Mark as Won -->
+<record id="base_workflow_line_service_quotation_won" model="base.workflow_policy_line">
+    <field
+                name="workflow_id"
+                ref="service_contract_quotation.base_workflow_service_quotation"
+            />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','service.quotation'),('name','=','won_ok')]"
+            />
+    <field
+                name="python_code"
+            >result = document.type_id.service_quotation_won_grp_ids.ids</field>
+</record>
+
+<!-- Mark as Lost -->
+<record
+            id="base_workflow_line_service_quotation_lost"
+            model="base.workflow_policy_line"
+        >
+    <field
+                name="workflow_id"
+                ref="service_contract_quotation.base_workflow_service_quotation"
+            />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','service.quotation'),('name','=','lost_ok')]"
+            />
+    <field
+                name="python_code"
+            >result = document.type_id.service_quotation_lost_grp_ids.ids</field>
+</record>
+
+<!-- Cancel -->
+<record
+            id="base_workflow_line_service_quotation_cancel"
+            model="base.workflow_policy_line"
+        >
+    <field
+                name="workflow_id"
+                ref="service_contract_quotation.base_workflow_service_quotation"
+            />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','service.quotation'),('name','=','cancel_ok')]"
+            />
+    <field
+                name="python_code"
+            >result = document.type_id.service_quotation_cancel_grp_ids.ids</field>
+</record>
+
+<!-- Restart Validation -->
+<record
+            id="base_workflow_line_service_quotation_restart_approval"
+            model="base.workflow_policy_line"
+        >
+    <field
+                name="workflow_id"
+                ref="service_contract_quotation.base_workflow_service_quotation"
+            />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','service.quotation'),('name','=','restart_approval_ok')]"
+            />
+    <field
+                name="python_code"
+            >result = document.type_id.service_quotation_restart_approval_grp_ids.ids</field>
+</record>
+
+<!-- Restart -->
+<record
+            id="base_workflow_line_service_quotation_restart"
+            model="base.workflow_policy_line"
+        >
+    <field
+                name="workflow_id"
+                ref="service_contract_quotation.base_workflow_service_quotation"
+            />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','service.quotation'),('name','=','restart_ok')]"
+            />
+    <field
+                name="python_code"
+            >result = document.type_id.service_quotation_restart_grp_ids.ids</field>
+</record>
+
+
+</data>
+</openerp>
