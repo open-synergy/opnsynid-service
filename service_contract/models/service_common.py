@@ -6,17 +6,15 @@ from openerp import _, api, fields, models
 from openerp.exceptions import Warning as UserError
 
 
-class ServiceContract(models.Model):
-    _name = "service.contract"
-    _description = "Service Contract"
+class ServiceCommon(models.AbstractModel):
+    _name = "service.common"
+    _description = "Abstrat Model for Service Contract"
     _inherit = [
         "mail.thread",
         "tier.validation",
         "base.sequence_document",
         "base.workflow_policy_object",
         "base.cancel.reason_common",
-        "base.terminate.reason_common",
-        "custom.info.mixin",
     ]
     _state_from = ["draft", "confirm"]
     _state_to = ["approve"]
@@ -31,15 +29,9 @@ class ServiceContract(models.Model):
 
     @api.multi
     def _compute_policy(self):
-        _super = super(ServiceContract, self)
+        _super = super(ServiceCommon, self)
         _super._compute_policy()
 
-    @api.depends(
-        "fix_item_payment_term_ids",
-        "fix_item_payment_term_ids.amount_untaxed",
-        "fix_item_payment_term_ids.amount_tax",
-        "fix_item_payment_term_ids.amount_total",
-    )
     @api.multi
     def _compute_fix_item_total(self):
         for record in self:
@@ -136,47 +128,8 @@ class ServiceContract(models.Model):
         },
     )
     date = fields.Date(
-        string="Contract Date",
+        string="Quotation Date",
         required=True,
-        readonly=True,
-        states={
-            "draft": [
-                ("readonly", False),
-            ],
-        },
-    )
-    date_start = fields.Date(
-        string="Date Start",
-        required=True,
-        readonly=True,
-        states={
-            "draft": [
-                ("readonly", False),
-            ],
-        },
-    )
-    date_end = fields.Date(
-        string="Date End",
-        readonly=True,
-        states={
-            "draft": [
-                ("readonly", False),
-            ],
-        },
-    )
-    parent_analytic_account_id = fields.Many2one(
-        string="Parent Analytic Account",
-        comodel_name="account.analytic.account",
-        readonly=True,
-        states={
-            "draft": [
-                ("readonly", False),
-            ],
-        },
-    )
-    analytic_account_id = fields.Many2one(
-        string="Analytic Account",
-        comodel_name="account.analytic.account",
         readonly=True,
         states={
             "draft": [
@@ -186,7 +139,7 @@ class ServiceContract(models.Model):
     )
     fix_item_ids = fields.One2many(
         string="Fixed Items",
-        comodel_name="service.contract_fix_item",
+        comodel_name="service.common_fix_item",
         inverse_name="contract_id",
         readonly=True,
     )
@@ -208,29 +161,9 @@ class ServiceContract(models.Model):
         compute="_compute_fix_item_total",
         store=False,
     )
-    fix_item_receivable_journal_id = fields.Many2one(
-        string="Fix Item Receivable Journal",
-        comodel_name="account.journal",
-        readonly=True,
-        states={
-            "draft": [
-                ("readonly", False),
-            ],
-        },
-    )
-    fix_item_receivable_account_id = fields.Many2one(
-        string="Fix Item Receivable Account",
-        comodel_name="account.account",
-        readonly=True,
-        states={
-            "draft": [
-                ("readonly", False),
-            ],
-        },
-    )
     fix_item_payment_term_ids = fields.One2many(
         string="Fix Item Payment Terms",
-        comodel_name="service.contract_fix_item_payment_term",
+        comodel_name="service.common_fix_item_payment_term",
         inverse_name="contract_id",
         readonly=True,
         states={
@@ -251,29 +184,6 @@ class ServiceContract(models.Model):
         related="type_id.fix_item_allowed_product_categ_ids",
         store=False,
     )
-    team_function_allowed_product_ids = fields.Many2many(
-        string="Team Function Allowed Products",
-        comodel_name="product.product",
-        related="type_id.team_function_allowed_product_ids",
-        store=False,
-    )
-    team_function_allowed_product_categ_ids = fields.Many2many(
-        string="Team Function Allowed Product Categories",
-        comodel_name="product.category",
-        related="type_id.team_function_allowed_product_categ_ids",
-        store=False,
-    )
-    team_ids = fields.One2many(
-        string="Teams",
-        comodel_name="service.contract_team",
-        inverse_name="contract_id",
-        readonly=True,
-        states={
-            "draft": [
-                ("readonly", False),
-            ],
-        },
-    )
     note = fields.Text(
         string="Note",
     )
@@ -282,11 +192,6 @@ class ServiceContract(models.Model):
         selection=[
             ("draft", "Draft"),
             ("confirm", "Waiting for Approval"),
-            ("approve", "Ready to Start"),
-            ("open", "In Progress"),
-            ("done", "Done"),
-            ("terminate", "Terminated"),
-            ("cancel", "Cancelled"),
         ],
         copy=False,
         default="draft",
@@ -304,28 +209,6 @@ class ServiceContract(models.Model):
         readonly=True,
         copy=False,
     )
-    open_date = fields.Datetime(
-        string="Start Date",
-        readonly=True,
-        copy=False,
-    )
-    open_user_id = fields.Many2one(
-        string="Start By",
-        comodel_name="res.users",
-        readonly=True,
-        copy=False,
-    )
-    done_date = fields.Datetime(
-        string="Finish Date",
-        readonly=True,
-        copy=False,
-    )
-    done_user_id = fields.Many2one(
-        string="Finished By",
-        comodel_name="res.users",
-        readonly=True,
-        copy=False,
-    )
     cancel_date = fields.Datetime(
         string="Cancel Date",
         readonly=True,
@@ -333,17 +216,6 @@ class ServiceContract(models.Model):
     )
     cancel_user_id = fields.Many2one(
         string="Cancelled By",
-        comodel_name="res.users",
-        readonly=True,
-        copy=False,
-    )
-    terminate_date = fields.Datetime(
-        string="Terminate Date",
-        readonly=True,
-        copy=False,
-    )
-    terminate_user_id = fields.Many2one(
-        string="Terminated By",
         comodel_name="res.users",
         readonly=True,
         copy=False,
@@ -357,24 +229,12 @@ class ServiceContract(models.Model):
         string="Can Restart Approval",
         compute="_compute_policy",
     )
-    open_ok = fields.Boolean(
-        string="Can Force Start",
-        compute="_compute_policy",
-    )
-    finish_ok = fields.Boolean(
-        string="Can Force Finish",
-        compute="_compute_policy",
-    )
-    cancel_ok = fields.Boolean(
-        string="Can Cancel",
-        compute="_compute_policy",
-    )
     restart_ok = fields.Boolean(
         string="Can Restart",
         compute="_compute_policy",
     )
-    terminate_ok = fields.Boolean(
-        string="Can Terminate",
+    cancel_ok = fields.Boolean(
+        string="Can Cancel",
         compute="_compute_policy",
     )
 
@@ -388,27 +248,11 @@ class ServiceContract(models.Model):
     def action_approve(self):
         for record in self:
             record.write(record._prepare_approve_data())
-            record._create_analytic_account()
-
-    @api.multi
-    def action_start(self):
-        for record in self:
-            record.write(record._prepare_start_data())
-
-    @api.multi
-    def action_finish(self):
-        for record in self:
-            record.write(record._prepare_finish_data())
 
     @api.multi
     def action_cancel(self):
         for record in self:
             record.write(record._prepare_cancel_data())
-
-    @api.multi
-    def action_terminate(self):
-        for record in self:
-            record.write(record._prepare_terminate_data())
 
     @api.multi
     def action_restart(self):
@@ -434,24 +278,6 @@ class ServiceContract(models.Model):
         }
 
     @api.multi
-    def _prepare_start_data(self):
-        self.ensure_one()
-        return {
-            "state": "open",
-            "open_date": fields.Datetime.now(),
-            "open_user_id": self.env.user.id,
-        }
-
-    @api.multi
-    def _prepare_finish_data(self):
-        self.ensure_one()
-        return {
-            "state": "done",
-            "done_date": fields.Datetime.now(),
-            "done_user_id": self.env.user.id,
-        }
-
-    @api.multi
     def _prepare_cancel_data(self):
         self.ensure_one()
         return {
@@ -461,120 +287,21 @@ class ServiceContract(models.Model):
         }
 
     @api.multi
-    def _prepare_terminate_data(self):
-        self.ensure_one()
-        return {
-            "state": "terminate",
-            "terminate_date": fields.Datetime.now(),
-            "terminate_user_id": self.env.user.id,
-        }
-
-    @api.multi
     def _prepare_restart_data(self):
         self.ensure_one()
         return {
             "state": "draft",
             "confirm_date": False,
             "confirm_user_id": False,
-            "open_date": False,
-            "open_user_id": False,
-            "done_date": False,
-            "done_user_id": False,
             "cancel_date": False,
             "cancel_user_id": False,
-            "terminate_date": False,
-            "terminate_user_id": False,
         }
-
-    @api.onchange(
-        "type_id",
-    )
-    def onchange_fix_item_receivable_journal_id(self):
-        self.fix_item_receivable_journal_id = False
-        if self.type_id:
-            self.fix_item_receivable_journal_id = (
-                self.type_id.fix_item_receivable_journal_id
-            )
-
-    @api.onchange(
-        "type_id",
-    )
-    def onchange_fix_item_receivable_account_id(self):
-        self.fix_item_receivable_account_id = False
-        if self.type_id:
-            self.fix_item_receivable_account_id = (
-                self.type_id.fix_item_receivable_account_id
-            )
 
     @api.onchange(
         "currency_id",
     )
     def onchange_pricelist_id(self):
         self.pricelist_id = False
-
-    @api.onchange(
-        "type_id",
-    )
-    def onchange_parent_analytic_account_id(self):
-        self.parent_analytic_account_id = False
-        if self.type_id:
-            self.parent_analytic_account_id = self.type_id.parent_analytic_account_id
-
-    @api.onchange(
-        "type_id",
-    )
-    def onchange_custom_info_template_id(self):
-        self.custom_info_template_id = False
-        if self.type_id:
-            self.custom_info_template_id = self.type_id.contract_custom_info_template_id
-
-    @api.multi
-    def _create_analytic_account(self):
-        self.ensure_one()
-        if self.analytic_account_id:
-            return True
-        obj_aa = self.env["account.analytic.account"]
-        aa = obj_aa.create(self._prepare_analytic_account())
-        self.write(
-            {
-                "analytic_account_id": aa.id,
-            }
-        )
-
-    @api.multi
-    def _prepare_analytic_account(self):
-        self.ensure_one()
-        parent = self.parent_analytic_account_id
-        return {
-            "name": self.title,
-            "code": self.name,
-            "type": "normal",
-            "parent_id": parent and parent.id or False,
-            "partner_id": self.partner_id.id,
-        }
-
-    @api.constrains(
-        "state",
-    )
-    def constrains_cancel(self):
-        msg_error = _("Please delete all payment term invoice")
-        for record in self:
-            if (
-                record.state == "cancel"
-                and not record._check_all_payment_term_uninvoiced()
-            ):
-                raise UserError(msg_error)
-
-    @api.multi
-    def _check_all_payment_term_uninvoiced(self):
-        self.ensure_one()
-        result = True
-        obj_term = self.env["service.contract_fix_item_payment_term"]
-        criteria = [("contract_id", "=", self.id), ("invoice_id", "!=", False)]
-        count = obj_term.search_count(criteria)
-        if count > 0:
-            result = False
-        return result
 
     @api.multi
     def unlink(self):
@@ -583,12 +310,12 @@ class ServiceContract(models.Model):
             if record.state != "draft":
                 if not self.env.context.get("force_unlink", False):
                     raise UserError(strWarning)
-        _super = super(ServiceContract, self)
+        _super = super(ServiceCommon, self)
         _super.unlink()
 
     @api.multi
     def validate_tier(self):
-        _super = super(ServiceContract, self)
+        _super = super(ServiceCommon, self)
         _super.validate_tier()
         for record in self:
             if record.validated:
@@ -596,7 +323,7 @@ class ServiceContract(models.Model):
 
     @api.multi
     def restart_validation(self):
-        _super = super(ServiceContract, self)
+        _super = super(ServiceCommon, self)
         _super.restart_validation()
         for record in self:
             record.request_validation()

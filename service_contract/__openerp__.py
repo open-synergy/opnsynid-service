@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Service Contract",
-    "version": "8.0.1.3.0",
+    "version": "8.0.2.0.0",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "website": "https://simetri-sinergi.id",
     "license": "AGPL-3",
@@ -19,6 +19,7 @@
         "web_readonly_bypass",
         "base_ir_filters_active",
         "base_action_rule",
+        "base_custom_information",
     ],
     "data": [
         "security/ir_module_category_data.xml",

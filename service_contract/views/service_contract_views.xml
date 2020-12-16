@@ -495,6 +495,28 @@
                             </field>
                         </group>
                     </page>
+                    <page name="custom_info" string="Custom Information">
+                        <group name="grp_1">
+                            <label for="custom_info_template_id" />
+                            <div>
+                                <field
+                                            name="custom_info_template_id"
+                                            options='{"no_quick_create": True}'
+                                        />
+                            </div>
+                            <field
+                                        name="custom_info_ids"
+                                        colspan="4"
+                                        nolabel="1"
+                                        context="{'embed': True, 'tree_view_ref': 'base_custom_information.custom_info_value_tree_editable'}"
+                                    />
+                            <button
+                                        name="button_update_info"
+                                        type="object"
+                                        string="Update"
+                                    />
+                        </group>
+                    </page>
                     <page
                                 name="analytic_project"
                                 string="Analytic &amp; Project"
