@@ -7,4 +7,5 @@ from . import (
     service_contract_type,
     service_contract_type_operating_unit,
     service_contract_fix_item_payment_term,
+    service_common,
 )
