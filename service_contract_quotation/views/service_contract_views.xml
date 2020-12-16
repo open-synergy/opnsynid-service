@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<openerp>
+<data>
+<record id="service_contract_view_search" model="ir.ui.view">
+    <field name="name">service.contract form</field>
+    <field name="model">service.contract</field>
+    <field name="inherit_id" ref="service_contract.service_contract_view_search" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="quotation_id" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="service_contract_view_tree" model="ir.ui.view">
+    <field name="name">service.contract tree</field>
+    <field name="model">service.contract</field>
+    <field name="inherit_id" ref="service_contract.service_contract_view_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='display_name']" position="after">
+                <field name="quotation_id" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="service_contract_view_form" model="ir.ui.view">
+    <field name="name">service.contract form</field>
+    <field name="model">service.contract</field>
+    <field name="inherit_id" ref="service_contract.service_contract_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="quotation_id" />
+            </xpath>
+        </data>
+    </field>
+</record>
+</data>
+</openerp>
