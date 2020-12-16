@@ -76,6 +76,7 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         string="Detail",
         comodel_name="service.contract_fix_item_payment_term_detail",
         inverse_name="payment_term_id",
+        copy=True,
     )
     amount_untaxed = fields.Float(
         string="Untaxed",

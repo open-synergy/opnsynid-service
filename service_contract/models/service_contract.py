@@ -238,6 +238,7 @@ class ServiceContract(models.Model):
                 ("readonly", False),
             ],
         },
+        copy=True,
     )
     fix_item_allowed_product_ids = fields.Many2many(
         string="Fix Item Allowed Products",
