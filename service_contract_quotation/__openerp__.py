@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Service Contract Quotation",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.1.0",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "website": "https://simetri-sinergi.id",
     "license": "AGPL-3",
@@ -22,6 +22,7 @@
         "views/service_contract_type_views.xml",
         "views/service_quotation_views.xml",
         "views/service_contract_views.xml",
+        "data/tile_tile_data.xml",
     ],
     "installable": True,
 }
