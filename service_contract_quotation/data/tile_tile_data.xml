@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<openerp>
+<data>
+<record id="tile_tile_service_quotation_draft" model="tile.tile">
+    <field name="name">All Service Quotation: Draft</field>
+    <field name="domain">
+    [
+        ("state", "=", "draft"),
+    ]
+    </field>
+    <field name="model_id" ref="service_contract_quotation.model_service_quotation" />
+    <field name="action_id" ref="service_contract_quotation.service_quotation_action" />
+    <field name="primary_function">count</field>
+</record>
+
+<record id="tile_tile_service_quotation_confirm" model="tile.tile">
+    <field name="name">All Service Quotation: Waiting for Approval</field>
+    <field name="domain">
+    [
+        ("state", "=", "confirm"),
+    ]
+    </field>
+    <field name="model_id" ref="service_contract_quotation.model_service_quotation" />
+    <field name="action_id" ref="service_contract_quotation.service_quotation_action" />
+    <field name="primary_function">count</field>
+</record>
+
+<record id="tile_tile_service_quotation_approve" model="tile.tile">
+    <field name="name">All Service Quotation: In Progress</field>
+    <field name="domain">
+    [
+        ("state", "=", "approve"),
+    ]
+    </field>
+    <field name="model_id" ref="service_contract_quotation.model_service_quotation" />
+    <field name="action_id" ref="service_contract_quotation.service_quotation_action" />
+    <field name="primary_function">count</field>
+</record>
+</data>
+</openerp>
