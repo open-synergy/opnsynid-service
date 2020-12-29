@@ -28,6 +28,7 @@ class ServiceQuotationFixItemPaymentTermDetail(models.Model):
             "name": self.name,
             "product_id": self.product_id.id,
             "price_unit": self.price_unit,
+            "quantity": self.quantity,
             "uom_id": self.uom_id.id,
             "tax_ids": [(6, 0, self.tax_ids.ids)],
         }
