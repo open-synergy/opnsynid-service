@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<openerp>
+<data>
+<record id="service_contract_view_form" model="ir.ui.view">
+    <field name="name">service.contract form</field>
+    <field name="model">service.contract</field>
+    <field name="inherit_id" ref="service_contract.service_contract_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//page[@name='team']" position="before">
+                <page name="recurring_item" string="Recurring Items">
+                    <group
+                                name="recurring_accounting"
+                                string="Accounting"
+                                colspan="4"
+                                col="2"
+                            >
+                        <field name="recurring_item_receivable_journal_id" />
+                        <field name="recurring_item_receivable_account_id" />
+                    </group>
+                    <group name="recurring_item" string="Items" colspan="4" col="2">
+                        <field name="recurring_service_ok" />
+                        <field
+                                    name="recurring_item_ids"
+                                    colspan="2"
+                                    nolabel="1"
+                                    mode="tree"
+                                >
+                            <tree editable="top">
+                                <field name="product_id" />
+                                <field name="name" />
+                                <field name="price_unit" />
+                                <field name="quantity" />
+                                <field name="uom_id" />
+                                <field name="amount_untaxed" />
+                                <field name="amount_tax" />
+                                <field name="amount_total" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group name="recurring_period" string="Period" colspan="4" col="2">
+                        <field
+                                    name="recurring_period"
+                                    attrs="{'required':[('recurring_service_ok','=',True)]}"
+                                />
+                        <field
+                                    name="recurring_period_lenght"
+                                    attrs="{'required':[('recurring_service_ok','=',True)]}"
+                                />
+                        <field
+                                    name="recurring_period_num"
+                                    attrs="{'required':[('recurring_service_ok','=',True)]}"
+                                />
+                        <field
+                                    name="recurring_period_ids"
+                                    colspan="2"
+                                    nolabel="1"
+                                    mode="tree"
+                                >
+                            <tree>
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field name="analytic_account_id" />
+                                <field name="invoice_id" />
+                                <field name="invoice_state" />
+                                <button
+                                            name="action_create_invoice"
+                                            string="Create Invoice"
+                                            type="object"
+                                            icon="gtk-execute"
+                                            attrs="{'invisible':[('invoice_state','=','invoiced')]}"
+                                        />
+                                <button
+                                            name="action_delete_invoice"
+                                            string="Delete Invoice"
+                                            type="object"
+                                            icon="gtk-cancel"
+                                            attrs="{'invisible':[('invoice_state','=','tobeinvoiced')]}"
+                                        />
+                                <field name="state" />
+                                <button
+                                            name="action_start"
+                                            string="Start"
+                                            type="object"
+                                            icon="gtk-media-play"
+                                            attrs="{'invisible':[('state','!=','draft')]}"
+                                        />
+                                <button
+                                            name="action_end"
+                                            string="End"
+                                            type="object"
+                                            icon="gtk-media-stop"
+                                            attrs="{'invisible':[('state','!=','open')]}"
+                                        />
+                                <button
+                                            name="action_restart"
+                                            string="Restart"
+                                            type="object"
+                                            icon="gtk-media-previous"
+                                            attrs="{'invisible':[('state','=','draft')]}"
+                                        />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+</data>
+</openerp>
