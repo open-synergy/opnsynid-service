@@ -23,7 +23,10 @@
     <field name="inherit_id" ref="service_contract.service_contract_view_form" />
     <field name="arch" type="xml">
         <data>
-            <xpath expr="//field[@name='analytic_account_id']" position="after">
+            <xpath
+                        expr="//group[@name='analytic_project_1']/field[@name='analytic_account_id']"
+                        position="after"
+                    >
                 <field name="auto_create_project_ok" />
                 <field name="project_id" />
             </xpath>
