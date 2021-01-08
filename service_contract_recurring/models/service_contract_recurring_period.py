@@ -122,7 +122,7 @@ class ServiceContractRecurringPeriod(models.Model):
             }
         )
         for detail in self.contract_id.recurring_item_ids:
-            detail._create_invoice_line(invoice)
+            detail._create_invoice_line(invoice, self)
         invoice.button_reset_taxes()
 
     @api.multi
