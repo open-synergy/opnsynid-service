@@ -125,18 +125,28 @@ class ServiceContractRecurringItem(models.Model):
     )
 
     @api.multi
-    def _create_invoice_line(self, invoice):
+    def _create_invoice_line(self, invoice, period):
         self.ensure_one()
-        self.env["account.invoice.line"].create(self._prepare_invoice_line(invoice))
+        self.env["account.invoice.line"].create(
+            self._prepare_invoice_line(invoice, period)
+        )
 
     @api.multi
-    def _prepare_invoice_line(self, invoice):
+    def _prepare_invoice_line(self, invoice, period):
         self.ensure_one()
-        contract = self.contract_id
-        aa = contract.analytic_account_id  # TODO
+        aa = period.analytic_account_id
+        name = """{}
+
+        Period: {} to {}
+        """.format(
+            self.product_id.name,
+            period.date_start,
+            period.date_end,
+        )
         return {
             "invoice_id": invoice.id,
-            "name": self.product_id.name,
+            "name": name,
+            "product_id": self.product_id.id,
             "account_id": self.product_id.property_account_income.id,  # TODO
             "quantity": self.quantity,
             "uos_id": self.uom_id.id,
