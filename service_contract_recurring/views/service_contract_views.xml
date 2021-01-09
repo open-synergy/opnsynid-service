@@ -39,14 +39,24 @@
                                     widget="many2many_tags"
                                     invisible="1"
                                 />
+                        <button
+                                    name="action_reload_recurring_item_price"
+                                    type="object"
+                                    string="Reload Price"
+                                    icon="gtk-execute"
+                                    colspan="2"
+                                    attrs="{'invisible':[('state','!=','draft')]}"
+                                />
                         <field
                                     name="recurring_item_ids"
                                     colspan="2"
                                     nolabel="1"
                                     mode="tree"
+                                    context="{'default_pricelist_id':pricelist_id}"
                                 >
 
                             <tree editable="top">
+                                <field name="sequence" widget="handle" />
                                 <field
                                             name="product_id"
                                             domain="['|',('id','in',parent.recurring_item_allowed_product_ids[0][2]),('categ_id','in',parent.recurring_item_allowed_product_categ_ids[0][2])]"
@@ -62,6 +72,7 @@
                                             invisible="1"
                                         />
                                 <field name="name" />
+                                <field name="pricelist_id" invisible="0" />
                                 <field name="price_unit" />
                                 <field name="quantity" />
                                 <field name="allowed_uom_categ_id" invisible="1" />
@@ -87,6 +98,15 @@
                         <field
                                     name="recurring_period_num"
                                     attrs="{'required':[('recurring_service_ok','=',True)]}"
+                                />
+                        <button
+                                    name="action_create_recurring_period"
+                                    type="object"
+                                    string="Create Recurring Period"
+                                    icon="gtk-execute"
+                                    colspan="2"
+                                    attrs="{'invisible':[('state','!=','draft')]}"
+                                    confirm="Create recurring service? This will delete existing recurring service"
                                 />
                         <field
                                     name="recurring_period_ids"

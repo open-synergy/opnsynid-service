@@ -77,6 +77,12 @@ class ServiceContractRecurringItem(models.Model):
         comodel_name="product.product",
         required=True,
     )
+    pricelist_id = fields.Many2one(
+        string="Pricelist",
+        comodel_name="product.pricelist",
+        related="contract_id.pricelist_id",
+        store=False,
+    )
     price_unit = fields.Float(
         string="Price Unit",
         required=True,
@@ -178,3 +184,16 @@ class ServiceContractRecurringItem(models.Model):
         self.name = ""
         if self.product_id:
             self.name = self.product_id.display_name
+
+    @api.onchange(
+        "product_id",
+        "pricelist_id",
+        "uom_id",
+    )
+    def onchange_price_unit(self):
+        self.price_unit = 0.0
+        if self.product_id and self.pricelist_id and self.uom_id:
+            price_unit = self.pricelist_id.price_get(
+                prod_id=self.product_id.id, qty=1.0
+            )[self.pricelist_id.id]
+            self.price_unit = price_unit
