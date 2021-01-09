@@ -202,6 +202,14 @@ class ServiceContractRecurringPeriod(models.Model):
         invoice.unlink()
 
     @api.multi
+    def _update_analytic_account(self):
+        self.ensure_one()
+        if self.analytic_account_id:
+            self.analytic_account_id.write(self._prepare_analytic_account())
+        else:
+            self._create_analytic_account()
+
+    @api.multi
     def _create_analytic_account(self):
         self.ensure_one()
         obj_aa = self.env["account.analytic.account"]
@@ -223,4 +231,6 @@ class ServiceContractRecurringPeriod(models.Model):
             "type": "normal",
             "parent_id": parent and parent.id or False,
             "partner_id": contract.partner_id.id,
+            "date_start": self.date_start,
+            "date": self.date_end,
         }

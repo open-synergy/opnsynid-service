@@ -82,19 +82,30 @@ class ServiceContract(models.Model):
         _super = super(ServiceContract, self)
         _super.action_approve()
         for record in self:
-            record.action_create_recurring_period()
+            record._update_recurring_period_analytic_account()
 
     @api.multi
-    def action_restart(self):
-        _super = super(ServiceContract, self)
-        _super.action_restart()
+    def action_reload_recurring_item_price(self):
         for record in self:
-            record._delete_recurring_period()
+            record._reload_recurring_item_price()
 
     @api.multi
     def action_create_recurring_period(self):
         for record in self:
+            record._delete_recurring_period()
             record._create_recurring_period()
+
+    @api.multi
+    def _reload_recurring_item_price(self):
+        self.ensure_one()
+        for recurring_item in self.recurring_item_ids:
+            recurring_item.onchange_price_unit()
+
+    @api.multi
+    def _update_recurring_period_analytic_account(self):
+        self.ensure_one()
+        for period in self.recurring_period_ids:
+            period._update_analytic_account()
 
     @api.multi
     def _delete_recurring_period(self):
@@ -118,8 +129,7 @@ class ServiceContract(models.Model):
                 "date_start": date_start,
                 "date_end": date_end,
             }
-            period = obj_recurring_period.create(data)
-            period._create_analytic_account()
+            obj_recurring_period.create(data)
             date_start = self._get_recurring_period_date_start(date_end)
 
     @api.multi
