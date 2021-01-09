@@ -8,6 +8,7 @@ from openerp import api, fields, models
 class ServiceContractRecurringPeriod(models.Model):
     _name = "service.contract_recurring_period"
     _description = "Service Contract Recurring Period"
+    _order = "contract_id, date_start, id"
 
     @api.depends(
         "invoice_id",
@@ -23,6 +24,27 @@ class ServiceContractRecurringPeriod(models.Model):
         string="# Contract",
         comodel_name="service.contract",
         ondelete="cascade",
+    )
+    partner_id = fields.Many2one(
+        string="Partner",
+        comodel_name="res.partner",
+        related="contract_id.partner_id",
+        store=True,
+        readonly=True,
+    )
+    responsible_id = fields.Many2one(
+        string="Responsible",
+        comodel_name="res.users",
+        related="contract_id.responsible_id",
+        store=True,
+        readonly=True,
+    )
+    type_id = fields.Many2one(
+        string="Type",
+        comodel_name="service.contract_type",
+        related="contract_id.type_id",
+        store=True,
+        readonly=True,
     )
     date_start = fields.Date(
         string="Date Start",
@@ -64,6 +86,21 @@ class ServiceContractRecurringPeriod(models.Model):
         store=True,
         required=False,
         readonly=False,
+    )
+    contract_state = fields.Selection(
+        string="State",
+        selection=[
+            ("draft", "Draft"),
+            ("confirm", "Waiting for Approval"),
+            ("approve", "Ready to Start"),
+            ("open", "In Progress"),
+            ("done", "Done"),
+            ("terminate", "Terminated"),
+            ("cancel", "Cancelled"),
+        ],
+        related="contract_id.state",
+        store=True,
+        readonly=True,
     )
 
     @api.multi
