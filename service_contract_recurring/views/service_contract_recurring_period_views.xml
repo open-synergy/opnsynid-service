@@ -17,37 +17,37 @@
                 <filter
                             name="dom_contract_draft"
                             string="Draft"
-                            domain="[('state','=','draft')]"
+                            domain="[('contract_state','=','draft')]"
                         />
                 <filter
                             name="dom_contract_confirm"
                             string="Waiting for Approval"
-                            domain="[('state','=','confirm')]"
+                            domain="[('contract_state','=','confirm')]"
                         />
                 <filter
                             name="dom_contract_approve"
                             string="Ready To Start"
-                            domain="[('state','=','approve')]"
+                            domain="[('contract_state','=','approve')]"
                         />
                 <filter
                             name="dom_contract_open"
                             string="In Progress"
-                            domain="[('state','=','open')]"
+                            domain="[('contract_state','=','open')]"
                         />
                 <filter
                             name="dom_contract_done"
                             string="Done"
-                            domain="[('state','=','done')]"
+                            domain="[('contract_state','=','done')]"
                         />
                 <filter
                             name="dom_contract_cancel"
                             string="Cancel"
-                            domain="[('state','=','cancel')]"
+                            domain="[('contract_state','=','cancel')]"
                         />
                 <filter
                             name="dom_contract_terminate"
                             string="Terminate"
-                            domain="[('state','=','terminate')]"
+                            domain="[('contract_state','=','terminate')]"
                         />
             </group>
             <group name="dom_state" string="State">
@@ -76,6 +76,11 @@
                         />
             </group>
             <group name="group" string="Group By">
+                <filter
+                            name="grp_contract"
+                            string="# Contract"
+                            context="{'group_by':'contract_id'}"
+                        />
                 <filter
                             name="grp_partner"
                             string="Customer"
