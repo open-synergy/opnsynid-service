@@ -154,3 +154,27 @@ class ServiceContractRecurringItem(models.Model):
             "invoice_line_tax_id": [(6, 0, self.tax_ids.ids)],
             "account_analytic_id": aa and aa.id or False,
         }
+
+    @api.onchange(
+        "product_id",
+    )
+    def onchange_uom_id(self):
+        self.uom_id = False
+        if self.product_id:
+            self.uom_id = self.product_id.uom_id
+
+    @api.onchange(
+        "product_id",
+    )
+    def onchange_tax_ids(self):
+        self.tax_ids = []
+        if self.product_id:
+            self.tax_ids = self.product_id.taxes_id
+
+    @api.onchange(
+        "product_id",
+    )
+    def onchange_name(self):
+        self.name = ""
+        if self.product_id:
+            self.name = self.product_id.display_name
