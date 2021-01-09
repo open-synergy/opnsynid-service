@@ -21,10 +21,12 @@
                         <field
                                     name="recurring_item_receivable_journal_id"
                                     string="Receivable Journal"
+                                    domain="[('type','=','sale')]"
                                 />
                         <field
                                     name="recurring_item_receivable_account_id"
                                     string="Receivable Account"
+                                    domain="[('type','=','receivable')]"
                                 />
                     </group>
                     <group
@@ -33,6 +35,7 @@
                                 colspan="4"
                                 col="2"
                             >
+                        <field name="recurring_service_ok" />
                         <field
                                     name="recurring_item_allowed_product_ids"
                                     colspan="2"

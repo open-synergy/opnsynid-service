@@ -33,3 +33,7 @@ class ServiceContractType(models.Model):
         comodel_name="account.account",
         company_dependent=True,
     )
+    recurring_service_ok = fields.Boolean(
+        string="Recurring Service?",
+        default=False,
+    )

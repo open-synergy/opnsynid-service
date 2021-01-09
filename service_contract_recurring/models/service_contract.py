@@ -139,3 +139,31 @@ class ServiceContract(models.Model):
         dt_end = fields.Date.from_string(date_end)
         date_start = dt_end + relativedelta.relativedelta(days=1)
         return fields.Date.to_string(date_start)
+
+    @api.onchange(
+        "type_id",
+    )
+    def onchange_recurring_item_receivable_journal_id(self):
+        self.recurring_item_receivable_journal_id = False
+        if self.type_id:
+            self.recurring_item_receivable_journal_id = (
+                self.type_id.recurring_item_receivable_journal_id
+            )
+
+    @api.onchange(
+        "type_id",
+    )
+    def onchange_recurring_item_receivable_account_id(self):
+        self.recurring_item_receivable_account_id = False
+        if self.type_id:
+            self.recurring_item_receivable_account_id = (
+                self.type_id.recurring_item_receivable_account_id
+            )
+
+    @api.onchange(
+        "type_id",
+    )
+    def onchange_recurring_service_ok(self):
+        self.recurring_service_ok = False
+        if self.type_id:
+            self.recurring_service_ok = self.type_id.recurring_service_ok
