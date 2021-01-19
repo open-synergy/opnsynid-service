@@ -113,6 +113,17 @@ class ServiceContract(models.Model):
             ],
         },
     )
+    salesman_id = fields.Many2one(
+        string="Salesman",
+        comodel_name="res.users",
+        required=True,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
     responsible_id = fields.Many2one(
         string="Responsible",
         comodel_name="res.users",
