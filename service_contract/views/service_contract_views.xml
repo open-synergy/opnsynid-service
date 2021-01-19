@@ -13,6 +13,7 @@
             <field name="title" />
             <field name="type_id" />
             <field name="partner_id" />
+            <field name="salesman_id" />
             <field name="responsible_id" />
             <field name="company_id" groups="base.group_multi_company" />
             <field name="currency_id" groups="base.group_multi_currency" />
@@ -66,6 +67,11 @@
                             name="grp_type"
                             string="Type"
                             context="{'group_by':'type_id'}"
+                        />
+                <filter
+                            name="grp_salesman"
+                            string="Salesman"
+                            context="{'group_by':'salesman_id'}"
                         />
                 <filter
                             name="grp_responsible"
@@ -158,6 +164,7 @@
             <field name="company_id" groups="base.group_multi_company" />
             <field name="partner_id" />
             <field name="type_id" />
+            <field name="salesman_id" />
             <field name="responsible_id" />
             <field name="date" />
             <field name="date_start" />
@@ -310,6 +317,7 @@
                         <field name="company_id" groups="base.group_multi_company" />
                         <field name="partner_id" domain="[('parent_id','=',False)]" />
                         <field name="type_id" />
+                        <field name="salesman_id" />
                         <field name="responsible_id" />
                     </group>
                     <group name="group_1_2">
