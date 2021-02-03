@@ -92,6 +92,34 @@ class ServiceQuotation(models.Model):
         string="Can Mark as Lost",
         compute="_compute_policy",
     )
+    is_req_start_date = fields.Boolean(
+        comodel_name="service.contract_type",
+        related="type_id.is_req_start_date",
+        store=False,
+    )
+    is_req_end_date = fields.Boolean(
+        comodel_name="service.contract_type",
+        related="type_id.is_req_end_date",
+        store=False,
+    )
+    start_date = fields.Date(
+        string="Start Date",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
+    end_date = fields.Date(
+        string="End Date",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
 
     @api.multi
     def action_won(self):
@@ -169,6 +197,8 @@ class ServiceQuotation(models.Model):
     def _prepare_contract_data(self):
         self.ensure_one()
         fix_item_payment_term_ids = []
+        date_start = self.start_date or fields.Date.today()
+        date_end = self.end_date or False
         for payment_term in self.fix_item_payment_term_ids:
             data = payment_term._prepare_contract_data()
             fix_item_payment_term_ids.append((0, 0, data))
@@ -181,7 +211,9 @@ class ServiceQuotation(models.Model):
             "pricelist_id": self.pricelist_id.id,
             "currency_id": self.currency_id.id,
             "date": fields.Date.today(),
-            "date_start": fields.Date.today(),
+            "date_start": date_start,
+            "date_end": date_end,
             "quotation_id": self.id,
+            "salesman_id": self.responsible_id.id,
             "fix_item_payment_term_ids": fix_item_payment_term_ids,
         }

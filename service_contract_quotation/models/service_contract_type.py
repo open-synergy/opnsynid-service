@@ -60,3 +60,11 @@ class ServiceContractType(models.Model):
         column1="type_id",
         column2="group_id",
     )
+    is_req_start_date = fields.Boolean(
+        string="Required Start Date",
+        default=False,
+    )
+    is_req_end_date = fields.Boolean(
+        string="Required End Date",
+        default=False,
+    )
