@@ -16,5 +16,8 @@
         "views/service_contract_views.xml",
         "views/service_contract_type_views.xml",
     ],
+    "demo": [
+        "demo/service_contract_type_demo.xml",
+    ],
     "installable": True,
 }
