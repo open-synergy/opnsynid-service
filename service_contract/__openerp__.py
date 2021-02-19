@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Service Contract",
-    "version": "8.0.4.0.0",
+    "version": "8.0.4.1.0",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "website": "https://simetri-sinergi.id",
     "license": "AGPL-3",
@@ -32,10 +32,16 @@
         "data/base_sequence_configurator_data.xml",
         "data/base_workflow_policy_data.xml",
         "data/product_pricelist_type_data.xml",
+        "data/product_pricelist_data.xml",
         "menu.xml",
         "views/service_contract_type_views.xml",
         "views/service_contract_views.xml",
         "data/tile_tile_data.xml",
+    ],
+    "demo": [
+        "demo/product_category_demo.xml",
+        "demo/product_demo.xml",
+        "demo/service_contract_type_demo.xml",
     ],
     "installable": True,
 }
