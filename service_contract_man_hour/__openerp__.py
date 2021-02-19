@@ -18,5 +18,11 @@
         "views/service_contract_views.xml",
         "views/service_contract_man_hour_views.xml",
     ],
+    "demo": [
+        "demo/product_uom_demo.xml",
+        "demo/product_category_demo.xml",
+        "demo/product_demo.xml",
+        "demo/service_contract_type_demo.xml",
+    ],
     "installable": True,
 }
