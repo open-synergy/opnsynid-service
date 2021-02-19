@@ -17,5 +17,10 @@
         "views/service_contract_views.xml",
         "views/service_contract_recurring_period_views.xml",
     ],
+    "demo": [
+        "demo/product_category_demo.xml",
+        "demo/product_demo.xml",
+        "demo/service_contract_type_demo.xml",
+    ],
     "installable": True,
 }
