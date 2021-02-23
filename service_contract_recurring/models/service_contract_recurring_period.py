@@ -112,11 +112,13 @@ class ServiceContractRecurringPeriod(models.Model):
     def action_end(self):
         for document in self:
             document.write(document._prepare_end_data())
+            document.analytic_account_id.set_close()
 
     @api.multi
     def action_restart(self):
         for document in self:
             document.write(document._prepare_restart_data())
+            document.analytic_account_id.set_open()
 
     @api.multi
     def _prepare_start_data(self):
