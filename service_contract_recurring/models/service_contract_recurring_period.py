@@ -107,6 +107,7 @@ class ServiceContractRecurringPeriod(models.Model):
     def action_start(self):
         for document in self:
             document.write(document._prepare_start_data())
+            document.analytic_account_id.set_open()
 
     @api.multi
     def action_end(self):
@@ -118,7 +119,7 @@ class ServiceContractRecurringPeriod(models.Model):
     def action_restart(self):
         for document in self:
             document.write(document._prepare_restart_data())
-            document.analytic_account_id.set_open()
+            document.analytic_account_id.write({"state": "draft"})
 
     @api.multi
     def _prepare_start_data(self):
@@ -235,4 +236,5 @@ class ServiceContractRecurringPeriod(models.Model):
             "partner_id": contract.partner_id.id,
             "date_start": self.date_start,
             "date": self.date_end,
+            "state": "draft",
         }
