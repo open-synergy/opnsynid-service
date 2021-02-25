@@ -71,6 +71,7 @@ class ServiceContractManHour(models.Model):
         "uom_id",
         "timesheet_ids",
         "timesheet_ids.unit_amount",
+        "timesheet_ids.account_id",
     )
     def _compute_man_hour(self):
         obj_uom = self.env["product.uom"]
