@@ -205,17 +205,17 @@
                 <button
                             name="action_start"
                             type="object"
-                            string="Force Start"
+                            string="Start"
                             class="oe_highlight"
-                            confirm="Force start service contract. Are you sure?"
+                            confirm="Start service contract. Are you sure?"
                             attrs="{'invisible':['|',('state','!=','approve'),('open_ok','=',False)]}"
                         />
                 <button
                             name="action_finish"
                             type="object"
-                            string="Force Finish"
+                            string="Finish"
                             class="oe_highlight"
-                            confirm="Force finish service contract. Are you sure?"
+                            confirm="Finish service contract. Are you sure?"
                             attrs="{'invisible':['|',('state','!=','open'),('finish_ok','=',False)]}"
                         />
                 <button
