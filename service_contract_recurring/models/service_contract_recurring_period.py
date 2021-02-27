@@ -7,6 +7,9 @@ from openerp import api, fields, models
 
 class ServiceContractRecurringPeriod(models.Model):
     _name = "service.contract_recurring_period"
+    _inherit = [
+        "mail.thread",
+    ]
     _description = "Service Contract Recurring Period"
     _order = "contract_id, date_start, id"
 
