@@ -126,12 +126,95 @@
     </field>
 </record>
 
+<record id="service_contract_man_hour_view_form" model="ir.ui.view">
+    <field name="name">service.contract_man_hour form</field>
+    <field name="model">service.contract_man_hour</field>
+    <field name="arch" type="xml">
+        <form create="false" edit="false" delete="false">
+            <header>
+                <button
+                            name="action_create_invoice"
+                            string="Create Invoice"
+                            type="object"
+                            icon="gtk-execute"
+                            attrs="{'invisible':[('invoice_state','=','invoiced')]}"
+                        />
+                <button
+                            name="action_delete_invoice"
+                            string="Delete Invoice"
+                            type="object"
+                            icon="gtk-cancel"
+                            attrs="{'invisible':[('invoice_state','=','tobeinvoiced')]}"
+                        />
+            </header>
+            <sheet>
+                <div
+                            class="oe_right oe_button_box"
+                            style="width: 300px;"
+                            name="buttons"
+                        >
+                </div>
+                <group name="man_hour_form_1" colspan="4" col="2">
+                    <group name="man_hour_form_1_1" colspan="1" col="2">
+                        <field name="sequence" />
+                        <field
+                                    name="product_id"
+                                    domain="['|',('id','in',parent.man_hour_allowed_product_ids[0][2]),('categ_id','in',parent.man_hour_allowed_product_categ_ids[0][2])]"
+                                />
+                        <field name="name" />
+                    </group>
+                    <group name="man_hour_form_1_2" colspan="1" col="2">
+                        <field name="pricelist_id" />
+                        <field name="price_unit" />
+                        <field name="quantity" />
+                        <field name="allowed_uom_categ_id" invisible="1" />
+                        <field
+                                    name="uom_id"
+                                    domain="[('category_id','=',allowed_uom_categ_id)]"
+                                />
+                        <field name="amount_untaxed" />
+                        <field name="tax_ids" widget="many2many_tags" />
+                        <field name="amount_tax" />
+                        <field name="amount_total" />
+                    </group>
+                </group>
+                <notebook>
+                    <page name="man_hour_invoice" string="Invoice">
+                        <group name="man_hour_invoice_1" colspan="4" col="2">
+                            <field name="invoice_method" />
+                            <field name="invoice_id" />
+                            <field name="invoice_state" />
+                        </group>
+                    </page>
+                    <page name="man_hour_timesheet" string="Timesheet">
+                        <group name="man_hour_invoice_2" colspan="4" col="2">
+                            <field name="analytic_account_id" />
+                            <field name="prepaid_total" widget="float_time" />
+                            <field name="prepaid_usage" widget="float_time" />
+                            <field name="prepaid_diff" widget="float_time" />
+                        </group>
+                        <field name="timesheet_ids" />
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field
+                            name="message_follower_ids"
+                            widget="mail_followers"
+                            groups="base.group_user"
+                        />
+                <field name="message_ids" widget="mail_thread" />
+            </div>
+        </form>
+    </field>
+</record>
+
 <record id="service_contract_man_hour_action" model="ir.actions.act_window">
     <field name="name">Man Hours</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">service.contract_man_hour</field>
     <field name="view_type">form</field>
-    <field name="view_mode">tree</field>
+    <field name="view_mode">tree,form</field>
     <field name="context">{}</field>
 </record>
 

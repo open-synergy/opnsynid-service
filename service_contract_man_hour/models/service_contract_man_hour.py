@@ -7,6 +7,9 @@ from openerp import api, fields, models
 
 class ServiceContractManHour(models.Model):
     _name = "service.contract_man_hour"
+    _inherit = [
+        "mail.thread",
+    ]
     _description = "Service Contract Man Hour"
     _order = "sequence, id"
 
