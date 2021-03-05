@@ -74,6 +74,15 @@ class ServiceContract(models.Model):
             ],
         },
     )
+    reference = fields.Char(
+        string="Reference",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
@@ -84,6 +93,36 @@ class ServiceContract(models.Model):
         string="Partner",
         comodel_name="res.partner",
         required=True,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
+    partner_signee_id = fields.Many2one(
+        string="Signee",
+        comodel_name="res.partner",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
+    partner_invoice_id = fields.Many2one(
+        string="Invoice To",
+        comodel_name="res.partner",
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
+    partner_contact_id = fields.Many2one(
+        string="Contact Person",
+        comodel_name="res.partner",
         readonly=True,
         states={
             "draft": [
@@ -523,6 +562,24 @@ class ServiceContract(models.Model):
     )
     def onchange_pricelist_id(self):
         self.pricelist_id = False
+
+    @api.onchange(
+        "partner_id",
+    )
+    def onchange_partner_signee_id(self):
+        self.partner_signee_id = False
+
+    @api.onchange(
+        "partner_id",
+    )
+    def onchange_partner_contact_id(self):
+        self.partner_contact_id = False
+
+    @api.onchange(
+        "partner_id",
+    )
+    def onchange_partner_invoice_id(self):
+        self.partner_invoice_id = False
 
     @api.onchange(
         "type_id",
