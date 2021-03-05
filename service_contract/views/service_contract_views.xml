@@ -12,6 +12,7 @@
             <field name="name" />
             <field name="title" />
             <field name="type_id" />
+            <field name="reference" />
             <field name="partner_id" />
             <field name="salesman_id" />
             <field name="responsible_id" />
@@ -162,6 +163,7 @@
             <field name="display_name" />
             <field name="title" />
             <field name="company_id" groups="base.group_multi_company" />
+            <field name="reference" />
             <field name="partner_id" />
             <field name="type_id" />
             <field name="salesman_id" />
@@ -314,11 +316,34 @@
                 </div>
                 <group name="group_1" colspan="4" col="2">
                     <group name="group_1_1" colspan="1" col="2">
-                        <field name="company_id" groups="base.group_multi_company" />
-                        <field name="partner_id" domain="[('parent_id','=',False)]" />
-                        <field name="type_id" />
-                        <field name="salesman_id" />
-                        <field name="responsible_id" />
+                        <group name="group_1_1_1" colspan="2" col="2">
+                            <field
+                                        name="company_id"
+                                        groups="base.group_multi_company"
+                                    />
+                            <field
+                                        name="partner_id"
+                                        domain="[('parent_id','=',False)]"
+                                    />
+                            <field
+                                        name="partner_signee_id"
+                                        domain="[('id','child_of',partner_id),('is_company','=',False)]"
+                                    />
+                            <field
+                                        name="partner_invoice_id"
+                                        domain="[('id','child_of',partner_id),('is_company','=',False)]"
+                                    />
+                            <field
+                                        name="partner_contact_id"
+                                        domain="[('id','child_of',partner_id),('is_company','=',False)]"
+                                    />
+                        </group>
+                        <group name="group_1_1_2" colspan="2" col="2">
+                            <field name="type_id" />
+                            <field name="reference" />
+                            <field name="salesman_id" />
+                            <field name="responsible_id" />
+                        </group>
                     </group>
                     <group name="group_1_2">
                         <field name="currency_id" groups="base.group_multi_currency" />

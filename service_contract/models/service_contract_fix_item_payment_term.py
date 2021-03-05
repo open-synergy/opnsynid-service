@@ -153,10 +153,11 @@ class ServiceContractFixItemPaymentTerm(models.Model):
     def _prepare_invoice_data(self):
         self.ensure_one()
         contract = self.contract_id
+        partner = contract.partner_invoice_id or contract.partner_id
         journal = self._get_fix_item_receivable_journal()
         account = self._get_fix_item_receivable_account()
         return {
-            "partner_id": contract.partner_id.id,
+            "partner_id": partner.id,
             "date_invoice": False,  # TODO
             "journal_id": journal.id,
             "account_id": account.id,
