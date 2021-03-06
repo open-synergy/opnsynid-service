@@ -23,7 +23,7 @@
     <field name="inherit_id" ref="service_contract.service_contract_view_tree" />
     <field name="arch" type="xml">
         <data>
-            <xpath expr="//field[@name='display_name']" position="after">
+            <xpath expr="//field[@name='name']" position="after">
                 <field name="quotation_id" />
             </xpath>
         </data>
