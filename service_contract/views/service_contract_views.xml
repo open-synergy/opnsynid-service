@@ -160,7 +160,8 @@
     <field name="model">service.contract</field>
     <field name="arch" type="xml">
         <tree>
-            <field name="display_name" />
+            <field name="id" />
+            <field name="name" />
             <field name="title" />
             <field name="company_id" groups="base.group_multi_company" />
             <field name="reference" />
@@ -535,6 +536,7 @@
                                 <field
                                             name="custom_info_template_id"
                                             options='{"no_quick_create": True}'
+                                            groups="service_contract.contract_service_custom_info_setting_group"
                                         />
                             </div>
                             <field
@@ -558,7 +560,7 @@
                         <group name="analytic_project_1" colspan="4" col="2">
                             <field
                                         name="parent_analytic_account_id"
-                                        domain="[('type','=','view')]"
+                                        domain="[('type','!','template')]"
                                     />
                             <field name="analytic_account_id" />
                         </group>
@@ -594,19 +596,32 @@
                         </group>
                     </page>
                     <page name="log" string="Logs">
-                        <group name="group_5" colspan="4" col="3">
-                            <group name="group_log_1" colspan="4" col="3">
-                                <field name="confirm_date" string="Confirmation" />
-                                <field name="confirm_user_id" nolabel="1" />
-                                <field name="open_date" string="Start" />
-                                <field name="open_user_id" nolabel="1" />
-                                <field name="done_date" string="Finish" />
-                                <field name="done_user_id" nolabel="1" />
-                                <field name="cancel_date" string="Cancellation" />
-                                <field name="cancel_user_id" nolabel="1" />
-                                <field name="terminate_date" string="Termination" />
-                                <field name="terminate_user_id" nolabel="1" />
-                            </group>
+                        <group name="group_5" colspan="4" col="2">
+                            <label for="confirm_date" string="Confirmation" />
+                            <div>
+                                <field name="confirm_date" class="oe_inline" />
+                                <field name="confirm_user_id" class="oe_inline" />
+                            </div>
+                            <label for="open_date" string="Start" />
+                            <div>
+                                <field name="open_date" class="oe_inline" />
+                                <field name="open_user_id" class="oe_inline" />
+                            </div>
+                            <label for="done_date" string="Finish" />
+                            <div>
+                                <field name="done_date" class="oe_inline" />
+                                <field name="done_user_id" class="oe_inline" />
+                            </div>
+                            <label for="cancel_date" string="Cancellation" />
+                            <div>
+                                <field name="cancel_date" class="oe_inline" />
+                                <field name="cancel_user_id" class="oe_inline" />
+                            </div>
+                            <label for="terminate_date" string="Termination" />
+                            <div>
+                                <field name="terminate_date" class="oe_inline" />
+                                <field name="terminate_user_id" class="oe_inline" />
+                            </div>
                         </group>
                     </page>
                     <page name="note" string="Notes">

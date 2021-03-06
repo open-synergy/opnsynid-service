@@ -123,7 +123,7 @@
                         <group name="analytic_project_1" colspan="4" col="2">
                             <field
                                         name="parent_analytic_account_id"
-                                        domain="[('type','=','view')]"
+                                        domain="[('type','!=','template')]"
                                     />
                         </group>
                     </page>
