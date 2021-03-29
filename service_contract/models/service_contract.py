@@ -478,7 +478,13 @@ class ServiceContract(models.Model):
     @api.multi
     def _prepare_approve_data(self):
         self.ensure_one()
-        sequence = self._create_sequence()
+        ctx = self.env.context.copy()
+        ctx.update(
+            {
+                "ir_sequence_date": self.date,
+            }
+        )
+        sequence = self.with_context(ctx)._create_sequence()
         return {
             "state": "approve",
             "name": sequence,
