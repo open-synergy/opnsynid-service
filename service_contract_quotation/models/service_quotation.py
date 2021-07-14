@@ -142,7 +142,7 @@ class ServiceQuotation(models.Model):
             }
         )
         if contract:
-            contract.unlink()
+            contract.action_cancel()
         return result
 
     @api.multi
