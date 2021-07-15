@@ -2,7 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from dateutil import relativedelta
-from openerp import api, fields, models
+from openerp import _, api, fields, models
+from openerp.exceptions import Warning as UserError
 
 
 class ServiceContract(models.Model):
@@ -177,3 +178,26 @@ class ServiceContract(models.Model):
         self.recurring_service_ok = False
         if self.type_id:
             self.recurring_service_ok = self.type_id.recurring_service_ok
+
+    @api.constrains(
+        "state",
+    )
+    def constrains_confirm(self):
+        msg_error = _(
+            "Number Recurring Service Period Number "
+            "Must Equal With Number of Record on Recurring Period"
+        )
+        for record in self:
+            if record.state == "confirm" and not record._check_number_reccurring():
+                raise UserError(msg_error)
+
+    @api.multi
+    def _check_number_reccurring(self):
+        self.ensure_one()
+        result = True
+        obj_term = self.env["service.contract_recurring_item"]
+        criteria = [("contract_id", "=", self.id)]
+        count = obj_term.search_count(criteria)
+        if count != self.recurring_period_num:
+            result = False
+        return result
