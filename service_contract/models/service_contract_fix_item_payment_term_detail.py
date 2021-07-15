@@ -112,6 +112,38 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         readonly=True,
         ondelete="restrict",
     )
+    pricelist_id = fields.Many2one(
+        string="Price List",
+        comodel_name="product.pricelist",
+        required=False,
+    )
+
+    @api.depends(
+        "payment_term_id",
+    )
+    def _compute_date(self):
+        for document in self:
+            document.date = document.payment_term_id.contract_id.date
+
+    date = fields.Date(
+        string="Date",
+        compute="_compute_date",
+        store=False,
+    )
+
+    @api.depends(
+        "payment_term_id",
+    )
+    def _compute_currency(self):
+        for document in self:
+            document.currency_id = document.payment_term_id.contract_id.currency_id
+
+    currency_id = fields.Many2one(
+        string="Currency",
+        comodel_name="res.currency",
+        compute="_compute_currency",
+        required=False,
+    )
 
     @api.onchange(
         "product_id",
@@ -163,3 +195,41 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
             "invoice_line_tax_id": [(6, 0, self.tax_ids.ids)],
             "account_analytic_id": aa and aa.id or False,
         }
+
+    @api.onchange(
+        "pricelist_id",
+        "product_id",
+        "quantity",
+        "date",
+        "uom_id",
+    )
+    def onchange_price_unit(self):
+        price_unit = 0.0
+        obj_uom = self.env["product.uom"]
+        qty = 0.0
+
+        ctx = {}
+        if self.date:
+            ctx.update({"date": self.date})
+
+        if self.uom_id:
+            qty = obj_uom._compute_qty_obj(
+                from_unit=self.uom_id,
+                qty=self.quantity,
+                to_unit=self.product_id.uom_id,
+            )
+
+        if self.product_id and self.pricelist_id:
+            price_unit = self.pricelist_id.with_context(ctx).price_get(
+                prod_id=self.product_id.id,
+                qty=qty,
+            )[self.pricelist_id.id]
+
+        if self.uom_id:
+            price_unit = obj_uom._compute_price(
+                from_uom_id=self.product_id.uom_id.id,
+                price=price_unit,
+                to_uom_id=self.uom_id.id,
+            )
+
+        self.price_unit = price_unit
