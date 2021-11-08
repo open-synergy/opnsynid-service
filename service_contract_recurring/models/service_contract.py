@@ -195,7 +195,7 @@ class ServiceContract(models.Model):
     def _check_number_reccurring(self):
         self.ensure_one()
         result = True
-        obj_term = self.env["service.contract_recurring_item"]
+        obj_term = self.env["service.contract_recurring_period"]
         criteria = [("contract_id", "=", self.id)]
         count = obj_term.search_count(criteria)
         if count != self.recurring_period_num:
