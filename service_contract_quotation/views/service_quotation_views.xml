@@ -264,10 +264,14 @@
                         <field name="date" />
                         <field name="is_req_start_date" invisible="1" />
                         <field name="is_req_end_date" invisible="1" />"
-                        <field name="start_date"
-                            attrs="{'required':[('is_req_start_date','=',True)]}"/>
-                        <field name="end_date"
-                            attrs="{'required':[('is_req_end_date','=',True)]}"/>
+                        <field
+                                    name="start_date"
+                                    attrs="{'required':[('is_req_start_date','=',True)]}"
+                                />
+                        <field
+                                    name="end_date"
+                                    attrs="{'required':[('is_req_end_date','=',True)]}"
+                                />
                         <field name="contract_id" />
                     </group>
                 </group>
