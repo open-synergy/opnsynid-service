@@ -8,5 +8,7 @@ def migrate(cr, version):
     if not version:
         return
 
-    cr.execute('UPDATE service_contract as service '
-               'SET salesman_id =  service.responsible_id')
+    cr.execute(
+        "UPDATE service_contract as service "
+        "SET salesman_id =  service.responsible_id"
+    )

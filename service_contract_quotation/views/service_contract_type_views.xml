@@ -51,11 +51,11 @@
                                 />
                     </group>
                     <group
-                        name="required_date"
-                        string="Setting Required Start and End Date"
-                        colspan="4"
-                        col="2"
-                        >
+                                name="required_date"
+                                string="Setting Required Start and End Date"
+                                colspan="4"
+                                col="2"
+                            >
                         <field name="is_req_start_date" />
                         <field name="is_req_end_date" />
                     </group>

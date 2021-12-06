@@ -12,8 +12,7 @@
         "service_contract_project",
         "service_contract_quotation",
     ],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
     "auto_install": True,
 }
