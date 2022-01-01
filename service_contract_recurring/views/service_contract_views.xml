@@ -10,8 +10,15 @@
     <field name="inherit_id" ref="service_contract.service_contract_view_form" />
     <field name="arch" type="xml">
         <data>
+            <xpath expr="//field[@name='date_end']" position="after">
+                <field name="recurring_service_ok" />
+            </xpath>
             <xpath expr="//page[@name='team']" position="before">
-                <page name="recurring_item" string="Recurring Items">
+                <page
+                            name="recurring_item"
+                            string="Recurring Items"
+                            attrs="{'invisible':[('recurring_service_ok','=',False)]}"
+                        >
                     <group
                                 name="recurring_accounting"
                                 string="Accounting"
@@ -28,7 +35,7 @@
                                 />
                     </group>
                     <group name="recurring_item" string="Items" colspan="4" col="2">
-                        <field name="recurring_service_ok" />
+
                         <field
                                     name="recurring_item_allowed_product_ids"
                                     widget="many2many_tags"
