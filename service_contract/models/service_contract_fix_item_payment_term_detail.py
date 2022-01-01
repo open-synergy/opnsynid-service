@@ -187,6 +187,7 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         aa = contract.analytic_account_id
         return {
             "invoice_id": payment_term.invoice_id.id,
+            "product_id": self.product_id.id,
             "name": self.product_id.name,
             "account_id": self.product_id.property_account_income.id,
             "quantity": self.quantity,
