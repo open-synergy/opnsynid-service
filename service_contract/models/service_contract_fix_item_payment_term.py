@@ -125,6 +125,11 @@ class ServiceContractFixItemPaymentTerm(models.Model):
             record._delete_invoice()
 
     @api.multi
+    def action_disconnect_invoice(self):
+        for record in self:
+            record._disconnect_invoice()
+
+    @api.multi
     def _create_invoice(self):
         self.ensure_one()
         invoice = self.env["account.invoice"].create(self._prepare_invoice_data())
@@ -136,6 +141,15 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         for detail in self.detail_ids:
             detail._create_invoice_line()
         invoice.button_reset_taxes()
+
+    @api.multi
+    def _disconnect_invoice(self):
+        self.ensure_one()
+        self.write(
+            {
+                "invoice_id": False,
+            }
+        )
 
     @api.multi
     def _get_fix_item_receivable_journal(self):

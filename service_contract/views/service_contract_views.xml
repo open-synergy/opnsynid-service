@@ -443,6 +443,13 @@
                                                 icon="gtk-cancel"
                                                 states="invoiced"
                                             />
+                                  <button
+                                                name="action_disconnect_invoice"
+                                                string="Disconnect Invoice"
+                                                type="object"
+                                                icon="gtk-undo"
+                                                states="invoiced"
+                                            />
                               </tree>
                               <form>
                                   <group
