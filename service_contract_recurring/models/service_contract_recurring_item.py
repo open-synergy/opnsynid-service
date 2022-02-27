@@ -2,7 +2,8 @@
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
+from openerp import _, api, fields, models
+from openerp.exceptions import Warning as UserError
 
 
 class ServiceContractRecurringItem(models.Model):
@@ -197,3 +198,47 @@ class ServiceContractRecurringItem(models.Model):
                 prod_id=self.product_id.id, qty=1.0
             )[self.pricelist_id.id]
             self.price_unit = price_unit
+
+    @api.multi
+    def _prepare_income_realization_debit_move_line(self, period):
+        self.ensure_one()
+        contract = self.contract_id
+        account = self._get_income_realization_account()
+        # TODO: Multi-currency support
+        name = "Income realization {} - {} - period {} S.D. {}".format(
+            contract.name,
+            self.product_id.name,
+            period.date_start,
+            period.date_end,
+        )
+        return (
+            0,
+            0,
+            {
+                "name": name,
+                "partner_id": contract.partner_id.id,
+                "product_id": self.product_id.id,
+                "account_id": account.id,
+                "debit": self.amount_untaxed > 0.0 and self.amount_untaxed or 0.0,
+                "credit": self.amount_untaxed < 0.0 and self.amount_untaxed or 0.0,
+                "analytic_account_id": period.analytic_account_id.id,
+            },
+        )
+
+    @api.multi
+    def _get_income_realization_account(self):
+        self.ensure_one()
+        result = False
+        product = self.product_id
+        categ = product.categ_id
+        if product.property_account_income:
+            result = product.property_account_income
+
+        if not result:
+            result = categ.property_account_income_categ
+
+        if not result:
+            error_msg = _("No income account defined")
+            raise UserError(error_msg)
+
+        return result

@@ -2,7 +2,8 @@
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
+from openerp import _, api, fields, models
+from openerp.exceptions import Warning as UserError
 
 
 class ServiceContractRecurringPeriod(models.Model):
@@ -90,6 +91,11 @@ class ServiceContractRecurringPeriod(models.Model):
         required=False,
         readonly=False,
     )
+    income_realization_move_id = fields.Many2one(
+        string="Income Realization Accounting Entry",
+        comodel_name="account.move",
+        readonly=True,
+    )
     contract_state = fields.Selection(
         string="State",
         selection=[
@@ -144,6 +150,118 @@ class ServiceContractRecurringPeriod(models.Model):
         return {
             "state": "draft",
         }
+
+    @api.multi
+    def action_create_income_realization(self):
+        for record in self:
+            record._create_income_realization()
+
+    @api.multi
+    def action_delete_income_realization(self):
+        for record in self:
+            record._delete_income_realization()
+
+    @api.multi
+    def _create_income_realization(self):
+        self.ensure_one()
+        obj_move = self.env["account.move"]
+        move = obj_move.create(self._prepare_income_realization_header())
+        self.write(
+            {
+                "income_realization_move_id": move.id,
+            }
+        )
+
+    @api.multi
+    def _delete_income_realization(self):
+        self.ensure_one()
+        move = self.income_realization_move_id
+        self.write(
+            {
+                "income_realization_move_id": False,
+            }
+        )
+        move.unlink()
+
+    @api.multi
+    def _prepare_income_realization_header(self):
+        self.ensure_one()
+        journal = self._get_income_realization_journal()
+        period = self._get_income_realization_period()
+        lines = self._prepare_income_realization_move_lines()
+        return {
+            "date": self.date_end,
+            "journal_id": journal.id,
+            "period_id": period.id,
+            "line_id": lines,
+        }
+
+    @api.multi
+    def _get_income_realization_journal(self):
+        self.ensure_one()
+        journal = self.contract_id.recurring_item_income_realization_journal_id
+        if not journal:
+            error_msg = _("No income realization journal")
+            raise UserError(error_msg)
+        return journal
+
+    @api.multi
+    def _get_income_realization_period(self):
+        self.ensure_one()
+        obj_period = self.env["account.period"]
+        return obj_period.find(self.date_end)[0]
+
+    @api.multi
+    def _prepare_income_realization_move_lines(self):
+        self.ensure_one()
+        result = []
+        contract = self.contract_id
+        result.append(self._prepare_income_realization_credit_move_line())
+        for item in contract.recurring_item_ids:
+            result.append(item._prepare_income_realization_debit_move_line(self))
+        return result
+
+    @api.multi
+    def _get_income_realization_currency(self):
+        self.ensure_one()
+        contract = self.contract_id
+        company = self.company_id
+        result = False
+        if contract.currency_id != company.currency_id:
+            result = contract.currency_id
+        return result
+
+    @api.multi
+    def _prepare_income_realization_credit_move_line(self):
+        self.ensure_one()
+        contract = self.contract_id
+        # TODO: Multi-currency support
+        name = "Income realization {} period {} S.D. {}".format(
+            contract.name,
+            self.date_start,
+            self.date_end,
+        )
+        account = self._get_income_realization_account()
+        return (
+            0,
+            0,
+            {
+                "name": name,
+                "partner_id": contract.partner_id.id,
+                "account_id": account.id,
+                "debit": 0.0,
+                "credit": contract.recurring_item_amount_untaxed,  # TODO
+                "analytic_account_id": self.analytic_account_id.id,
+            },
+        )
+
+    @api.multi
+    def _get_income_realization_account(self):
+        result = self.contract_id.recurring_item_income_realization_account_id
+        if not result:
+            error_msg = _("No income realization defined")
+            raise UserError(error_msg)
+        return result
 
     @api.multi
     def action_create_invoice(self):
