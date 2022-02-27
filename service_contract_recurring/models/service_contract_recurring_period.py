@@ -249,8 +249,8 @@ class ServiceContractRecurringPeriod(models.Model):
                 "name": name,
                 "partner_id": contract.partner_id.id,
                 "account_id": account.id,
-                "debit": 0.0,
-                "credit": contract.recurring_item_amount_untaxed,  # TODO
+                "credit": 0.0,
+                "debit": contract.recurring_item_amount_untaxed,  # TODO
                 "analytic_account_id": self.analytic_account_id.id,
             },
         )
