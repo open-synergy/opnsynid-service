@@ -607,7 +607,7 @@ class ServiceContract(models.Model):
     def _create_analytic_account(self):
         self.ensure_one()
         if self.analytic_account_id:
-            return True
+            self._update_analytic_account()
         obj_aa = self.env["account.analytic.account"]
         aa = obj_aa.create(self._prepare_analytic_account())
         self.write(
@@ -615,6 +615,26 @@ class ServiceContract(models.Model):
                 "analytic_account_id": aa.id,
             }
         )
+
+    @api.multi
+    def _update_analytic_account(self):
+        self.ensure_one()
+        self.analytic_account_id.write(self._prepare_update_analytic_account())
+
+    @api.multi
+    def _prepare_update_analytic_account(self):
+        self.ensure_one()
+        parent = self.parent_analytic_account_id
+        return {
+            "name": self.title,
+            "code": self.name,
+            "type": "normal",
+            "parent_id": parent and parent.id or False,
+            "partner_id": self.partner_id.id,
+            "date_start": self.date_start,
+            "date": self.date_end or False,
+            "manager_id": self.responsible_id.id,
+        }
 
     @api.multi
     def _prepare_analytic_account(self):
@@ -626,6 +646,9 @@ class ServiceContract(models.Model):
             "type": "normal",
             "parent_id": parent and parent.id or False,
             "partner_id": self.partner_id.id,
+            "date_start": self.date_start,
+            "date": self.date_end or False,
+            "manager_id": self.responsible_id.id,
         }
 
     @api.constrains(
