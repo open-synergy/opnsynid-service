@@ -20,18 +20,37 @@
                             attrs="{'invisible':[('recurring_service_ok','=',False)]}"
                         >
                     <group
-                                name="recurring_accounting"
-                                string="Accounting"
+                                name="recurring_invoice"
+                                string="Invoice"
                                 colspan="4"
                                 col="2"
                             >
                         <field
                                     name="recurring_item_receivable_journal_id"
                                     domain="[('type','=','sale')]"
+                                    string="Journal"
                                 />
                         <field
                                     name="recurring_item_receivable_account_id"
                                     domain="[('type','=','receivable')]"
+                                    string="Receivable Account"
+                                />
+                    </group>
+                    <group
+                                name="recurring_income_realization"
+                                string="Income Realization"
+                                colspan="4"
+                                col="2"
+                            >
+                        <field
+                                    name="recurring_item_income_realization_journal_id"
+                                    string="Journal"
+                                    domain="[('type','=','general')]"
+                                />
+                        <field
+                                    name="recurring_item_income_realization_account_id"
+                                    string="Account"
+                                    domain="[('type','=','other')]"
                                 />
                     </group>
                     <group name="recurring_item" string="Items" colspan="4" col="2">
@@ -125,6 +144,21 @@
                                 <field name="date_start" />
                                 <field name="date_end" />
                                 <field name="analytic_account_id" />
+                                <field name="income_realization_move_id" />
+                                <button
+                                            name="action_create_income_realization"
+                                            string="Create Income Realization"
+                                            type="object"
+                                            icon="gtk-execute"
+                                            attrs="{'invisible':[('income_realization_move_id','!=',False)]}"
+                                        />
+                                <button
+                                            name="action_delete_income_realization"
+                                            string="Delete Income Realization"
+                                            type="object"
+                                            icon="gtk-cancel"
+                                            attrs="{'invisible':[('income_realization_move_id','=',False)]}"
+                                        />
                                 <field name="invoice_id" />
                                 <field name="invoice_state" />
                                 <button
@@ -165,6 +199,11 @@
                                         />
                             </tree>
                         </field>
+                    </group>
+                    <group name="recurring_amount" colspan="4" col="2">
+                        <field name="recurring_item_amount_untaxed" string="Untaxed" />
+                        <field name="recurring_item_amount_tax" string="Tax" />
+                        <field name="recurring_item_amount_total" string="Total" />
                     </group>
                 </page>
             </xpath>

@@ -164,6 +164,21 @@
             <field name="date_end" />
             <field name="analytic_account_id" />
             <field name="contract_state" />
+            <field name="income_realization_move_id" />
+            <button
+                        name="action_create_income_realization"
+                        string="Create Income Realization"
+                        type="object"
+                        icon="gtk-execute"
+                        attrs="{'invisible':[('income_realization_move_id','!=',False)]}"
+                    />
+            <button
+                        name="action_delete_income_realization"
+                        string="Delete Income Realization"
+                        type="object"
+                        icon="gtk-cancel"
+                        attrs="{'invisible':[('income_realization_move_id','=',False)]}"
+                    />
             <field name="invoice_id" />
             <field name="invoice_state" />
             <button
@@ -233,6 +248,20 @@
                             attrs="{'invisible':[('state','=','draft')]}"
                         />
                 <button
+                            name="action_create_income_realization"
+                            string="Create Income Realization"
+                            type="object"
+                            icon="gtk-execute"
+                            attrs="{'invisible':[('income_realization_move_id','!=',False)]}"
+                        />
+                <button
+                            name="action_delete_income_realization"
+                            string="Delete Income Realization"
+                            type="object"
+                            icon="gtk-cancel"
+                            attrs="{'invisible':[('income_realization_move_id','=',False)]}"
+                        />
+                <button
                             name="action_create_invoice"
                             string="Create Invoice"
                             type="object"
@@ -273,6 +302,7 @@
                         <field name="date_end" />
                     </group>
                     <group name="group_1_3">
+                        <field name="income_realization_move_id" />
                         <field name="invoice_id" />
                         <field name="invoice_state" />
                     </group>

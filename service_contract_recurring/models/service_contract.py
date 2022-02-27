@@ -10,6 +10,39 @@ class ServiceContract(models.Model):
     _name = "service.contract"
     _inherit = "service.contract"
 
+    @api.depends(
+        "recurring_period_num",
+        "recurring_item_ids.price_unit",
+        "recurring_item_ids.quantity",
+        "recurring_item_ids.tax_ids",
+    )
+    @api.multi
+    def _compute_recurring_item_total(self):
+        for record in self:
+            amount_untaxed = amount_tax = amount_total = 0.0
+            for item in record.recurring_item_ids:
+                amount_untaxed += item.amount_untaxed
+                amount_tax += item.amount_tax
+                amount_total += item.amount_total
+            record.recurring_item_amount_untaxed = amount_untaxed
+            record.recurring_item_amount_tax = amount_tax
+            record.recurring_item_amount_total = amount_total
+
+    recurring_item_amount_untaxed = fields.Float(
+        string="Total Recurring Item Amount Untaxed",
+        compute="_compute_recurring_item_total",
+        store=True,
+    )
+    recurring_item_amount_tax = fields.Float(
+        string="Total Recurring Item Amount Tax",
+        compute="_compute_recurring_item_total",
+        store=True,
+    )
+    recurring_item_amount_total = fields.Float(
+        string="Total Recurring Item Amount Total",
+        compute="_compute_recurring_item_total",
+        store=True,
+    )
     recurring_item_receivable_journal_id = fields.Many2one(
         string="Recurring Item Receivable Journal",
         comodel_name="account.journal",
@@ -17,6 +50,14 @@ class ServiceContract(models.Model):
     recurring_item_receivable_account_id = fields.Many2one(
         string="Recurring Item Receivable Account",
         comodel_name="account.account",
+    )
+    recurring_item_income_realization_account_id = fields.Many2one(
+        string="Recurring Item Income Realization Account",
+        comodel_name="account.account",
+    )
+    recurring_item_income_realization_journal_id = fields.Many2one(
+        string="Recurring Item Income Realization Journal",
+        comodel_name="account.journal",
     )
     recurring_item_allowed_product_ids = fields.Many2many(
         string="Recurring Item Allowed Products",
