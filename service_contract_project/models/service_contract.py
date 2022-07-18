@@ -41,6 +41,7 @@ class ServiceContract(models.Model):
             self.write(
                 {
                     "project_id": project.id,
+                    "user_id": self.responsible_id.id,
                 }
             )
 
