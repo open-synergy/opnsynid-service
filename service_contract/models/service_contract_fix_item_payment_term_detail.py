@@ -188,7 +188,7 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         return {
             "invoice_id": payment_term.invoice_id.id,
             "product_id": self.product_id.id,
-            "name": self.product_id.name,
+            "name": self.name,
             "account_id": self.product_id.property_account_income.id,
             "quantity": self.quantity,
             "uos_id": self.uom_id.id,

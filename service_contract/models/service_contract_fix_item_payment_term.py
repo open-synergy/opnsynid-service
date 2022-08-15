@@ -51,6 +51,23 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         comodel_name="service.contract",
         ondelete="cascade",
     )
+    currency_id = fields.Many2one(
+        string="Currency",
+        comodel_name="res.currency",
+        related="contract_id.currency_id",
+        store=False,
+    )
+    date = fields.Date(
+        string="Contract Date",
+        related="contract_id.date",
+        store=False,
+    )
+    pricelist_id = fields.Many2one(
+        string="Pricelist",
+        comodel_name="product.pricelist",
+        related="contract_id.pricelist_id",
+        store=False,
+    )
     name = fields.Char(
         string="Term",
         required=True,
@@ -71,6 +88,15 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         comodel_name="product.category",
         related="contract_id.fix_item_allowed_product_categ_ids",
         store=False,
+    )
+    term_status = fields.Selection(
+        string="Term Status",
+        selection=[
+            ("initial", "Initial"),
+            ("addendum", "Adendum"),
+        ],
+        required=True,
+        default="initial",
     )
     detail_ids = fields.One2many(
         string="Detail",

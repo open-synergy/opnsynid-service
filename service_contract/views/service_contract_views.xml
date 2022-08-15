@@ -428,6 +428,7 @@
                                   <field name="amount_tax" />
                                   <field name="amount_total" />
                                   <field name="invoice_id" />
+                                  <field name="term_status" />
                                   <field name="state" />
                                   <button
                                                 name="action_create_invoice"
@@ -512,6 +513,14 @@
                                   </group>
                               </form>
                           </field>
+                          <button
+                                        name="%(add_contract_payment_term_action)s"
+                                        string="Add Addendum"
+                                        type="action"
+                                        context="{'default_contract_id': active_id}"
+                                        states="approve,open"
+                                        colspan="2"
+                                    />
                           <field
                                         name="amount_untaxed"
                                         widget="monetary"

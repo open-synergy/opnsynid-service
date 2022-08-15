@@ -608,13 +608,14 @@ class ServiceContract(models.Model):
         self.ensure_one()
         if self.analytic_account_id:
             self._update_analytic_account()
-        obj_aa = self.env["account.analytic.account"]
-        aa = obj_aa.create(self._prepare_analytic_account())
-        self.write(
-            {
-                "analytic_account_id": aa.id,
-            }
-        )
+        else:
+            obj_aa = self.env["account.analytic.account"]
+            aa = obj_aa.create(self._prepare_analytic_account())
+            self.write(
+                {
+                    "analytic_account_id": aa.id,
+                }
+            )
 
     @api.multi
     def _update_analytic_account(self):
