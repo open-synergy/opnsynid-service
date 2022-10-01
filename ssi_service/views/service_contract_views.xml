@@ -14,6 +14,7 @@
                 <field name="partner_id" />
                 <field name="title" />
                 <field name="type_id" />
+                <field name="manager_id" />
                 <field name="date" />
                 <field name="date_start" />
                 <field name="date_end" />
@@ -55,7 +56,17 @@
                         name="contact_partner_id"
                         domain="[('id','in',allowed_contact_ids)]"
                     />
-                <separator string="Reference" colspan="2" />
+                <separator string="Sales Info" colspan="2" />
+                <field name="sale_team_id" />
+                <field
+                        name="allowed_salesperson_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field
+                        name="salesperson_id"
+                        domain="[('id','in',allowed_salesperson_ids)]"
+                    />
                 <field name="source_document_res_id" invisible="1" />
                 <field name="source_document_model_id" invisible="1" />
                 <field name="source_document_model" invisible="1" />
@@ -63,6 +74,7 @@
             </xpath>
             <xpath expr="//group[@name='header_right']" position="inside">
                 <field name="type_id" />
+                <field name="manager_id" />
                 <field name="date" />
                 <field name="date_start" />
                 <field name="date_end" />
@@ -70,7 +82,7 @@
                 <field
                         name="allowed_pricelist_ids"
                         widget="many2many_tags"
-                        invisible="0"
+                        invisible="1"
                     />
                 <field
                         name="pricelist_id"
@@ -234,8 +246,11 @@
                 <page name="accounting" string="Accounting">
                     <group name="accounting_1" colspan="4" col="2">
                         <separator string="Fix Item" colspan="2" />
-                        <field name="fix_item_receivable_journal_id" />
-                        <field name="fix_item_receivable_account_id" />
+                        <field name="fix_item_receivable_journal_id" string="Journal" />
+                        <field
+                                name="fix_item_receivable_account_id"
+                                string="Receivable Account"
+                            />
                     </group>
                 </page>
                 <page name="analytic" string="Analytic &amp; Project">
@@ -262,7 +277,7 @@
         parent="menu_root_service"
         groups="service_contract_viewer_group"
         action="service_contract_action"
-        sequence="1"
+        sequence="20"
     />
 
 </odoo>
