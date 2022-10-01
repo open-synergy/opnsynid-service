@@ -4,7 +4,7 @@
 
 {
     "name": "Service",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "license": "LGPL-3",
@@ -22,6 +22,7 @@
         "ssi_source_document_mixin",
         "ssi_transaction_pricelist_mixin",
         "ssi_product_line_account_mixin",
+        "ssi_transaction_salesperson_mixin",
     ],
     "data": [
         "security/ir_module_category_data.xml",

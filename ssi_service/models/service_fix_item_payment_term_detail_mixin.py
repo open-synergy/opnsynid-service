@@ -18,3 +18,6 @@ class ServiceFixItemPaymentTermDetailMixin(models.AbstractModel):
         comodel_name="service.fix_item_payment_term_mixin",
         ondelete="cascade",
     )
+    product_id = fields.Many2one(
+        required=True,
+    )

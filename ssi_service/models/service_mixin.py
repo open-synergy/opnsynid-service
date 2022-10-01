@@ -16,6 +16,7 @@ class ServiceMixin(models.AbstractModel):
         "mixin.partner",
         "mixin.source_document",
         "mixin.transaction_pricelist",
+        "mixin.transaction_salesperson",
     ]
     _description = "Mixin Class for Service"
     _approval_from_state = "confirm"
@@ -102,6 +103,17 @@ class ServiceMixin(models.AbstractModel):
     type_id = fields.Many2one(
         string="Type",
         comodel_name="service.type",
+        required=True,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
+    manager_id = fields.Many2one(
+        string="Manager",
+        comodel_name="res.users",
         required=True,
         readonly=True,
         states={

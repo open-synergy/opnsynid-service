@@ -27,4 +27,18 @@
     <field name="parent_id" ref="service_module_category" />
 </record>
 
+<!-- Workflow -->
+<record id="service_contract_workflow_module_category" model="ir.module.category">
+    <field name="name">Service Contract</field>
+    <field name="parent_id" ref="service_workflow_module_category" />
+    <field name="sequence">4</field>
+</record>
+
+<!-- Data Ownership -->
+<record id="service_contract_data_ownership_module_category" model="ir.module.category">
+    <field name="name">Service Contract</field>
+    <field name="parent_id" ref="service_data_ownership_module_category" />
+    <field name="sequence">4</field>
+</record>
+
 </odoo>
