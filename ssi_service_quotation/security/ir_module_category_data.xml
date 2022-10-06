@@ -4,18 +4,18 @@
      License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
 <odoo>
 <!-- Workflow -->
-<record id="service_quotation_workflow_module_category" model="ir.module.category">
-    <field name="name">Service Quotation</field>
+<record id="project_assignment_workflow_module_category" model="ir.module.category">
+    <field name="name">Project Assignment</field>
     <field name="parent_id" ref="ssi_service.service_workflow_module_category" />
     <field name="sequence">4</field>
 </record>
 
 <!-- Data Ownership -->
 <record
-        id="service_quotation_data_ownership_module_category"
+        id="project_assignment_data_ownership_module_category"
         model="ir.module.category"
     >
-    <field name="name">Service Quotation</field>
+    <field name="name">Project Assignment</field>
     <field name="parent_id" ref="ssi_service.service_data_ownership_module_category" />
     <field name="sequence">4</field>
 </record>
