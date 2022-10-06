@@ -5,7 +5,7 @@
 <odoo>
 <!-- Workflow -->
 <record id="service_quotation_workflow_module_category" model="ir.module.category">
-    <field name="name">Service Quotation</field>
+    <field name="name">Project Assignment</field>
     <field name="parent_id" ref="ssi_service.service_workflow_module_category" />
     <field name="sequence">4</field>
 </record>
@@ -15,7 +15,7 @@
         id="service_quotation_data_ownership_module_category"
         model="ir.module.category"
     >
-    <field name="name">Service Quotation</field>
+    <field name="name">Project Assignment</field>
     <field name="parent_id" ref="ssi_service.service_data_ownership_module_category" />
     <field name="sequence">4</field>
 </record>
