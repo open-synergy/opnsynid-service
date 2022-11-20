@@ -21,3 +21,9 @@ class ServiceFixItemPaymentTermDetailMixin(models.AbstractModel):
     product_id = fields.Many2one(
         required=True,
     )
+    currency_id = fields.Many2one(
+        string="Currency",
+        related="service_id.currency_id",
+        store=True,
+        required=False,
+    )
