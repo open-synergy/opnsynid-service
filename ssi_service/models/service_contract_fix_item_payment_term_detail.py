@@ -22,12 +22,6 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         comodel_name="service.contract_fix_item_payment_term",
         ondelete="cascade",
     )
-    currency_id = fields.Many2one(
-        string="Currency",
-        comodel_name="res.currency",
-        related="term_id.service_id.currency_id",
-        store=True,
-    )
     pricelist_id = fields.Many2one(
         string="Pricelist",
         comodel_name="product.pricelist",
