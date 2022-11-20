@@ -140,10 +140,9 @@ class ServiceQuotation(models.Model):
         )
 
     def _compute_contract_onchange(self, temp_record):
-        # temp_record.onchange_fix_item_receivable_journal_id()
-        # temp_record.onchange_fix_item_receivable_account_id()
-        # temp_record.onchange_parent_analytic_account_id()
-        # temp_record.onchange_custom_info_template_id()
+        temp_record.onchange_fix_item_receivable_journal_id()
+        temp_record.onchange_fix_item_receivable_account_id()
+        temp_record.onchange_analytic_group_id()
         return temp_record
 
     def _prepare_contract_data(self):
@@ -167,4 +166,6 @@ class ServiceQuotation(models.Model):
             "date_end": self.date_end,
             "quotation_id": self.id,
             "fix_item_payment_term_ids": fix_item_payment_term_ids,
+            "salesperson_id": self.salesperson_id.id,
+            "sale_team_id": self.sale_team_id and self.sale_team_id.id or False,
         }

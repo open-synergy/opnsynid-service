@@ -56,6 +56,17 @@
                         name="contact_partner_id"
                         domain="[('id','in',allowed_contact_ids)]"
                     />
+                <separator string="Sales Info" colspan="2" />
+                <field name="sale_team_id" />
+                <field
+                        name="allowed_salesperson_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field
+                        name="salesperson_id"
+                        domain="[('id','in',allowed_salesperson_ids)]"
+                    />
                 <separator string="Reference" colspan="2" />
                 <field name="source_document_res_id" invisible="1" />
                 <field name="source_document_model_id" invisible="1" />
@@ -64,6 +75,16 @@
             </xpath>
             <xpath expr="//group[@name='header_right']" position="inside">
                 <field name="type_id" />
+                <field
+                        name="fix_item_allowed_product_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field
+                        name="fix_item_allowed_product_categ_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
                 <field name="manager_id" />
                 <field name="date" />
                 <field name="date_start" />
@@ -102,13 +123,22 @@
                                     <field name="name" />
                                     <field name="sequence" />
                                     <field name="currency_id" invisible="1" />
+                                    <field
+                                            name="fix_item_allowed_product_ids"
+                                            widget="many2many_tags"
+                                            invisible="1"
+                                        />
+                                    <field
+                                            name="fix_item_allowed_product_categ_ids"
+                                            widget="many2many_tags"
+                                            invisible="1"
+                                        />
                                     <field name="detail_ids" colspan="2" nolabel="1">
                                         <tree>
                                             <field name="sequence" widget="handle" />
                                             <field name="product_id" invisible="1" />
                                             <field name="name" />
                                             <field name="account_id" />
-                                            <field name="analytic_account_id" />
                                             <field name="currency_id" invisible="1" />
                                             <field name="pricelist_id" invisible="1" />
                                             <field name="price_unit" />
@@ -139,12 +169,13 @@
                                                             colspan="1"
                                                             col="2"
                                                         >
-                                                        <field name="product_id" />
-                                                        <field name="name" />
-                                                        <field name="account_id" />
                                                         <field
-                                                                name="analytic_account_id"
+                                                                name="product_id"
+                                                                domain="['|',('id','in',parent.fix_item_allowed_product_ids),('categ_id','in',parent.fix_item_allowed_product_categ_ids)]"
                                                             />
+                                                        <field name="name" />
+                                                        <field name="usage_id" />
+                                                        <field name="account_id" />
                                                     </group>
                                                     <group
                                                             name="fix_item_2_1_2"
