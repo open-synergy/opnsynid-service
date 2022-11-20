@@ -51,6 +51,7 @@ class ServiceFixItemPaymentTermMixin(models.AbstractModel):
     # )
     currency_id = fields.Many2one(
         string="Currency",
+        comodel_name="res.currency",
         related="service_id.currency_id",
         store=True,
         required=False,
