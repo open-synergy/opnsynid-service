@@ -77,7 +77,7 @@
                     </page>
                     <page name="analytic" string="Analytic &amp; Projects">
                         <group name="analytic_1" colspan="4" col="2">
-                            <field name="parent_analytic_account_id" />
+                            <field name="analytic_group_id" />
                         </group>
                     </page>
                 </xpath>

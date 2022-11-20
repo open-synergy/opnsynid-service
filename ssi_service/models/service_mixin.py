@@ -111,6 +111,16 @@ class ServiceMixin(models.AbstractModel):
             ],
         },
     )
+    fix_item_allowed_product_ids = fields.Many2many(
+        string="Fix Item Allowed Products",
+        comodel_name="product.product",
+        related="type_id.fix_item_allowed_product_ids",
+    )
+    fix_item_allowed_product_categ_ids = fields.Many2many(
+        string="Fix Item Allowed Product Categories",
+        comodel_name="product.category",
+        related="type_id.fix_item_allowed_product_categ_ids",
+    )
     manager_id = fields.Many2one(
         string="Manager",
         comodel_name="res.users",

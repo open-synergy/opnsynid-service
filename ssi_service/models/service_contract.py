@@ -4,6 +4,8 @@
 
 from odoo import api, fields, models
 
+from odoo.addons.ssi_decorator import ssi_decorator
+
 
 class ServiceContract(models.Model):
     _name = "service.contract"
@@ -110,13 +112,8 @@ class ServiceContract(models.Model):
         res += policy_field
         return res
 
-    def action_open(self):
-        _super = super(ServiceContract, self)
-        _super.action_open()
-        for record in self.sudo():
-            record._create_analytic_account()
-
-    def _create_analytic_account(self):
+    @ssi_decorator.post_open_action()
+    def _10_create_analytic_account(self):
         self.ensure_one()
         if self.analytic_account_id:
             self._update_analytic_account()
@@ -152,3 +149,31 @@ class ServiceContract(models.Model):
             "partner_id": self.partner_id.id,
             "group_id": group_id,
         }
+
+    @api.onchange(
+        "type_id",
+    )
+    def onchange_fix_item_receivable_journal_id(self):
+        self.fix_item_receivable_journal_id = False
+        if self.type_id:
+            self.fix_item_receivable_journal_id = (
+                self.type_id.fix_item_receivable_journal_id
+            )
+
+    @api.onchange(
+        "type_id",
+    )
+    def onchange_fix_item_receivable_account_id(self):
+        self.fix_item_receivable_account_id = False
+        if self.type_id:
+            self.fix_item_receivable_account_id = (
+                self.type_id.fix_item_receivable_account_id
+            )
+
+    @api.onchange(
+        "type_id",
+    )
+    def onchange_analytic_group_id(self):
+        self.analytic_group_id = False
+        if self.type_id:
+            self.analytic_group_id = self.type_id.analytic_group_id
