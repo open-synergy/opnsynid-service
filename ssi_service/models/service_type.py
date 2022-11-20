@@ -36,7 +36,7 @@ class ServiceType(models.Model):
         comodel_name="account.account",
         company_dependent=True,
     )
-    parent_analytic_account_id = fields.Many2one(
-        string="Parent Analytic Account",
-        comodel_name="account.analytic.account",
+    analytic_group_id = fields.Many2one(
+        string="Analytic Group",
+        comodel_name="account.analytic.group",
     )

@@ -41,14 +41,16 @@ class ServiceFixItemPaymentTermMixin(models.AbstractModel):
         required=True,
         default=5,
     )
-    # fix_item_allowed_product_ids = fields.Many2many(
-    #     string="Fix Item Allowed Products",
-    #     comodel_name="product.product",
-    # )
-    # fix_item_allowed_product_categ_ids = fields.Many2many(
-    #     string="Fix Item Allowed Product Categories",
-    #     comodel_name="product.category",
-    # )
+    fix_item_allowed_product_ids = fields.Many2many(
+        string="Fix Item Allowed Products",
+        comodel_name="product.product",
+        related="service_id.type_id.fix_item_allowed_product_ids",
+    )
+    fix_item_allowed_product_categ_ids = fields.Many2many(
+        string="Fix Item Allowed Product Categories",
+        comodel_name="product.category",
+        related="service_id.type_id.fix_item_allowed_product_categ_ids",
+    )
     currency_id = fields.Many2one(
         string="Currency",
         comodel_name="res.currency",
