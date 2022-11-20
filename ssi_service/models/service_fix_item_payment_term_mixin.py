@@ -53,6 +53,7 @@ class ServiceFixItemPaymentTermMixin(models.AbstractModel):
         string="Currency",
         related="service_id.currency_id",
         store=True,
+        required=False,
     )
     detail_ids = fields.One2many(
         string="Detail",
