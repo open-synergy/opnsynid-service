@@ -40,3 +40,10 @@ class ServiceType(models.Model):
         string="Analytic Group",
         comodel_name="account.analytic.group",
     )
+    allowed_pricelist_ids = fields.Many2many(
+        string="Allowed Pricelist",
+        comodel_name="product.pricelist",
+        relation="rel_service_type_2_pricelist",
+        column1="type_id",
+        column2="pricelist_id",
+    )

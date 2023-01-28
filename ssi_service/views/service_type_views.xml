@@ -44,17 +44,17 @@
                 <xpath expr="//page[1]" position="before">
                     <page name="product" string="Products">
                         <group name="product" colspan="4" col="2">
-                            <separator string="Categories" colspan="2" />
+                            <field
+                                name="allowed_pricelist_ids"
+                                widget="many2many_tags"
+                            />
                             <field
                                 name="fix_item_allowed_product_categ_ids"
-                                colspan="2"
-                                nolabel="1"
+                                widget="many2many_tags"
                             />
-                            <separator string="Products" colspan="2" />
                             <field
                                 name="fix_item_allowed_product_ids"
-                                colspan="2"
-                                nolabel="1"
+                                widget="many2many_tags"
                             />
                         </group>
                     </page>

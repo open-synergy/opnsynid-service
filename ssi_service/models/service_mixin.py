@@ -154,6 +154,12 @@ class ServiceMixin(models.AbstractModel):
         },
         copy=True,
     )
+    allowed_pricelist_ids = fields.Many2many(
+        string="Allowed Pricelists",
+        comodel_name="product.pricelist",
+        compute="_compute_allowed_pricelist_ids",
+        store=False,
+    )
     state = fields.Selection(
         string="State",
         selection=[
@@ -197,3 +203,20 @@ class ServiceMixin(models.AbstractModel):
         result = _super._get_under_approval_exceptions()
         result.append("name")
         return result
+
+    @api.depends(
+        "currency_id",
+        "type_id",
+    )
+    def _compute_allowed_pricelist_ids(self):
+        Pricelist = self.env["product.pricelist"]
+        for record in self:
+            result = False
+            if record.currency_id and record.type_id:
+                criteria = [
+                    ("currency_id", "=", record.currency_id.id),
+                ]
+                if record.type_id.allowed_pricelist_ids:
+                    criteria += [("id", "in", record.type_id.allowed_pricelist_ids.ids)]
+                result = Pricelist.search(criteria).ids
+            record.allowed_pricelist_ids = result
