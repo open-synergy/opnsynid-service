@@ -142,6 +142,13 @@ class ServiceMixin(models.AbstractModel):
             ],
         },
     )
+    fix_item_ids = fields.One2many(
+        string="Fixed Items",
+        comodel_name="service.fix_item_mixin",
+        inverse_name="service_id",
+        readonly=True,
+        copy=False,
+    )
     fix_item_payment_term_ids = fields.One2many(
         string="Fix Item Payment Terms",
         comodel_name="service.fix_item_payment_term_mixin",
