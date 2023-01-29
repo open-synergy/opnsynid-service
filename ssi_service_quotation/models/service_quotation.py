@@ -49,6 +49,9 @@ class ServiceQuotation(models.Model):
         "dom_cancel",
     ]
 
+    fix_item_ids = fields.One2many(
+        comodel_name="service.quotation_fix_item",
+    )
     fix_item_payment_term_ids = fields.One2many(
         comodel_name="service.quotation_fix_item_payment_term",
     )
