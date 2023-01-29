@@ -263,6 +263,11 @@
                             </form>
                         </field>
                     </group>
+                    <group name="fix_item_3" colspan="4" col="2">
+                        <field name="amount_untaxed" />
+                        <field name="amount_tax" />
+                        <field name="amount_total" />
+                    </group>
                 </page>
                 <page name="accounting" string="Accounting">
                     <group name="accounting_1" colspan="4" col="2">

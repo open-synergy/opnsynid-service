@@ -154,6 +154,24 @@ class ServiceMixin(models.AbstractModel):
         },
         copy=True,
     )
+    amount_untaxed = fields.Monetary(
+        string="Untaxed",
+        compute="_compute_amount",
+        store=True,
+        currency_field="currency_id",
+    )
+    amount_tax = fields.Monetary(
+        string="Tax",
+        compute="_compute_amount",
+        store=True,
+        currency_field="currency_id",
+    )
+    amount_total = fields.Monetary(
+        string="Total",
+        compute="_compute_amount",
+        store=True,
+        currency_field="currency_id",
+    )
     allowed_pricelist_ids = fields.Many2many(
         string="Allowed Pricelists",
         comodel_name="product.pricelist",
@@ -220,3 +238,20 @@ class ServiceMixin(models.AbstractModel):
                     criteria += [("id", "in", record.type_id.allowed_pricelist_ids.ids)]
                 result = Pricelist.search(criteria).ids
             record.allowed_pricelist_ids = result
+
+    @api.depends(
+        "fix_item_payment_term_ids",
+        "fix_item_payment_term_ids.amount_untaxed",
+        "fix_item_payment_term_ids.amount_tax",
+        "fix_item_payment_term_ids.amount_total",
+    )
+    def _compute_amount(self):
+        for record in self:
+            amount_untaxed = amount_tax = amount_total = 0.0
+            for term in record.fix_item_payment_term_ids:
+                amount_untaxed += term.amount_untaxed
+                amount_tax += term.amount_tax
+                amount_total += term.amount_total
+            record.amount_untaxed = amount_untaxed
+            record.amount_tax = amount_tax
+            record.amount_total = amount_total
