@@ -6,5 +6,6 @@ from . import (
     service_quotation,
     service_quotation_fix_item_payment_term,
     service_quotation_fix_item_payment_term_detail,
+    service_quotation_fix_item,
     service_contract,
 )
