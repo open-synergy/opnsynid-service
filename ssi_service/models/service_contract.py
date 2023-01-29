@@ -68,6 +68,9 @@ class ServiceContract(models.Model):
             ],
         },
     )
+    fix_item_ids = fields.One2many(
+        comodel_name="service.contract_fix_item",
+    )
     fix_item_payment_term_ids = fields.One2many(
         comodel_name="service.contract_fix_item_payment_term",
     )
