@@ -36,7 +36,7 @@ class ServiceQuotationFixItem(models.Model):
 
     def _from(self):
         from_str = """
-        service_contract_fix_item_payment_term_detail AS a
+        service_quotation_fix_item_payment_term_detail AS a
         """
         return from_str
 
@@ -48,9 +48,9 @@ class ServiceQuotationFixItem(models.Model):
 
     def _join(self):
         join_str = """
-        JOIN service_contract_fix_item_payment_term AS b
+        JOIN service_quotation_fix_item_payment_term AS b
             ON a.term_id = b.id
-        JOIN service_contract AS c
+        JOIN service_quotation AS c
             ON b.service_id = c.id
         """
         return join_str
