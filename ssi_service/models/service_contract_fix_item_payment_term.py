@@ -115,6 +115,7 @@ class ServiceContractFixItemPaymentTerm(models.Model):
             "invoice_origin": contract.name,
             "invoice_payment_term_id": False,  # TODO
             "invoice_line_ids": lines,
+            "payment_reference": contract.title,
         }
 
     def _delete_invoice(self):
