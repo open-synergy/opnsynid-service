@@ -108,7 +108,6 @@ class ServiceContractFixItemPaymentTerm(models.Model):
             "journal_id": journal.id,
             "partner_id": partner.id,
             "currency_id": contract.currency_id.id,
-            "partner_bank_id": False,  # TODO
             "invoice_user_id": False,
             "invoice_date": fields.Date.today(),
             "invoice_date_due": fields.Date.today(),  # TODO
@@ -116,6 +115,9 @@ class ServiceContractFixItemPaymentTerm(models.Model):
             "invoice_payment_term_id": False,  # TODO
             "invoice_line_ids": lines,
             "payment_reference": contract.title,
+            "partner_bank_id": (
+                contract.partner_bank_id and contract.partner_bank_id.id
+            ),
         }
 
     def _delete_invoice(self):
