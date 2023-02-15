@@ -40,7 +40,8 @@ class ServiceContract(models.Model):
     def _prepare_project_data(self):
         self.ensure_one()
         return {
-            "name": self.name,
+            "name": self.title,
+            "code": self.name,
             "user_id": self.manager_id.id,
             "partner_id": self.partner_id.id,
             "analytic_account_id": self.analytic_account_id.id,
