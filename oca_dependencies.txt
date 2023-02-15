@@ -20,3 +20,4 @@ oca-server-tools https://github.com/OCA/server-tools.git 14.0
 oca-currency https://github.com/OCA/currency.git 14.0
 oca-reporting-engine https://github.com/OCA/reporting-engine.git 14.0
 oca-account-financial-reporting https://github.com/OCA/account-financial-reporting.git 14.0
+opnsynid-project https://github.com/open-synergy/opnsynid-project.git 14.0
