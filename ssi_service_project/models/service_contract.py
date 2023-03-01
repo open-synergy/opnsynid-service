@@ -45,6 +45,8 @@ class ServiceContract(models.Model):
             "user_id": self.manager_id.id,
             "partner_id": self.partner_id.id,
             "analytic_account_id": self.analytic_account_id.id,
+            "date_start": self.date_start,
+            "date": self.date_end,
         }
 
     @api.onchange("type_id")
