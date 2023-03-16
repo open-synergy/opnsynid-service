@@ -48,9 +48,14 @@ class ServiceContract(models.Model):
         "dom_cancel",
     ]
 
+    company_partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        string='Company Partner',
+        related='company_id.partner_id')
     partner_bank_id = fields.Many2one(
         string="Recipient Bank",
         comodel_name="res.partner.bank",
+        domain="[('partner_id', '=', company_partner_id)]",
         required=False,
     )
     analytic_account_id = fields.Many2one(
