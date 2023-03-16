@@ -284,6 +284,7 @@
                                 name="fix_item_receivable_account_id"
                                 string="Receivable Account"
                             />
+                        <field name="company_partner_id" invisible="1"/>
                         <field name="partner_bank_id" />
                     </group>
                 </page>
