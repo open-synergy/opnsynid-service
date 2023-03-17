@@ -48,14 +48,10 @@ class ServiceContract(models.Model):
         "dom_cancel",
     ]
 
-    company_partner_id = fields.Many2one(
-        comodel_name='res.partner',
-        string='Company Partner',
-        related='company_id.partner_id')
     partner_bank_id = fields.Many2one(
         string="Recipient Bank",
         comodel_name="res.partner.bank",
-        domain="[('partner_id', '=', company_partner_id)]",
+        domain="[('partner_id', '=', partner_id)]",
         required=False,
     )
     analytic_account_id = fields.Many2one(
@@ -190,3 +186,7 @@ class ServiceContract(models.Model):
         self.analytic_group_id = False
         if self.type_id:
             self.analytic_group_id = self.type_id.analytic_group_id
+
+    @api.onchange("partner_id")
+    def onchange_partner_bank_id(self):
+        self.partner_bank_id = False
