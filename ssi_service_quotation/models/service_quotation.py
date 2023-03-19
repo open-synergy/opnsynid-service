@@ -172,3 +172,9 @@ class ServiceQuotation(models.Model):
             "salesperson_id": self.salesperson_id.id,
             "sale_team_id": self.sale_team_id and self.sale_team_id.id or False,
         }
+
+    def action_recompute_price(self):
+        for rec in self.filtered(lambda s: s.state == 'draft'):
+            for term_id in rec.fix_item_payment_term_ids:
+                for detail_id in term_id.detail_ids:
+                    detail_id.onchange_price_unit()
