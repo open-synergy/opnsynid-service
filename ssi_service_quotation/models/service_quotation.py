@@ -174,7 +174,7 @@ class ServiceQuotation(models.Model):
         }
 
     def action_recompute_price(self):
-        for rec in self.filtered(lambda s: s.state == 'draft'):
+        for rec in self.sudo().filtered(lambda s: s.state == "draft"):
             for term_id in rec.fix_item_payment_term_ids:
                 for detail_id in term_id.detail_ids:
                     detail_id.onchange_price_unit()

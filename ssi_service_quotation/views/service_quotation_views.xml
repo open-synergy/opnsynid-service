@@ -109,7 +109,13 @@
             </xpath>
             <xpath expr="//page[1]" position="before">
                 <page name="fix_item" string="Fix Item">
-                    <button name="action_recompute_price" type="object" string="Recompute Price" states="draft"/>
+                    <button
+                            name="action_recompute_price"
+                            type="object"
+                            string="Recompute Price"
+                            icon="fa-cogs"
+                            states="draft"
+                        />
                     <separator string="Payment Terms" />
                     <field name="fix_item_payment_term_ids" colspan="2" nolabel="1">
                         <tree>
