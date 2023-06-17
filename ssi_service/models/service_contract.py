@@ -147,6 +147,8 @@ class ServiceContract(models.Model):
             "code": self.name,
             "partner_id": self.partner_id.id,
             "group_id": group_id,
+            "date_start": self.date_start,
+            "date_end": self.date_end,
         }
 
     def _prepare_analytic_account(self):
@@ -157,6 +159,8 @@ class ServiceContract(models.Model):
             "code": self.name,
             "partner_id": self.partner_id.id,
             "group_id": group_id,
+            "date_start": self.date_start,
+            "date_end": self.date_end,
         }
 
     @api.onchange(
