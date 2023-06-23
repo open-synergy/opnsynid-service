@@ -13,6 +13,7 @@ class ServiceContractFixItemPaymentTerm(models.Model):
     @api.depends(
         "invoice_id",
         "service_id.state",
+        "manually_control",
     )
     def _compute_state(self):
         for record in self:
@@ -21,7 +22,9 @@ class ServiceContractFixItemPaymentTerm(models.Model):
             elif record.service_id.state in ["open", "done", "terminate"]:
                 if record.invoice_id:
                     state = "invoiced"
-                else:
+                elif record.manually_control:
+                    state = "manual"
+                elif not record.invoice_id and not record.manually_control:
                     state = "uninvoiced"
             else:
                 state = "cancelled"
@@ -32,11 +35,19 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         comodel_name="service.contract",
         ondelete="cascade",
     )
+    partner_id = fields.Many2one(
+        string="Partner",
+        related="service_id.partner_id",
+        store=True,
+    )
     invoice_id = fields.Many2one(
         string="# Invoice",
         comodel_name="account.move",
         readonly=True,
         ondelete="restrict",
+    )
+    date_invoice = fields.Date(
+        string="Date Invoice Estimation",
     )
     state = fields.Selection(
         string="State",
@@ -44,26 +55,55 @@ class ServiceContractFixItemPaymentTerm(models.Model):
             ("draft", "Draft"),
             ("uninvoiced", "Uninvoiced"),
             ("invoiced", "Invoiced"),
+            ("manual", "Manually Controlled"),
             ("cancelled", "Cancelled"),
         ],
         compute="_compute_state",
         store=True,
+    )
+    manually_control = fields.Boolean(
+        string="Manually Controlled",
+        default=False,
     )
     detail_ids = fields.One2many(
         comodel_name="service.contract_fix_item_payment_term_detail",
     )
 
     def action_create_invoice(self):
-        for record in self:
+        for record in self.sudo():
             record._create_invoice()
 
     def action_delete_invoice(self):
-        for record in self:
+        for record in self.sudo():
             record._delete_invoice()
 
     def action_disconnect_invoice(self):
-        for record in self:
+        for record in self.sudo():
             record._disconnect_invoice()
+
+    def action_mark_as_manual(self):
+        for record in self.sudo():
+            record._mark_as_manual()
+
+    def action_unmark_as_manual(self):
+        for record in self.sudo():
+            record._unmark_as_manual()
+
+    def _mark_as_manual(self):
+        self.ensure_one()
+        self.write(
+            {
+                "manually_control": True,
+            }
+        )
+
+    def _unmark_as_manual(self):
+        self.ensure_one()
+        self.write(
+            {
+                "manually_control": False,
+            }
+        )
 
     def _create_invoice(self):
         self.ensure_one()

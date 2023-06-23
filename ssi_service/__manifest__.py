@@ -4,7 +4,7 @@
 
 {
     "name": "Service",
-    "version": "14.0.2.0.0",
+    "version": "14.0.2.1.0",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "license": "LGPL-3",
@@ -38,6 +38,7 @@
         "views/res_config_settings_views.xml",
         "views/service_type_views.xml",
         "views/service_contract_views.xml",
+        "views/service_contract_fix_item_payment_term_views.xml",
     ],
     "demo": [],
 }

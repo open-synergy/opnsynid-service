@@ -113,6 +113,7 @@
                         <tree>
                             <field name="sequence" widget="handle" />
                             <field name="name" />
+                            <field name="date_invoice" />
                             <field name="currency_id" invisible="1" />
                             <field name="amount_untaxed" />
                             <field name="amount_tax" />
@@ -140,11 +141,26 @@
                                     icon="fa-unlink"
                                     states="invoiced"
                                 />
+                            <button
+                                    name="action_mark_as_manual"
+                                    tile="Mark as Manual"
+                                    type="object"
+                                    icon="fa-square-o"
+                                    states="uninvoiced"
+                                />
+                            <button
+                                    name="action_unmark_as_manual"
+                                    tile="Unmark as Manual"
+                                    type="object"
+                                    icon="fa-check-square-o"
+                                    states="manual"
+                                />
                         </tree>
                         <form>
                             <group name="fix_item_2_1" colspan="4" col="2">
                                 <field name="name" />
                                 <field name="sequence" />
+                                <field name="date_invoice" />
                                 <field name="currency_id" invisible="1" />
                                 <field
                                         name="fix_item_allowed_product_ids"
