@@ -21,6 +21,7 @@ addon | version | maintainers | summary
 [ssi_service](ssi_service/) | 14.0.2.1.1 |  | Service
 [ssi_service_project](ssi_service_project/) | 14.0.2.0.2 |  | Service Contract - Project Integration
 [ssi_service_quotation](ssi_service_quotation/) | 14.0.1.8.1 |  | Service Quotation
+[ssi_service_quotation_lead](ssi_service_quotation_lead/) | 14.0.1.0.0 |  | Service Quotation - Lead Integration
 [ssi_service_quotation_project](ssi_service_quotation_project/) | 14.0.1.0.1 |  | Service Quotation - Project Integration
 
 [//]: # (end addons)
