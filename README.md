@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [ssi_service_quotation_project](ssi_service_quotation_project/) | 14.0.1.0.1 |  | Service Quotation - Project Integration
 [ssi_service_quotation_risk_analysis](ssi_service_quotation_risk_analysis/) | 14.0.1.0.0 |  | Quotation + Risk Analysis Integration
 [ssi_service_quotation_risk_analysis_lead](ssi_service_quotation_risk_analysis_lead/) | 14.0.1.0.0 |  | Quotation + Risk Analysis + Lead Integration
+[ssi_service_quotation_work_log](ssi_service_quotation_work_log/) | 14.0.1.0.0 |  | Service Quotation - Work Log Integration
 [ssi_service_risk_analysis](ssi_service_risk_analysis/) | 14.0.1.0.0 |  | Contract + Risk Analysis Integration
 
 [//]: # (end addons)
