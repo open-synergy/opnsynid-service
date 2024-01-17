@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-====================================
-Service Quotation - Lead Integration
-====================================
+========================================
+Service Quotation - Work Log Integration
+========================================
 
 
 Installation
@@ -16,7 +16,7 @@ To install this module, you need to:
 2.  Add the path to this repository in your configuration (addons-path)
 3.  Update the module list (Must be on developer mode)
 4.  Go to menu *Apps -> Apps -> Main Apps*
-5.  Search For *Service Quotation - Lead Integration*
+5.  Search For *Service Quotation - Work Log Integration*
 6.  Install the module
 
 Bug Tracker
@@ -34,7 +34,9 @@ Credits
 Contributors
 ------------
 
+* Michael Viriyananda <viriyananda.michael@gmail.com>
 * Andhitia Rama <andhitia.r@gmail.com>
+* Usamah <usa8bit@gmail.com>
 
 Maintainer
 ----------
