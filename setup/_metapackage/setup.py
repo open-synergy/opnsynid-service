@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-ssi_service',
+        'odoo14-addon-ssi_service_contract_work_log',
         'odoo14-addon-ssi_service_project',
         'odoo14-addon-ssi_service_quality_control',
         'odoo14-addon-ssi_service_quotation',
