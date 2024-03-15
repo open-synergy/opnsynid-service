@@ -48,10 +48,14 @@ class ServiceContract(models.Model):
         "dom_cancel",
     ]
 
+    allowed_partner_bank_ids = fields.Many2many(
+        string="Allowed Partner Banks",
+        comodel_name="res.partner.bank",
+        compute="_compute_allowed_partner_bank_ids",
+    )
     partner_bank_id = fields.Many2one(
         string="Recipient Bank",
         comodel_name="res.partner.bank",
-        domain="[('partner_id', '=', partner_id)]",
         required=False,
     )
     analytic_account_id = fields.Many2one(
@@ -102,6 +106,24 @@ class ServiceContract(models.Model):
             ],
         },
     )
+
+    @api.depends(
+        "company_id",
+    )
+    def _compute_allowed_partner_bank_ids(self):
+        BankAccount = self.env["res.partner.bank"]
+        for record in self:
+            result = []
+            if record.company_id:
+                criteria = [("partner_id", "=", record.company_id.partner_id.id)]
+                result = BankAccount.search(criteria).ids
+            record.allowed_partner_bank_ids = result
+
+    @api.onchange(
+        "company_id",
+    )
+    def onchange_partner_bank_id(self):
+        self.partner_bank_id = False
 
     @api.model
     def _get_policy_field(self):
@@ -190,7 +212,3 @@ class ServiceContract(models.Model):
         self.analytic_group_id = False
         if self.type_id:
             self.analytic_group_id = self.type_id.analytic_group_id
-
-    @api.onchange("partner_id")
-    def onchange_partner_bank_id(self):
-        self.partner_bank_id = False
