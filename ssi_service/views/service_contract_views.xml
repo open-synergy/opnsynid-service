@@ -300,7 +300,15 @@
                                 name="fix_item_receivable_account_id"
                                 string="Receivable Account"
                             />
-                        <field name="partner_bank_id" />
+                        <field
+                                name="allowed_partner_bank_ids"
+                                widget="many2many_tags"
+                                invisible="1"
+                            />
+                        <field
+                                name="partner_bank_id"
+                                domain="[('id','in',allowed_partner_bank_ids)]"
+                            />
                     </group>
                 </page>
                 <page name="analytic" string="Analytic &amp; Project">
