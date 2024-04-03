@@ -37,15 +37,15 @@
     <field name="arch" type="xml">
         <data>
             <xpath expr="//field[@name='user_id']" position="after">
-                <field name="partner_id"/>
-                <field name="contact_partner_id"/>
-                <field name="type_id"/>
-                <field name="manager_id"/>
-                <field name="currency_id"/>
-                <field name="pricelist_id"/>
-                <field name="salesperson_id"/>
-                <field name="source_document_id"/>
-                <field name="title"/>
+                <field name="partner_id" />
+                <field name="contact_partner_id" />
+                <field name="type_id" />
+                <field name="manager_id" />
+                <field name="currency_id" />
+                <field name="pricelist_id" />
+                <field name="salesperson_id" />
+                <field name="source_document_id" />
+                <field name="title" />
             </xpath>
         </data>
     </field>

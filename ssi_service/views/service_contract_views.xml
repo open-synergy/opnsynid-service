@@ -37,32 +37,72 @@
     <field name="arch" type="xml">
         <data>
             <xpath expr="//field[@name='name']" position="after">
-                <field name="partner_id"/>
-                <field name="contact_partner_id"/>
-                <field name="sale_team_id"/>
-                <field name="salesperson_id"/>
-                <field name="source_document_id"/>
-                <field name="type_id"/>
-                <field name="manager_id"/>
-                <field name="date"/>
-                <field name="date_start"/>
-                <field name="date_end"/>
-                <field name="currency_id"/>
-                <field name="pricelist_id"/>
-                <field name="title"/>
+                <field name="partner_id" />
+                <field name="contact_partner_id" />
+                <field name="sale_team_id" />
+                <field name="salesperson_id" />
+                <field name="source_document_id" />
+                <field name="type_id" />
+                <field name="manager_id" />
+                <field name="date" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="currency_id" />
+                <field name="pricelist_id" />
+                <field name="title" />
             </xpath>
             <xpath expr="//filter[@name='grp_responsible']" position="after">
-                <filter name="grp_partner" string="Partner" context="{'group_by':'partner_id'}"/>
-                <filter name="grp_contact" string="Contact" context="{'group_by':'contact_partner_id'}"/>
-                <filter name="grp_sale_team" string="Sale Team" context="{'group_by':'sale_team_id'}"/>
-                <filter name="grp_salesperson" string="Salesperson" context="{'group_by':'salesperson_id'}"/>
-                <filter name="grp_type" string="Type" context="{'group_by':'type_id'}"/>
-                <filter name="grp_manager" string="Manager" context="{'group_by':'manager_id'}"/>
-                <filter name="grp_date" string="Date" context="{'group_by':'date'}"/>
-                <filter name="grp_date_start" string="Date Start" context="{'group_by':'date_start'}"/>
-                <filter name="grp_date_end" string="Date End" context="{'group_by':'date_end'}"/>
-                <filter name="grp_currency" string="Currency" context="{'group_by':'currency_id'}"/>
-                <filter name="grp_pricelist" string="Pricelist" context="{'group_by':'pricelist_id'}"/>
+                <filter
+                        name="grp_partner"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                <filter
+                        name="grp_contact"
+                        string="Contact"
+                        context="{'group_by':'contact_partner_id'}"
+                    />
+                <filter
+                        name="grp_sale_team"
+                        string="Sale Team"
+                        context="{'group_by':'sale_team_id'}"
+                    />
+                <filter
+                        name="grp_salesperson"
+                        string="Salesperson"
+                        context="{'group_by':'salesperson_id'}"
+                    />
+                <filter
+                        name="grp_type"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+                <filter
+                        name="grp_manager"
+                        string="Manager"
+                        context="{'group_by':'manager_id'}"
+                    />
+                <filter name="grp_date" string="Date" context="{'group_by':'date'}" />
+                <filter
+                        name="grp_date_start"
+                        string="Date Start"
+                        context="{'group_by':'date_start'}"
+                    />
+                <filter
+                        name="grp_date_end"
+                        string="Date End"
+                        context="{'group_by':'date_end'}"
+                    />
+                <filter
+                        name="grp_currency"
+                        string="Currency"
+                        context="{'group_by':'currency_id'}"
+                    />
+                <filter
+                        name="grp_pricelist"
+                        string="Pricelist"
+                        context="{'group_by':'pricelist_id'}"
+                    />
             </xpath>
         </data>
     </field>
