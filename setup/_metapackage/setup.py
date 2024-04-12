@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo14-addon-ssi_service_quotation_project',
         'odoo14-addon-ssi_service_quotation_risk_analysis',
         'odoo14-addon-ssi_service_quotation_risk_analysis_lead',
+        'odoo14-addon-ssi_service_quotation_tnc',
         'odoo14-addon-ssi_service_quotation_work_log',
         'odoo14-addon-ssi_service_risk_analysis',
     ],
