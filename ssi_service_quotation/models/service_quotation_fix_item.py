@@ -27,6 +27,7 @@ class ServiceQuotationFixItem(models.Model):
             a.name AS name,
             a.price_unit AS price_unit,
             a.uom_id AS uom_id,
+            MAX(a.sequence) AS sequence,
             SUM(a.quantity) AS quantity,
             SUM(a.price_subtotal) AS amount_untaxed,
             SUM(a.price_tax) AS amount_tax,
