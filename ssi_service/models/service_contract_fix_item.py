@@ -28,6 +28,7 @@ class ServiceContractFixItem(models.Model):
             a.price_unit AS price_unit,
             a.uom_id AS uom_id,
             SUM(a.quantity) AS quantity,
+            MAX(a.sequence) AS sequence,
             SUM(a.price_subtotal) AS amount_untaxed,
             SUM(a.price_tax) AS amount_tax,
             SUM(a.price_total) AS amount_total

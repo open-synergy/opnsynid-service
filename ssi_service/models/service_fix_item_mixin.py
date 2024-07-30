@@ -8,13 +8,16 @@ from odoo import fields, models
 class ServiceFixItemMixin(models.AbstractModel):
     _name = "service.fix_item_mixin"
     _description = "Service Fix Item Mixin"
-    _order = "id"
+    _order = "service_id, sequence, id"
     _auto = False
 
     service_id = fields.Many2one(
         string="Service Object",
         comodel_name="service.mixin",
         ondelete="cascade",
+    )
+    sequence = fields.Integer(
+        string="Sequence",
     )
     product_id = fields.Many2one(
         string="Product",

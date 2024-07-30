@@ -270,6 +270,7 @@
                                                         colspan="1"
                                                         col="2"
                                                     >
+                                                    <field name="sequence" />
                                                     <field
                                                             name="product_id"
                                                             domain="['|',('id','in',parent.fix_item_allowed_product_ids),('categ_id','in',parent.fix_item_allowed_product_categ_ids)]"
