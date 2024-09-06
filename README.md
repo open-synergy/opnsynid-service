@@ -18,7 +18,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[ssi_service](ssi_service/) | 14.0.2.4.0 |  | Service
+[ssi_service](ssi_service/) | 14.0.2.5.0 |  | Service
 [ssi_service_contract_tnc](ssi_service_contract_tnc/) | 14.0.1.0.0 |  | Service Contract - T&C Integration
 [ssi_service_contract_work_log](ssi_service_contract_work_log/) | 14.0.1.0.0 |  | Service Contract - Work Log Integration
 [ssi_service_project](ssi_service_project/) | 14.0.2.0.2 |  | Service Contract - Project Integration
