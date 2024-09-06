@@ -67,6 +67,7 @@ class ServiceContract(models.Model):
                 ("readonly", False),
             ],
         },
+        copy=False,
     )
     analytic_group_id = fields.Many2one(
         string="Analytic Group",
