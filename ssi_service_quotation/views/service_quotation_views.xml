@@ -136,6 +136,12 @@
                             <field name="amount_untaxed" />
                             <field name="amount_tax" />
                             <field name="amount_total" />
+                            <button
+                                    name="%(copy_quotation_term_action)d"
+                                    icon="fa-files-o"
+                                    help="Copy Term"
+                                    type="action"
+                                />
                         </tree>
                         <form>
                             <group name="fix_item_2_1" colspan="4" col="2">

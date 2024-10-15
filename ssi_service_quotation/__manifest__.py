@@ -32,6 +32,7 @@
         "data/sequence_template_data.xml",
         "data/approval_template_data.xml",
         "data/policy_template_data.xml",
+        "wizards/copy_quotation_term_views.xml",
         "views/service_quotation_views.xml",
         "views/service_contract_views.xml",
     ],
