@@ -140,7 +140,7 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         self._get_fix_item_receivable_account()
         lines = []
         for detail in self.detail_ids:
-            lines += detail._prepare_invoice_line()
+            lines += [(0, 0, detail._prepare_invoice_line())]
         return {
             "date": fields.Date.today(),
             "ref": contract.name,

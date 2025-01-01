@@ -50,19 +50,13 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
             and self.analytic_account_id.id
             or contract.analytic_account_id
         )
-        return [
-            (
-                0,
-                0,
-                {
-                    "product_id": self.product_id.id,
-                    "name": self.name,
-                    "account_id": self.account_id.id,
-                    "quantity": self.uom_quantity,
-                    "product_uom_id": self.uom_id.id,
-                    "price_unit": self.price_unit,
-                    "tax_ids": [(6, 0, self.tax_ids.ids)],
-                    "analytic_account_id": aa and aa.id or False,
-                },
-            )
-        ]
+        return {
+            "product_id": self.product_id.id,
+            "name": self.name,
+            "account_id": self.account_id.id,
+            "quantity": self.uom_quantity,
+            "product_uom_id": self.uom_id.id,
+            "price_unit": self.price_unit,
+            "tax_ids": [(6, 0, self.tax_ids.ids)],
+            "analytic_account_id": aa and aa.id or False,
+        }

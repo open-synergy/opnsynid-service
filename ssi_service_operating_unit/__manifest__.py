@@ -12,6 +12,7 @@
     "depends": [
         "ssi_service",
         "ssi_operating_unit_mixin",
+        "ssi_financial_accounting_operating_unit",
     ],
     "data": [
         "security/res_group/service_contract.xml",
