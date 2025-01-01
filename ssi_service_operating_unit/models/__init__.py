@@ -4,4 +4,6 @@
 
 from . import (
     service_contract,
+    service_contract_fix_item_payment_term,
+    service_contract_fix_item_payment_term_detail,
 )
