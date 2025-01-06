@@ -21,18 +21,22 @@ addon | version | maintainers | summary
 [ssi_service](ssi_service/) | 14.0.2.5.1 |  | Service
 [ssi_service_contract_tnc](ssi_service_contract_tnc/) | 14.0.1.0.0 |  | Service Contract - T&C Integration
 [ssi_service_contract_work_log](ssi_service_contract_work_log/) | 14.0.1.0.0 |  | Service Contract - Work Log Integration
+[ssi_service_custom_information](ssi_service_custom_information/) | 14.0.1.0.0 |  | Service Contract + Custom Information Integration
 [ssi_service_operating_unit](ssi_service_operating_unit/) | 14.0.1.0.1 |  | Service Contract + Operating Unit
 [ssi_service_project](ssi_service_project/) | 14.0.2.0.2 |  | Service Contract - Project Integration
 [ssi_service_quality_control](ssi_service_quality_control/) | 14.0.1.0.0 |  | Service - Quality Control Integration
 [ssi_service_quotation](ssi_service_quotation/) | 14.0.1.12.0 |  | Service Quotation
+[ssi_service_quotation_custom_information](ssi_service_quotation_custom_information/) | 14.0.1.0.0 |  | Service Quotation + Custom Information Integration
 [ssi_service_quotation_lead](ssi_service_quotation_lead/) | 14.0.1.0.0 |  | Service Quotation - Lead Integration
 [ssi_service_quotation_operating_unit](ssi_service_quotation_operating_unit/) | 14.0.1.0.0 |  | Service Quotation + Operating Unit
 [ssi_service_quotation_project](ssi_service_quotation_project/) | 14.0.1.0.1 |  | Service Quotation - Project Integration
 [ssi_service_quotation_risk_analysis](ssi_service_quotation_risk_analysis/) | 14.0.1.0.0 |  | Quotation + Risk Analysis Integration
 [ssi_service_quotation_risk_analysis_lead](ssi_service_quotation_risk_analysis_lead/) | 14.0.1.0.0 |  | Quotation + Risk Analysis + Lead Integration
+[ssi_service_quotation_state_change_constrain](ssi_service_quotation_state_change_constrain/) | 14.0.1.0.0 |  | Service Quotation + State Change Constrain Integration
 [ssi_service_quotation_tnc](ssi_service_quotation_tnc/) | 14.0.1.0.0 |  | Service Quotation - T&C Integration
 [ssi_service_quotation_work_log](ssi_service_quotation_work_log/) | 14.0.1.0.0 |  | Service Quotation - Work Log Integration
 [ssi_service_risk_analysis](ssi_service_risk_analysis/) | 14.0.1.0.0 |  | Contract + Risk Analysis Integration
+[ssi_service_state_change_constrain](ssi_service_state_change_constrain/) | 14.0.1.0.0 |  | Service Contract + State Change Constrain Integration
 
 [//]: # (end addons)
 
