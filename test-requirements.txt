@@ -3,3 +3,6 @@ odoo14-addon-ssi-work-log-mixin
 odoo14-addon-ssi-term-condition-mixin
 odoo14-addon-ssi-operating-unit-mixin
 odoo14-addon-ssi-financial-accounting-operating-unit
+odoo14-addon-ssi-custom-information-mixin
+odoo14-addon-ssi-state-change-constrain-mixin
+odoo14-addon-ssi-status-check-mixin
