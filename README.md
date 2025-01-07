@@ -28,7 +28,7 @@ addon | version | maintainers | summary
 [ssi_service_quotation](ssi_service_quotation/) | 14.0.1.12.0 |  | Service Quotation
 [ssi_service_quotation_custom_information](ssi_service_quotation_custom_information/) | 14.0.1.0.0 |  | Service Quotation + Custom Information Integration
 [ssi_service_quotation_lead](ssi_service_quotation_lead/) | 14.0.1.0.0 |  | Service Quotation - Lead Integration
-[ssi_service_quotation_operating_unit](ssi_service_quotation_operating_unit/) | 14.0.1.0.0 |  | Service Quotation + Operating Unit
+[ssi_service_quotation_operating_unit](ssi_service_quotation_operating_unit/) | 14.0.1.0.1 |  | Service Quotation + Operating Unit
 [ssi_service_quotation_project](ssi_service_quotation_project/) | 14.0.1.0.1 |  | Service Quotation - Project Integration
 [ssi_service_quotation_risk_analysis](ssi_service_quotation_risk_analysis/) | 14.0.1.0.0 |  | Quotation + Risk Analysis Integration
 [ssi_service_quotation_risk_analysis_lead](ssi_service_quotation_risk_analysis_lead/) | 14.0.1.0.0 |  | Quotation + Risk Analysis + Lead Integration
