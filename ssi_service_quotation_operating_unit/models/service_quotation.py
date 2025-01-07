@@ -11,3 +11,16 @@ class ServiceQuotation(models.Model):
         "service.quotation",
         "mixin.single_operating_unit",
     ]
+
+    def _prepare_contract_data(self):
+        self.ensure_one()
+        _super = super(ServiceQuotation, self)
+        result = _super._prepare_contract_data()
+        result.update(
+            {
+                "operating_unit_id": self.operating_unit_id
+                and self.operating_unit_id.id
+                or False,
+            }
+        )
+        return result
