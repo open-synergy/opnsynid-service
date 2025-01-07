@@ -20,3 +20,10 @@ class ServiceQuotation(models.Model):
         self.status_check_template_id = False
         if self.type_id:
             self.status_check_template_id = self._get_template_status_check()
+
+    def _create_contract(self):
+        self.ensure_one()
+        _super = super(ServiceQuotation, self)
+        _super._create_contract()
+        contract = self.contract_id
+        contract.action_reload_status_check_template()
