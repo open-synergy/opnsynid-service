@@ -20,3 +20,10 @@ class ServiceQuotation(models.Model):
         self.status_check_template_id = False
         if self.type_id:
             self.status_check_template_id = self._get_template_status_check()
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        _super = super(ServiceQuotation, self)
+        quotation = _super.create(vals_list)
+        quotation.onchange_status_check_template_id()
+        return quotation
