@@ -21,6 +21,13 @@ class ServiceQuotation(models.Model):
         if self.type_id:
             self.custom_info_template_id = self._get_template_custom_info()
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        _super = super(ServiceQuotation, self)
+        quotation = _super.create(vals_list)
+        quotation.onchange_status_check_template_id()
+        return quotation
+
     def _create_contract(self):
         self.ensure_one()
         _super = super(ServiceQuotation, self)
