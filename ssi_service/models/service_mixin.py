@@ -100,6 +100,37 @@ class ServiceMixin(models.AbstractModel):
             ],
         },
     )
+    allowed_contact_contractor_ids = fields.Many2many(
+        string="Allowed Contractor's Contact",
+        comodel_name="res.partner",
+        compute="_compute_allowed_contact_contractor_ids",
+        store=False,
+    )
+    contractor_id = fields.Many2one(
+        string="Contractor",
+        comodel_name="res.partner",
+        domain=[
+            ("parent_id", "=", False),
+        ],
+        required=False,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
+    contact_contractor_id = fields.Many2one(
+        string="Contact's Contact",
+        comodel_name="res.partner",
+        required=False,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
     type_id = fields.Many2one(
         string="Type",
         comodel_name="service.type",
@@ -199,6 +230,26 @@ class ServiceMixin(models.AbstractModel):
         default="draft",
         copy=False,
     )
+
+    @api.depends(
+        "contractor_id",
+    )
+    def _compute_allowed_contact_contractor_ids(self):
+        Partner = self.env["res.partner"]
+        for record in self:
+            result = []
+            if record.contractor_id:
+                criteria = [
+                    ("commercial_partner_id", "=", record.contractor_id.id),
+                    ("id", "!=", record.contractor_id.id),
+                    ("type", "=", "contact"),
+                ]
+                result = Partner.search(criteria).ids
+            record.allowed_contact_contractor_ids = result
+
+    @api.onchange("contractor_id")
+    def onchange_contact_contractor_id(self):
+        self.contact_contractor_id = False
 
     @api.depends("policy_template_id")
     def _compute_policy(self):
