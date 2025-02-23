@@ -157,7 +157,9 @@ class ServiceQuotation(models.Model):
         return {
             "title": self.title,
             "partner_id": self.partner_id.id,
-            "contact_partner_id": self.contact_partner_id.id,
+            "contact_partner_id": self.contact_partner_id
+            and self.contact_partner_id.id
+            or False,
             "type_id": self.type_id.id,
             "user_id": self.user_id.id,
             "manager_id": self.manager_id.id,
