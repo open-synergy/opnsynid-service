@@ -12,6 +12,7 @@
         <data>
             <xpath expr="//field[@name='company_id']" position="after">
                 <field name="partner_id" />
+                <field name="contractor_id" />
                 <field name="title" />
                 <field name="type_id" />
                 <field name="manager_id" />
@@ -39,6 +40,8 @@
             <xpath expr="//field[@name='name']" position="after">
                 <field name="partner_id" />
                 <field name="contact_partner_id" />
+                <field name="contractor_id" />
+                <field name="contact_contractor_id" />
                 <field name="sale_team_id" />
                 <field name="salesperson_id" />
                 <field name="source_document_id" />
@@ -61,6 +64,16 @@
                         name="grp_contact"
                         string="Contact"
                         context="{'group_by':'contact_partner_id'}"
+                    />
+                <filter
+                        name="grp_contractor"
+                        string="Contractor"
+                        context="{'group_by':'contractor_id'}"
+                    />
+                <filter
+                        name="grp_contact_contractor"
+                        string="Contact's Contractor"
+                        context="{'group_by':'contact_contractor_id'}"
                     />
                 <filter
                         name="grp_sale_team"
@@ -137,6 +150,16 @@
                 <field
                         name="salesperson_id"
                         domain="[('id','in',allowed_salesperson_ids)]"
+                    />
+                <field name="contractor_id" />
+                <field
+                        name="allowed_contact_contractor_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field
+                        name="contact_contractor_id"
+                        domain="[('id','in',allowed_contact_contractor_ids)]"
                     />
                 <field name="source_document_res_id" invisible="1" />
                 <field name="source_document_model_id" invisible="1" />

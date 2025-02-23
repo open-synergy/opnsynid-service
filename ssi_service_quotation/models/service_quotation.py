@@ -161,6 +161,10 @@ class ServiceQuotation(models.Model):
             and self.contact_partner_id.id
             or False,
             "type_id": self.type_id.id,
+            "contractor_id": self.contractor_id and self.contractor_id.id or False,
+            "contact_contractor_id": self.contact_contractor_id
+            and self.contact_contractor_id.id
+            or False,
             "user_id": self.user_id.id,
             "manager_id": self.manager_id.id,
             "company_id": self.company_id.id,
