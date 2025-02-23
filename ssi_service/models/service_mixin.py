@@ -92,7 +92,7 @@ class ServiceMixin(models.AbstractModel):
     contact_partner_id = fields.Many2one(
         string="Contact",
         comodel_name="res.partner",
-        required=True,
+        required=False,
         readonly=True,
         states={
             "draft": [
