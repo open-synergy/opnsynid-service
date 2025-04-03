@@ -35,6 +35,14 @@ class ServiceQuotationFixItemPaymentTermDetail(models.Model):
     def onchange_pricelist_id(self):
         pass
 
+    @api.onchange(
+        "product_id",
+    )
+    def onchange_sequence(self):
+        self.sequence = 0
+        if self.product_id:
+            self.sequence = self.product_id.sequence
+
     def _prepare_contract_data(self):
         self.ensure_one()
         return {
@@ -50,4 +58,5 @@ class ServiceQuotationFixItemPaymentTermDetail(models.Model):
             "tax_ids": [(6, 0, self.tax_ids.ids)],
             "pricelist_id": self.pricelist_id.id,
             "currency_id": self.currency_id.id,
+            "sequence": self.sequence,
         }
