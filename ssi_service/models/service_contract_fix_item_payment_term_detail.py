@@ -41,6 +41,14 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
     def onchange_pricelist_id(self):
         pass
 
+    @api.onchange(
+        "product_id",
+    )
+    def onchange_sequence(self):
+        self.sequence = 0
+        if self.product_id:
+            self.sequence = self.product_id.sequence
+
     def _prepare_invoice_line(self):
         self.ensure_one()
         payment_term = self.term_id
