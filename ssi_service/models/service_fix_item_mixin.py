@@ -23,6 +23,10 @@ class ServiceFixItemMixin(models.AbstractModel):
         string="Product",
         comodel_name="product.product",
     )
+    product_category_id = fields.Many2one(
+        string="Product Category",
+        comodel_name="product.category",
+    )
     name = fields.Char(
         string="Description",
         required=True,

@@ -8,7 +8,7 @@ from odoo import fields, models
 class ServiceFixItemPaymentTermDetailMixin(models.AbstractModel):
     _name = "service.fix_item_payment_term_detail_mixin"
     _description = "Service Fix Item Payment Term Detail Mixin"
-    _order = "sequence, id"
+    _order = "sequence, product_category_id, product_id, id"
     _inherit = [
         "mixin.product_line_account",
     ]

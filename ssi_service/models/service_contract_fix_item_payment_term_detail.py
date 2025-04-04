@@ -12,11 +12,6 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         "service.fix_item_payment_term_detail_mixin",
     ]
 
-    sequence = fields.Integer(
-        string="Sequence",
-        required=True,
-        default=5,
-    )
     term_id = fields.Many2one(
         string="Service Payment Term",
         comodel_name="service.contract_fix_item_payment_term",
@@ -40,14 +35,6 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
     )
     def onchange_pricelist_id(self):
         pass
-
-    @api.onchange(
-        "product_id",
-    )
-    def onchange_sequence(self):
-        self.sequence = 0
-        if self.product_id:
-            self.sequence = self.product_id.sequence
 
     def _prepare_invoice_line(self):
         self.ensure_one()
