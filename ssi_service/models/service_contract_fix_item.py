@@ -12,6 +12,7 @@ class ServiceContractFixItem(models.Model):
         "service.fix_item_mixin",
     ]
     _description = "Service Contract Fix Item"
+    _order = "service_id, sequence, product_category_id, product_id, id"
 
     service_id = fields.Many2one(
         string="# Contract",
@@ -24,6 +25,7 @@ class ServiceContractFixItem(models.Model):
             ROW_NUMBER() OVER() AS id,
             c.id AS service_id,
             a.product_id AS product_id,
+            a.product_category_id as product_category_id,
             a.name AS name,
             a.price_unit AS price_unit,
             a.uom_id AS uom_id,
@@ -59,6 +61,7 @@ class ServiceContractFixItem(models.Model):
     def _group_by(self):
         group_str = """
         GROUP BY    c.id,
+                    a.product_category_id,
                     a.product_id,
                     a.name,
                     a.price_unit,
