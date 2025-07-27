@@ -211,6 +211,14 @@
                             <field name="amount_total" />
                             <field name="invoice_id" />
                             <field name="state" />
+
+                            <button
+                                    name="%(ssi_service.link_invoice_to_payment_term_action)d"
+                                    tile="Link Invoice"
+                                    type="action"
+                                    icon="fa-link"
+                                    states="uninvoiced"
+                                />
                             <button
                                     name="action_create_invoice"
                                     tile="Create Invoice"

@@ -35,6 +35,7 @@
         "data/approval_template_data.xml",
         "data/policy_template_data.xml",
         "menu.xml",
+        "wizards/link_invoice_to_payment_term.xml",
         "views/res_config_settings_views.xml",
         "views/service_type_views.xml",
         "views/service_contract_views.xml",
