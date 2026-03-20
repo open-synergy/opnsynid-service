@@ -22,11 +22,13 @@ addon | version | maintainers | summary
 [ssi_service_contract_tnc](ssi_service_contract_tnc/) | 14.0.1.0.0 |  | Service Contract - T&C Integration
 [ssi_service_contract_work_log](ssi_service_contract_work_log/) | 14.0.1.0.0 |  | Service Contract - Work Log Integration
 [ssi_service_custom_information](ssi_service_custom_information/) | 14.0.1.0.0 |  | Service Contract + Custom Information Integration
+[ssi_service_documenso_signing](ssi_service_documenso_signing/) | 14.0.1.0.0 |  | Service Contract - Documenso Signing Integration
 [ssi_service_operating_unit](ssi_service_operating_unit/) | 14.0.1.0.1 |  | Service Contract + Operating Unit
 [ssi_service_project](ssi_service_project/) | 14.0.2.0.2 |  | Service Contract - Project Integration
 [ssi_service_quality_control](ssi_service_quality_control/) | 14.0.1.0.0 |  | Service - Quality Control Integration
 [ssi_service_quotation](ssi_service_quotation/) | 14.0.1.15.0 |  | Service Quotation
 [ssi_service_quotation_custom_information](ssi_service_quotation_custom_information/) | 14.0.1.0.0 |  | Service Quotation + Custom Information Integration
+[ssi_service_quotation_documenso_signing](ssi_service_quotation_documenso_signing/) | 14.0.1.0.0 |  | Service Quotation - Documenso Signing Integration
 [ssi_service_quotation_lead](ssi_service_quotation_lead/) | 14.0.1.0.0 |  | Service Quotation - Lead Integration
 [ssi_service_quotation_operating_unit](ssi_service_quotation_operating_unit/) | 14.0.1.0.1 |  | Service Quotation + Operating Unit
 [ssi_service_quotation_project](ssi_service_quotation_project/) | 14.0.1.0.1 |  | Service Quotation - Project Integration
