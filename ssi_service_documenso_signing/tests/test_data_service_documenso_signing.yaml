@@ -1,5 +1,6 @@
 scenarios:
-  - name: "Service Documenso Signing - Create and Verify"
+  - name:
+      "Service Documenso Signing Approval - Create and Verify (Normal Approval Fallback)"
     steps:
       - step: "Create partner"
         action: "create"
