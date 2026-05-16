@@ -1,5 +1,7 @@
 scenarios:
-  - name: "Service Quotation Documenso Signing - Create and Verify"
+  - name:
+      "Service Quotation Documenso Signing Approval - Create and Verify (Normal Approval
+      Fallback)"
     steps:
       - step: "Create partner"
         action: "create"

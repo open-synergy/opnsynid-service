@@ -9,7 +9,7 @@ class ServiceContract(models.Model):
     _name = "service.contract"
     _inherit = [
         "service.contract",
-        "mixin.documenso_signing",
+        "mixin.documenso_signing_approval",
     ]
 
     _documenso_signing_create_page = True
