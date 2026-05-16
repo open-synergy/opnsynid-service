@@ -1,0 +1,1054 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_service_quotation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__contract_id
+msgid "# Contract"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__name
+msgid "# Document"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_contract__quotation_id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__service_id
+msgid "# Quotation"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__account_id
+msgid "Account"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__active_approval_ids
+msgid "Active Approvals"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__active_approver_partner_ids
+msgid "Active Partners"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__active_approver_user_ids
+msgid "Active Users"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:res.groups,name:ssi_service_quotation.service_quotation_all_group
+msgid "All"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__allowed_contact_ids
+msgid "Allowed Contact"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__allowed_contact_contractor_ids
+msgid "Allowed Contractor's Contact"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__allowed_policy_template_ids
+msgid "Allowed Policy Templates"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__allowed_pricelist_ids
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__allowed_pricelist_ids
+msgid "Allowed Pricelists"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__allowed_salesperson_ids
+msgid "Allowed Salesperson"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__allowed_uom_ids
+msgid "Allowed UoMs"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__allowed_usage_ids
+msgid "Allowed Usages"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__analytic_account_id
+msgid "Analytic Account"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__approval_template_id
+msgid "Approval Configuration"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__approval_template_id
+msgid "Approval Template"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__approval_ids
+msgid "Approvals"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__approve_ok
+msgid ""
+"Approve policy\n"
+"\n"
+"* If active user can see and execute 'Approve' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__approved
+msgid "Approved"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.copy_quotation_term_view_form
+msgid "Are you sure?"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__approve_ok
+msgid "Can Approve"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__cancel_ok
+msgid "Can Cancel"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__confirm_ok
+msgid "Can Confirm"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__done_ok
+msgid "Can Finished"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__manual_number_ok
+msgid "Can Input Manual Document Number"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__lost_ok
+msgid "Can Mark as Lost"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__win_ok
+msgid "Can Mark as Win"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__reject_ok
+msgid "Can Reject"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__restart_ok
+msgid "Can Restart"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__restart_approval_ok
+msgid "Can Restart Approval"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__open_ok
+msgid "Can Start"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.copy_quotation_term_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__cancel_reason_id
+msgid "Cancel Reason"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__cancel_ok
+msgid ""
+"Cancel policy\n"
+"\n"
+"* If active user can see and execute 'Cancel' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields.selection,name:ssi_service_quotation.selection__service_quotation__state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__company_id
+#: model:res.groups,name:ssi_service_quotation.service_quotation_company_group
+msgid "Company"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__company_partner_id
+msgid "Company Partner"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:res.groups,name:ssi_service_quotation.service_quotation_company_child_group
+msgid "Company and All Child Companies"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__company_id
+msgid ""
+"Company that own the document\n"
+"\n"
+"* Automatically filled with user's company.\n"
+"  Default company can be changed"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.copy_quotation_term_view_form
+msgid "Confirm"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__confirm_ok
+msgid ""
+"Confirm policy\n"
+"\n"
+"* If active user can see and execute 'Confirm' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__contact_partner_id
+msgid "Contact"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__contact_contractor_id
+msgid "Contact's Contact"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__contractor_id
+msgid "Contractor"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model,name:ssi_service_quotation.model_copy_quotation_term
+msgid "Copy Quotation Term"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.actions.act_window,name:ssi_service_quotation.copy_quotation_term_action
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_form
+msgid "Copy Term"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__create_uid
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__create_uid
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__create_uid
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__create_date
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__create_date
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__create_date
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__currency_id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__currency_id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__currency_id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__date
+msgid "Date"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__date_end
+msgid "Date End"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__date_start
+msgid "Date Start"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__name
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__name
+msgid "Description"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__detail_ids
+msgid "Detail"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__display_name
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_contract__display_name
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__display_name
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__display_name
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__display_name
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__done_ok
+msgid ""
+"Done policy\n"
+"\n"
+"* If active user can see and execute 'Done' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields.selection,name:ssi_service_quotation.selection__service_quotation__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_form
+msgid "Fix Item"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__fix_item_allowed_product_categ_ids
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__fix_item_allowed_product_categ_ids
+msgid "Fix Item Allowed Product Categories"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__fix_item_allowed_product_ids
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__fix_item_allowed_product_ids
+msgid "Fix Item Allowed Products"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__fix_item_payment_term_ids
+msgid "Fix Item Payment Terms"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__fix_item_ids
+msgid "Fixed Items"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_contract__id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__message_needaction
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields.selection,name:ssi_service_quotation.selection__service_quotation__state__open
+msgid "In Progress"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_form
+msgid "Items"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term____last_update
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_contract____last_update
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation____last_update
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item____last_update
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term____last_update
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__write_uid
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__write_uid
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__write_uid
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__write_date
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__write_date
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__write_date
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields.selection,name:ssi_service_quotation.selection__service_quotation__state__lost
+msgid "Lost"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__lost_reason_id
+msgid "Lost Reason"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__lost_ok
+msgid ""
+"Lost policy\n"
+"\n"
+"* If active user can see and execute 'Lost' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__manager_id
+msgid "Manager"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__manual_number_ok
+msgid ""
+"Manual number assignment policy\n"
+"\n"
+"* If active user can edit document number"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__mixin_partner_contact_id_readonly
+msgid "Mixin Partner - contact_id Readonly"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__mixin_partner_contact_id_required
+msgid "Mixin Partner - contact_id Required"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__mixin_partner_partner_id_readonly
+msgid "Mixin Partner - parnter_id Readonly"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__mixin_partner_partner_id_required
+msgid "Mixin Partner - partner_id Required"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__need_validation
+msgid "Need Validation"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__next_approval_ids
+msgid "Next Approvals"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__note
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__note
+msgid "Note"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__term_id
+msgid "Payment Term"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_form
+msgid "Payment Terms"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__policy_template_id
+msgid "Policy Template"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__price_subtotal
+msgid "Price Subtotal"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__price_unit
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__price_unit
+msgid "Price Unit"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__pricelist_id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__pricelist_id
+msgid "Pricelist"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__product_id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__product_id
+msgid "Product"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__product_category_id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__product_category_id
+msgid "Product Category"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__quantity
+msgid "Qty"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__quantity
+msgid "Quanity"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__quantity
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_form
+msgid "Quantity"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.actions.act_window,name:ssi_service_quotation.service_quotation_action
+#: model:ir.ui.menu,name:ssi_service_quotation.menu_service_quotation
+msgid "Quotations"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__real_lost_date
+msgid "Real Lost Date"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__real_win_date
+msgid "Real Win Date"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_form
+msgid "Recompute Price"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_form
+msgid "Reference"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__reject_ok
+msgid ""
+"Reject policy\n"
+"\n"
+"* If active user can see and execute 'Reject' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__rejected
+#: model:ir.model.fields.selection,name:ssi_service_quotation.selection__service_quotation__state__reject
+msgid "Rejected"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__user_id
+msgid "Responsible"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__restart_approval_ok
+msgid ""
+"Restart approval policy\n"
+"\n"
+"* If active user can see and execute 'Restart Approval' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__restart_ok
+msgid ""
+"Restart policy\n"
+"\n"
+"* If active user can see and execute 'Restart' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__reviewer_id
+msgid "Reviewer"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__sale_team_id
+msgid "Sale Team"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_form
+msgid "Sales Info"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__salesperson_id
+msgid "Salesperson"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__product_category_id
+msgid "Select category for the current product"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__sequence
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__sequence
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__sequence
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model,name:ssi_service_quotation.model_service_contract
+msgid "Service Contract"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model,name:ssi_service_quotation.model_service_quotation_fix_item_payment_term_detail
+msgid "Service Fix Item Payment Term Detail"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__term_id
+msgid "Service Payment Term"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model,name:ssi_service_quotation.model_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__service_id
+#: model:ir.module.category,name:ssi_service_quotation.service_quotation_data_ownership_module_category
+#: model:ir.module.category,name:ssi_service_quotation.service_quotation_workflow_module_category
+msgid "Service Quotation"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model,name:ssi_service_quotation.model_service_quotation_fix_item
+msgid "Service Quotation Fix Item"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model,name:ssi_service_quotation.model_service_quotation_fix_item_payment_term
+msgid "Service Quotation Fix Item Payment Term"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__set_qty
+msgid "Set Qty All Items"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__source_document_id
+msgid "Source Document"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__source_document_model_id
+msgid "Source Document Model"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__source_document_model
+msgid "Source Document Model Technical Name"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__source_document_res_id
+msgid "Source Document Res ID"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__standard_price_subtotal
+msgid "Standard Price Subtotal"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__standard_price_subtotal_diff
+msgid "Standard Price Subtotal Diff."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__standard_price_unit
+msgid "Standard Price Unit"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__standard_price_unit_diff
+msgid "Standard Price Unit Diff."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__open_ok
+msgid ""
+"Start policy\n"
+"\n"
+"* If active user can see and execute 'Start' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__state
+msgid "State"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__amount_tax
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__amount_tax
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__amount_tax
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__price_tax
+msgid "Tax"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__tax_ids
+msgid "Tax(es)"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_copy_quotation_term__name
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__name
+msgid "Term"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__title
+msgid "Title"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__amount_total
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__amount_total
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__amount_total
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__price_total
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_tree
+msgid "Total"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_tree
+msgid "Total Tax"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_tree
+msgid "Total Untaxed"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__name
+msgid ""
+"Transaction/document number\n"
+"\n"
+"* Unique indentifer of transaction\n"
+"* Leave '/' to automatically generate number\n"
+"* Change '/' into any number/identifier to manually assign number.\n"
+"  Manual number assignment can be done in 'Draft' state\n"
+"  Only user with 'Can Manualy Assign Number' policy can manually assign number.\n"
+"* Transaction with number other than '/' can not be deleted."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__type_id
+msgid "Type"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__amount_untaxed
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__amount_untaxed
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__amount_untaxed
+msgid "Untaxed"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__uom_id
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__uom_id
+msgid "UoM"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__uom_quantity
+msgid "UoM Quantity"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__usage_id
+msgid "Usage"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:res.groups,name:ssi_service_quotation.service_quotation_user_group
+msgid "User"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__user_id
+msgid ""
+"User that responsible for document\n"
+"\n"
+"* Create user can be different with responsible user\n"
+"* Automatically filled with user that initiate document creation.\n"
+"  Default responsible can be changed."
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__reviewer_id
+msgid ""
+"User that responsible to review document\n"
+"\n"
+"* Unless it configured to approve reviewer does not equal to approver"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__active_approver_user_ids
+msgid "Users that can approve/reject document"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:res.groups,name:ssi_service_quotation.service_quotation_validator_group
+msgid "Validator"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:res.groups,name:ssi_service_quotation.service_quotation_viewer_group
+msgid "Viewer"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields.selection,name:ssi_service_quotation.selection__service_quotation__state__confirm
+msgid "Waiting for Approval"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields.selection,name:ssi_service_quotation.selection__service_quotation__state__win
+msgid "Win"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model:ir.model.fields,help:ssi_service_quotation.field_service_quotation__win_ok
+msgid ""
+"Win policy\n"
+"\n"
+"* If active user can see and execute 'Win' button"
+msgstr ""
+
+#. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.copy_quotation_term_view_form
+msgid "or"
+msgstr ""
