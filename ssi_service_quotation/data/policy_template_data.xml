@@ -2,34 +2,33 @@
 <!-- Copyright 2022 OpenSynergy Indonesia
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-<odoo>
-<data noupdate="1">
+<odoo noupdate="1">
 <record id="service_quotation_policy_template" model="policy.template">
     <field name="name">Standard</field>
     <field name="model_id" ref="model_service_quotation" />
     <field
-                name="state_field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','state')]"
-            />
+            name="state_field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','state')]"
+        />
     <field name="sequence" eval="100" />
     <field name="python_code">result=True</field>
 </record>
 
 <!-- confirm -->
 <record
-            id="service_quotation_policy_template_detail_confirm"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_confirm"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','confirm_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','confirm_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','=','draft')]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','=','draft')]"
+        />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field name="group_ids" eval="[(6,0,[ref('service_quotation_user_group')])]" />
@@ -38,19 +37,19 @@
 
 <!-- approve -->
 <record
-            id="service_quotation_policy_template_detail_approve"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_approve"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','approve_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','approve_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','=','confirm')]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','=','confirm')]"
+        />
     <field name="restrict_user" eval="0" />
     <field name="restrict_additional" eval="1" />
     <field name="additional_python_code">result = False
@@ -60,19 +59,19 @@ if env.user.id in document.active_approver_user_ids.ids:
 
 <!-- Reject -->
 <record
-            id="service_quotation_policy_template_detail_reject"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_reject"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','reject_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','reject_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','=','confirm')]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','=','confirm')]"
+        />
     <field name="restrict_user" eval="0" />
     <field name="restrict_additional" eval="1" />
     <field name="additional_python_code">result = False
@@ -82,19 +81,19 @@ if env.user.id in document.active_approver_user_ids.ids:
 
 <!-- Restart Approval -->
 <record
-            id="service_quotation_policy_template_detail_restart_approval"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_restart_approval"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','restart_approval_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','restart_approval_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','=','confirm')]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','=','confirm')]"
+        />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field name="group_ids" eval="[(6,0,[ref('service_quotation_validator_group')])]" />
@@ -106,19 +105,19 @@ if not document.approval_template_id:
 
 <!-- win -->
 <record
-            id="service_quotation_policy_template_detail_win"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_win"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','win_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','win_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','=','open')]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','=','open')]"
+        />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field name="group_ids" eval="[(6,0,[ref('service_quotation_user_group')])]" />
@@ -127,19 +126,19 @@ if not document.approval_template_id:
 
 <!-- lost -->
 <record
-            id="service_quotation_policy_template_detail_lost"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_lost"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','lost_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','lost_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','=','open')]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','=','open')]"
+        />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field name="group_ids" eval="[(6,0,[ref('service_quotation_user_group')])]" />
@@ -148,43 +147,43 @@ if not document.approval_template_id:
 
 <!-- Cancel -->
 <record
-            id="service_quotation_policy_template_detail_cancel"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_cancel"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','cancel_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','cancel_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','in',['draft','confirm','open','win','lost'])]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','in',['draft','confirm','open','win','lost'])]"
+        />
         <field name="restrict_user" eval="1" />
         <field name="computation_method">use_group</field>
         <field
-                name="group_ids"
-                eval="[(6,0,[ref('service_quotation_validator_group')])]"
-            />
+            name="group_ids"
+            eval="[(6,0,[ref('service_quotation_validator_group')])]"
+        />
     <field name="restrict_additional" eval="0" />
 </record>
 
 <!-- Restart -->
 <record
-            id="service_quotation_policy_template_detail_restart"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_restart"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','restart_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','restart_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','in',['cancel','reject'])]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','in',['cancel','reject'])]"
+        />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field name="group_ids" eval="[(6,0,[ref('service_quotation_validator_group')])]" />
@@ -192,23 +191,22 @@ if not document.approval_template_id:
 </record>
 
 <record
-            id="service_quotation_policy_template_detail_manual_number"
-            model="policy.template_detail"
-        >
+        id="service_quotation_policy_template_detail_manual_number"
+        model="policy.template_detail"
+    >
     <field name="template_id" ref="service_quotation_policy_template" />
     <field
-                name="field_id"
-                search="[('model_id.model','=','service.quotation'),('name','=','manual_number_ok')]"
-            />
+            name="field_id"
+            search="[('model_id.model','=','service.quotation'),('name','=','manual_number_ok')]"
+        />
     <field name="restrict_state" eval="1" />
     <field
-                name="state_ids"
-                search="[('field_id.model_id.model','=','service.quotation'),('value','=','draft')]"
-            />
+            name="state_ids"
+            search="[('field_id.model_id.model','=','service.quotation'),('value','=','draft')]"
+        />
     <field name="restrict_user" eval="1" />
     <field name="computation_method">use_group</field>
     <field name="group_ids" eval="[(6,0,[ref('service_quotation_validator_group')])]" />
     <field name="restrict_additional" eval="0" />
 </record>
-</data>
 </odoo>

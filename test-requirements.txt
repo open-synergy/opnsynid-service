@@ -1,3 +1,4 @@
+odoo-yaml-test
 odoo14-addon-ssi-quality-control
 odoo14-addon-ssi-work-log-mixin
 odoo14-addon-ssi-term-condition-mixin

@@ -2,8 +2,7 @@
 <!-- Copyright 2022 OpenSynergy Indonesia
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-<odoo>
-<data noupdate="1">
+<odoo noupdate="1">
 <record id="service_contract_approval_template" model="approval.template">
     <field name="name">Standard</field>
     <field name="model_id" ref="ssi_service.model_service_contract" />
@@ -13,15 +12,14 @@
     <field name="validate_sequence" eval="1" />
 </record>
 <record
-            id="service_contract_approval_template_detail1"
-            model="approval.template_detail"
-        >
+        id="service_contract_approval_template_detail1"
+        model="approval.template_detail"
+    >
     <field name="template_id" ref="service_contract_approval_template" />
     <field name="approver_selection_method">use_group</field>
     <field
-                name="approver_group_ids"
-                eval="[(6,0,[ref('ssi_service.service_contract_validator_group')])]"
-            />
+            name="approver_group_ids"
+            eval="[(6,0,[ref('ssi_service.service_contract_validator_group')])]"
+        />
 </record>
-</data>
 </odoo>
