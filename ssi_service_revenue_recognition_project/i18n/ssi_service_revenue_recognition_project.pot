@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_service_revenue_recognition_project
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_service_revenue_recognition_project
+#: model:ir.model.fields,field_description:ssi_service_revenue_recognition_project.field_service_type__pob_auto_create_project
+msgid "Auto Create Project on PoB"
+msgstr ""
+
+#. module: ssi_service_revenue_recognition_project
+#: model:ir.model.fields,field_description:ssi_service_revenue_recognition_project.field_service_contract_fix_item__display_name
+#: model:ir.model.fields,field_description:ssi_service_revenue_recognition_project.field_service_type__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_service_revenue_recognition_project
+#: model:ir.model.fields,field_description:ssi_service_revenue_recognition_project.field_service_contract_fix_item__id
+#: model:ir.model.fields,field_description:ssi_service_revenue_recognition_project.field_service_type__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_service_revenue_recognition_project
+#: model:ir.model.fields,field_description:ssi_service_revenue_recognition_project.field_service_contract_fix_item____last_update
+#: model:ir.model.fields,field_description:ssi_service_revenue_recognition_project.field_service_type____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_service_revenue_recognition_project
+#: model:ir.model,name:ssi_service_revenue_recognition_project.model_service_contract_fix_item
+msgid "Service Contract Fix Item"
+msgstr ""
+
+#. module: ssi_service_revenue_recognition_project
+#: model:ir.model,name:ssi_service_revenue_recognition_project.model_service_type
+msgid "Service Type"
+msgstr ""
