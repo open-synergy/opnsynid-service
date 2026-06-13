@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+<record id="service_type_view_form_rr" model="ir.ui.view">
+    <field name="name">service.type - form - revenue recognition</field>
+    <field name="model">service.type</field>
+    <field name="inherit_id" ref="ssi_service.service_type_view_form" />
+    <field name="mode">extension</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath
+                    expr="//page[@name='analytic']//group[@name='analytic_1']"
+                    position="inside"
+                >
+                <field name="pob_analytic_group_id" />
+                <field name="auto_create_pob_product_ids" widget="many2many_tags" />
+                <field
+                        name="auto_create_pob_product_categ_ids"
+                        widget="many2many_tags"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+</odoo>
