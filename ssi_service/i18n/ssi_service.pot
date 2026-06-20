@@ -184,6 +184,7 @@ msgstr ""
 #. module: ssi_service
 #: model:ir.model.fields,field_description:ssi_service.field_service_contract__analytic_group_id
 #: model:ir.model.fields,field_description:ssi_service.field_service_type__analytic_group_id
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_type_view_search
 msgid "Analytic Group"
 msgstr ""
 
@@ -315,6 +316,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_contract__state__cancel
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_contract_fix_item_payment_term__state__cancelled
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_mixin__state__cancel
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
 msgid "Cancelled"
 msgstr ""
 
@@ -543,6 +545,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_contract__state__draft
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_contract_fix_item_payment_term__state__draft
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_mixin__state__draft
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
 msgid "Draft"
 msgstr ""
 
@@ -686,12 +689,18 @@ msgid "Integration"
 msgstr ""
 
 #. module: ssi_service
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
+msgid "Invoice Date"
+msgstr ""
+
+#. module: ssi_service
 #: model:ir.model.fields,field_description:ssi_service.field_service_contract_fix_item_payment_term_detail__invoice_line_id
 msgid "Invoice Line"
 msgstr ""
 
 #. module: ssi_service
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_contract_fix_item_payment_term__state__invoiced
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
 msgid "Invoiced"
 msgstr ""
 
@@ -788,6 +797,7 @@ msgstr ""
 #. module: ssi_service
 #: model:ir.model.fields,field_description:ssi_service.field_service_contract_fix_item_payment_term__manually_control
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_contract_fix_item_payment_term__state__manual
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
 msgid "Manually Controlled"
 msgstr ""
 
@@ -954,6 +964,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_service.field_service_contract__partner_id
 #: model:ir.model.fields,field_description:ssi_service.field_service_contract_fix_item_payment_term__partner_id
 #: model:ir.model.fields,field_description:ssi_service.field_service_mixin__partner_id
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
 #: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_view_search
 msgid "Partner"
 msgstr ""
@@ -1170,6 +1181,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_service.field_service_contract_fix_item_payment_term__service_id
 #: model:ir.module.category,name:ssi_service.service_contract_data_ownership_module_category
 #: model:ir.module.category,name:ssi_service.service_contract_workflow_module_category
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
 msgid "Service Contract"
 msgstr ""
 
@@ -1293,6 +1305,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_service.field_service_contract__state
 #: model:ir.model.fields,field_description:ssi_service.field_service_contract_fix_item_payment_term__state
 #: model:ir.model.fields,field_description:ssi_service.field_service_mixin__state
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
 msgid "State"
 msgstr ""
 
@@ -1415,6 +1428,7 @@ msgstr ""
 
 #. module: ssi_service
 #: model:ir.model.fields.selection,name:ssi_service.selection__service_contract_fix_item_payment_term__state__uninvoiced
+#: model_terms:ir.ui.view,arch_db:ssi_service.service_contract_fix_item_payment_term_view_search
 msgid "Uninvoiced"
 msgstr ""
 
