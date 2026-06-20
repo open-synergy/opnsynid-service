@@ -2,7 +2,8 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class ServiceContractFixItem(models.Model):
@@ -57,7 +58,18 @@ class ServiceContractFixItem(models.Model):
             "ssi_revenue_recognition."
             "field_performance_obligation_acceptance__qty_manual_fulfillment"
         )
-        manual_field = self.env.ref(xmlid)
+        manual_field = self.env.ref(xmlid, raise_if_not_found=False)
+        if not manual_field:
+            error_message = _(
+                """
+Context: Create Performance Obligation from service contract fix item
+Database ID: %s
+Problem: Fulfillment field reference "%s" was not found
+Solution: Make sure module ssi_revenue_recognition is installed and up to date
+"""
+                % (self.id, xmlid)
+            )
+            raise UserError(error_message)
         result = {
             "source_analytic_account_id": self.service_id.analytic_account_id.id,
             "title": self.name,

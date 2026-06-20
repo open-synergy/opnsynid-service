@@ -10,6 +10,50 @@
     <field name="mode">primary</field>
     <field name="arch" type="xml">
         <search>
+            <field name="name" />
+            <field name="service_id" />
+            <field name="partner_id" />
+            <field name="invoice_id" />
+            <field name="date_invoice" />
+            <separator />
+            <filter name="dom_draft" string="Draft" domain="[('state','=','draft')]" />
+            <filter
+                    name="dom_uninvoiced"
+                    string="Uninvoiced"
+                    domain="[('state','=','uninvoiced')]"
+                />
+            <filter
+                    name="dom_invoiced"
+                    string="Invoiced"
+                    domain="[('state','=','invoiced')]"
+                />
+            <filter
+                    name="dom_manual"
+                    string="Manually Controlled"
+                    domain="[('state','=','manual')]"
+                />
+            <filter
+                    name="dom_cancelled"
+                    string="Cancelled"
+                    domain="[('state','=','cancelled')]"
+                />
+            <separator />
+            <filter
+                    name="grp_service"
+                    string="Service Contract"
+                    context="{'group_by':'service_id'}"
+                />
+            <filter
+                    name="grp_partner"
+                    string="Partner"
+                    context="{'group_by':'partner_id'}"
+                />
+            <filter
+                    name="grp_date_invoice"
+                    string="Invoice Date"
+                    context="{'group_by':'date_invoice'}"
+                />
+            <filter name="grp_state" string="State" context="{'group_by':'state'}" />
         </search>
     </field>
 </record>
