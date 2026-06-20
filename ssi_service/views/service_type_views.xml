@@ -14,6 +14,17 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <data>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="analytic_group_id" />
+                </xpath>
+                <xpath expr="//group[@name='dom_active']" position="after">
+                    <separator />
+                    <filter
+                        name="grp_analytic_group"
+                        string="Analytic Group"
+                        context="{'group_by':'analytic_group_id'}"
+                    />
+                </xpath>
             </data>
         </field>
     </record>
