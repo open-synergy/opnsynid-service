@@ -276,6 +276,7 @@ msgstr ""
 
 #. module: ssi_service_quotation
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__contact_partner_id
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
 msgid "Contact"
 msgstr ""
 
@@ -285,7 +286,13 @@ msgid "Contact's Contact"
 msgstr ""
 
 #. module: ssi_service_quotation
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
+msgid "Contact's Contractor"
+msgstr ""
+
+#. module: ssi_service_quotation
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__contractor_id
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
 msgid "Contractor"
 msgstr ""
 
@@ -321,6 +328,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item__currency_id
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term__currency_id
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__currency_id
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
 msgid "Currency"
 msgstr ""
 
@@ -517,6 +525,7 @@ msgstr ""
 
 #. module: ssi_service_quotation
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__manager_id
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
 msgid "Manager"
 msgstr ""
 
@@ -621,6 +630,7 @@ msgstr ""
 
 #. module: ssi_service_quotation
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__partner_id
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
 msgid "Partner"
 msgstr ""
 
@@ -653,6 +663,7 @@ msgstr ""
 #. module: ssi_service_quotation
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__pricelist_id
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation_fix_item_payment_term_detail__pricelist_id
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
 msgid "Pricelist"
 msgstr ""
 
@@ -767,6 +778,7 @@ msgstr ""
 
 #. module: ssi_service_quotation
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__salesperson_id
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
 msgid "Salesperson"
 msgstr ""
 
@@ -941,6 +953,7 @@ msgstr ""
 
 #. module: ssi_service_quotation
 #: model:ir.model.fields,field_description:ssi_service_quotation.field_service_quotation__type_id
+#: model_terms:ir.ui.view,arch_db:ssi_service_quotation.service_quotation_view_search
 msgid "Type"
 msgstr ""
 
