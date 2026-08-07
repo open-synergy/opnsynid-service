@@ -24,6 +24,13 @@ class TestServiceContractFixItemPob(TransactionCase):
     Reported in ticket OFS/26/000023 -- reproduced against real data on
     contract SVC/2026/000001 (two "Jasa Renovasi Ruangan" lines, Rp
     20.975.000 and Rp 398.525.000, both wrongly linked to the same PoB).
+
+    Also covers OFS/26/000025: ``_prepare_pob_data`` used to assign the
+    line's ``amount_untaxed`` (a quantity-multiplied, possibly
+    cross-term-summed total) to the PoB's own ``price_unit`` field, instead
+    of the line's actual per-unit ``price_unit`` -- making the PoB's Price
+    Unit never match the contract item's whenever quantity != 1 or several
+    payment term lines were merged into one view row.
     """
 
     def setUp(self):
@@ -86,7 +93,7 @@ class TestServiceContractFixItemPob(TransactionCase):
         assert self.contract.state == "open"
         assert self.contract.analytic_account_id
 
-    def _create_payment_term(self, name, price_unit):
+    def _create_payment_term(self, name, price_unit, quantity=1):
         term = (
             self.env["service.contract_fix_item_payment_term"]
             .with_user(self.admin)
@@ -108,8 +115,8 @@ class TestServiceContractFixItemPob(TransactionCase):
                     "name": self.product.name,
                     "account_id": self.income_account.id,
                     "price_unit": price_unit,
-                    "quantity": 1,
-                    "uom_quantity": 1,
+                    "quantity": quantity,
+                    "uom_quantity": quantity,
                     "uom_id": self.uom.id,
                     "sequence": 10,
                 }
@@ -195,7 +202,12 @@ class TestServiceContractFixItemPob(TransactionCase):
         item = self._get_fix_items()
         self.assertTrue(item.pob_id)
         self.assertEqual(item.pob_id.uom_quantity, 2)
-        self.assertEqual(item.pob_id.price_unit, 30000000)
+        # price_unit must mirror the *per-unit* price shown on the
+        # contract's Items list (OFS/26/000026) -- price_subtotal (=
+        # price_unit * uom_quantity, computed by mixin.product_line_price)
+        # is where the summed total belongs, not price_unit itself.
+        self.assertEqual(item.pob_id.price_unit, 15000000)
+        self.assertEqual(item.pob_id.price_subtotal, 30000000)
 
         item.action_create_pob()
         self.assertEqual(
@@ -207,7 +219,43 @@ class TestServiceContractFixItemPob(TransactionCase):
                         self.contract.analytic_account_id.id,
                     ),
                     ("product_id", "=", self.product.id),
-                    ("price_unit", "=", 30000000),
+                    ("price_unit", "=", 15000000),
+                ]
+            ),
+            1,
+            "calling action_create_pob again must not create a duplicate PoB",
+        )
+
+    def test_pob_price_unit_matches_item_when_quantity_not_one(self):
+        """OFS/26/000026: a single contract item line with quantity != 1
+        must produce a PoB whose price_unit still matches the item's own
+        price_unit -- not amount_untaxed (price_unit * quantity), which is
+        what _prepare_pob_data used to (wrongly) assign to price_unit."""
+        self._create_payment_term("Term 1", 5000000, quantity=3)
+
+        item = self._get_fix_items()
+        self.assertEqual(len(item), 1)
+        self.assertEqual(item.price_unit, 5000000)
+        self.assertEqual(item.amount_untaxed, 15000000)
+
+        item.action_create_pob()
+
+        item = self._get_fix_items()
+        self.assertEqual(item.pob_id.price_unit, 5000000)
+        self.assertEqual(item.pob_id.uom_quantity, 3)
+        self.assertEqual(item.pob_id.price_subtotal, 15000000)
+
+        item.action_create_pob()
+        self.assertEqual(
+            self.env["performance_obligation"].search_count(
+                [
+                    (
+                        "source_analytic_account_id",
+                        "=",
+                        self.contract.analytic_account_id.id,
+                    ),
+                    ("product_id", "=", self.product.id),
+                    ("price_unit", "=", 5000000),
                 ]
             ),
             1,
