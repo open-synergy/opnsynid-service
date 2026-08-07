@@ -21,8 +21,27 @@ class ServiceContractFixItem(models.Model):
     @api.depends(
         "service_id.analytic_account_id",
         "product_id",
+        "amount_untaxed",
     )
     def _compute_pob_id(self):
+        """Find the PoB already created for this line, if any.
+
+        ``service.contract_fix_item`` is a SQL view (see
+        ``ssi_service.models.service_contract_fix_item``) that groups the
+        underlying payment term detail rows by
+        ``product_id, product_category_id, name, price_unit, uom_id`` --
+        summing quantity/amounts across matching rows. Two lines that only
+        match by ``product_id`` (the previous search criteria here) can
+        still be *different* view rows when their ``price_unit`` differs,
+        so matching on product alone wrongly linked both to the first
+        line's PoB -- silently dropping the second line's amount from the
+        contract's total Performance Obligation. Including ``price_unit``
+        (via ``amount_untaxed``, which mirrors the view's per-line total
+        used when the PoB was created -- see ``_prepare_pob_data``) makes
+        the search key match the view's own grouping, so each distinct
+        view row gets its own PoB while rows the view already merged
+        (matching product/price) keep sharing one.
+        """
         for record in self:
             result = False
             if record.service_id.analytic_account_id and record.product_id:
@@ -34,6 +53,7 @@ class ServiceContractFixItem(models.Model):
                         record.service_id.analytic_account_id.id,
                     ),
                     ("product_id", "=", record.product_id.id),
+                    ("price_unit", "=", record.amount_untaxed),
                 ]
                 pobs = PoB.search(criteria)
                 if pobs:
@@ -51,6 +71,16 @@ class ServiceContractFixItem(models.Model):
         PoB = self.env["performance_obligation"]
         data = self._prepare_pob_data()
         PoB.create(data)
+        # pob_id is compute+store=False with a search() inside (see
+        # _compute_pob_id) rather than a real relational field path, so
+        # Odoo's @api.depends graph has no way to know that creating this
+        # new PoB should invalidate the pob_id already cached (as False)
+        # for this record from the `if self.pob_id:` check above -- it
+        # would otherwise keep reading stale from cache for the rest of
+        # this transaction. Force a fresh compute so callers that keep
+        # using this record/transaction (scripts, tests, other lines
+        # processed by the same action_create_pob call) see it right away.
+        self.invalidate_cache(fnames=["pob_id"], ids=self.ids)
 
     def _prepare_pob_data(self):
         self.ensure_one()
