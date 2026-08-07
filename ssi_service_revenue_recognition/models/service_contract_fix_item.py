@@ -21,7 +21,7 @@ class ServiceContractFixItem(models.Model):
     @api.depends(
         "service_id.analytic_account_id",
         "product_id",
-        "amount_untaxed",
+        "price_unit",
     )
     def _compute_pob_id(self):
         """Find the PoB already created for this line, if any.
@@ -35,12 +35,13 @@ class ServiceContractFixItem(models.Model):
         still be *different* view rows when their ``price_unit`` differs,
         so matching on product alone wrongly linked both to the first
         line's PoB -- silently dropping the second line's amount from the
-        contract's total Performance Obligation. Including ``price_unit``
-        (via ``amount_untaxed``, which mirrors the view's per-line total
-        used when the PoB was created -- see ``_prepare_pob_data``) makes
-        the search key match the view's own grouping, so each distinct
-        view row gets its own PoB while rows the view already merged
-        (matching product/price) keep sharing one.
+        contract's total Performance Obligation. Matching on ``price_unit``
+        (the same field the view itself groups by -- see
+        ``_prepare_pob_data`` for why the PoB's own ``price_unit`` mirrors
+        this record's ``price_unit`` and not ``amount_untaxed``) makes the
+        search key match the view's own grouping, so each distinct view
+        row gets its own PoB while rows the view already merged (matching
+        product/price) keep sharing one.
         """
         for record in self:
             result = False
@@ -53,7 +54,7 @@ class ServiceContractFixItem(models.Model):
                         record.service_id.analytic_account_id.id,
                     ),
                     ("product_id", "=", record.product_id.id),
-                    ("price_unit", "=", record.amount_untaxed),
+                    ("price_unit", "=", record.price_unit),
                 ]
                 pobs = PoB.search(criteria)
                 if pobs:
@@ -108,7 +109,15 @@ Solution: Make sure module ssi_revenue_recognition is installed and up to date
             "currency_id": self.currency_id.id,
             "uom_quantity": self.quantity,
             "uom_id": self.product_id.uom_id.id,
-            "price_unit": self.amount_untaxed,
+            # PoB's own price_subtotal is computed as price_unit *
+            # uom_quantity (mixin.product_line_price._compute_price), so
+            # this must be the per-unit price shown on the contract's
+            # Items list -- not amount_untaxed (the line's already
+            # quantity-multiplied, and possibly cross-term-summed, total).
+            # Using amount_untaxed here made the PoB's "Price Unit" not
+            # match the contract item's whenever quantity != 1 or multiple
+            # payment term lines were merged into one view row.
+            "price_unit": self.price_unit,
             "progress_completion_method": "input",
             "revenue_recognition_timing": "point_in_time",
             "fulfillment_field_id": manual_field.id,
