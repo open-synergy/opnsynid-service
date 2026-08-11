@@ -4,7 +4,7 @@
 
 {
     "name": "Service - Revenue Recognition",
-    "version": "14.0.2.1.2",
+    "version": "14.0.2.2.0",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "license": "AGPL-3",
