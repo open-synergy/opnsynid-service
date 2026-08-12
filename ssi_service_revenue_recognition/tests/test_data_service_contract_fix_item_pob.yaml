@@ -1,0 +1,449 @@
+scenarios:
+  - name: "PoB price_unit is the per-unit untaxed price (OFS/26/000026)"
+    steps:
+      - step: "Get income account"
+        action: "search"
+        model: "account.account"
+        domain: [["user_type_id.internal_group", "=", "income"]]
+        save_as: "income_account"
+        limit: 1
+
+      - step: "Get generic unit of measure"
+        action: "ref"
+        xml_id: "uom.product_uom_unit"
+        save_as: "uom"
+
+      - step: "Get default pricelist"
+        action: "ref"
+        xml_id: "product.list0"
+        save_as: "pricelist"
+
+      - step: "Create 25% price-included sale tax"
+        action: "create"
+        model: "account.tax"
+        save_as: "tax25"
+        as_user: "base.user_admin"
+        values:
+          name: "Test PPN 25% Incl - PoB price_unit"
+          amount: 25.0
+          amount_type: "percent"
+          type_tax_use: "sale"
+          price_include: true
+          company_id: "REC: company.id"
+
+      - step: "Create test partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Partner - PoB price_unit"
+          is_company: true
+
+      - step: "Create test service type"
+        action: "create"
+        model: "service.type"
+        save_as: "service_type"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Service Type - PoB price_unit"
+          code: "POBPU1"
+
+      - step: "Create test product"
+        action: "create"
+        model: "product.product"
+        save_as: "product"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Lumpsum Service - PoB price_unit"
+          type: "service"
+          uom_id: "REC: uom.id"
+          uom_po_id: "REC: uom.id"
+
+      - step: "Create service contract"
+        action: "create"
+        model: "service.contract"
+        save_as: "contract"
+        as_user: "base.user_admin"
+        values:
+          title: "Test Service Contract - PoB price_unit"
+          partner_id: "REC: partner.id"
+          type_id: "REC: service_type.id"
+          manager_id: "REF: base.user_admin"
+          salesperson_id: "REF: base.user_admin"
+          pricelist_id: "REC: pricelist.id"
+          currency_id: "REC: company.currency_id.id"
+          date: "2026-01-01"
+          date_start: "2026-01-01"
+          date_end: "2026-12-31"
+
+      - step: "Confirm contract"
+        action: "call"
+        target: "contract"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+
+      - step: "Assert confirmed (forces refresh before approve reads policy)"
+        action: "assert"
+        target: "contract"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Approve contract (opens it, auto-creates analytic account)"
+        action: "call"
+        target: "contract"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        context:
+          bypass_policy_check: true
+
+      - step: "Assert contract open with its own analytic account"
+        action: "assert"
+        target: "contract"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+          analytic_account_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Create payment term"
+        action: "create"
+        model: "service.contract_fix_item_payment_term"
+        save_as: "term"
+        as_user: "base.user_admin"
+        values:
+          service_id: "REC: contract.id"
+          name: "Term 1"
+          sequence: 10
+
+      - step: "Create payment term detail (qty 4, tax-inclusive unit price 500)"
+        action: "create"
+        model: "service.contract_fix_item_payment_term_detail"
+        save_as: "detail"
+        as_user: "base.user_admin"
+        values:
+          term_id: "REC: term.id"
+          product_id: "REC: product.id"
+          name: "REC: product.name"
+          account_id: "REC: income_account.id"
+          price_unit: 500
+          quantity: 4
+          uom_quantity: 4
+          uom_id: "REC: uom.id"
+          tax_ids:
+            - - 6
+              - 0
+              - - "REC: tax25.id"
+          sequence: 10
+
+      - step: "Fetch the contract fix item view row"
+        action: "search"
+        model: "service.contract_fix_item"
+        domain:
+          - ["service_id", "=", "REC: contract.id"]
+          - ["product_id", "=", "REC: product.id"]
+        save_as: "item"
+        refresh: true
+        expect_count: 1
+
+      - step: "Assert item's own untaxed total (500 tax-incl x 4 / 1.25)"
+        action: "assert"
+        target: "item"
+        asserts:
+          quantity:
+            type: "value"
+            expected: 4.0
+          price_unit:
+            type: "value"
+            expected: 500.0
+          amount_untaxed:
+            type: "value"
+            expected: 1600.0
+
+      - step: "Create the PoB from the item"
+        action: "call"
+        target: "item"
+        method: "action_create_pob"
+        as_user: "base.user_admin"
+
+      - step: "Assert item now links to a PoB"
+        action: "assert"
+        target: "item"
+        refresh: true
+        asserts:
+          pob_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Fetch the created PoB"
+        action: "search"
+        model: "performance_obligation"
+        domain:
+          - ["source_analytic_account_id", "=", "REC: contract.analytic_account_id.id"]
+          - ["product_id", "=", "REC: product.id"]
+        save_as: "pob"
+        refresh: true
+        expect_count: 1
+
+      - step:
+          "Assert PoB price_unit is per-unit untaxed, price_subtotal matches
+          amount_untaxed"
+        action: "assert"
+        target: "pob"
+        asserts:
+          uom_quantity:
+            type: "value"
+            expected: 4.0
+          price_unit:
+            # 400 = amount_untaxed (1600) / quantity (4) -- not the raw
+            # contract item's own (tax-inclusive) price_unit of 500.
+            type: "value"
+            expected: 400.0
+          price_subtotal:
+            type: "value"
+            expected: "REC: item.amount_untaxed"
+
+  - name: "Distinct-price lines get distinct PoBs; action_create_pob is idempotent"
+    steps:
+      - step: "Get income account"
+        action: "search"
+        model: "account.account"
+        domain: [["user_type_id.internal_group", "=", "income"]]
+        save_as: "income_account"
+        limit: 1
+
+      - step: "Get generic unit of measure"
+        action: "ref"
+        xml_id: "uom.product_uom_unit"
+        save_as: "uom"
+
+      - step: "Get default pricelist"
+        action: "ref"
+        xml_id: "product.list0"
+        save_as: "pricelist"
+
+      - step: "Create test partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Partner - PoB distinct price"
+          is_company: true
+
+      - step: "Create test service type"
+        action: "create"
+        model: "service.type"
+        save_as: "service_type"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Service Type - PoB distinct price"
+          code: "POBPU2"
+
+      - step: "Create test product"
+        action: "create"
+        model: "product.product"
+        save_as: "product"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Lumpsum Service - PoB distinct price"
+          type: "service"
+          uom_id: "REC: uom.id"
+          uom_po_id: "REC: uom.id"
+
+      - step: "Create service contract"
+        action: "create"
+        model: "service.contract"
+        save_as: "contract"
+        as_user: "base.user_admin"
+        values:
+          title: "Test Service Contract - PoB distinct price"
+          partner_id: "REC: partner.id"
+          type_id: "REC: service_type.id"
+          manager_id: "REF: base.user_admin"
+          salesperson_id: "REF: base.user_admin"
+          pricelist_id: "REC: pricelist.id"
+          currency_id: "REC: company.currency_id.id"
+          date: "2026-01-01"
+          date_start: "2026-01-01"
+          date_end: "2026-12-31"
+
+      - step: "Confirm contract"
+        action: "call"
+        target: "contract"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+
+      - step: "Assert confirmed (forces refresh before approve reads policy)"
+        action: "assert"
+        target: "contract"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Approve contract"
+        action: "call"
+        target: "contract"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        context:
+          bypass_policy_check: true
+
+      - step: "Assert contract open"
+        action: "assert"
+        target: "contract"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+
+      - step: "Create payment term"
+        action: "create"
+        model: "service.contract_fix_item_payment_term"
+        save_as: "term"
+        as_user: "base.user_admin"
+        values:
+          service_id: "REC: contract.id"
+          name: "Term 1"
+          sequence: 10
+
+      - step: "Create low-price detail line"
+        action: "create"
+        model: "service.contract_fix_item_payment_term_detail"
+        save_as: "detail_low"
+        as_user: "base.user_admin"
+        values:
+          term_id: "REC: term.id"
+          product_id: "REC: product.id"
+          name: "REC: product.name"
+          account_id: "REC: income_account.id"
+          price_unit: 200000
+          quantity: 1
+          uom_quantity: 1
+          uom_id: "REC: uom.id"
+          sequence: 10
+
+      - step: "Create high-price detail line"
+        action: "create"
+        model: "service.contract_fix_item_payment_term_detail"
+        save_as: "detail_high"
+        as_user: "base.user_admin"
+        values:
+          term_id: "REC: term.id"
+          product_id: "REC: product.id"
+          name: "REC: product.name"
+          account_id: "REC: income_account.id"
+          price_unit: 500000
+          quantity: 1
+          uom_quantity: 1
+          uom_id: "REC: uom.id"
+          sequence: 20
+
+      - step: "Fetch the low-price item row"
+        action: "search"
+        model: "service.contract_fix_item"
+        domain:
+          - ["service_id", "=", "REC: contract.id"]
+          - ["product_id", "=", "REC: product.id"]
+          - ["price_unit", "=", 200000]
+        save_as: "item_low"
+        refresh: true
+        expect_count: 1
+
+      - step: "Fetch the high-price item row"
+        action: "search"
+        model: "service.contract_fix_item"
+        domain:
+          - ["service_id", "=", "REC: contract.id"]
+          - ["product_id", "=", "REC: product.id"]
+          - ["price_unit", "=", 500000]
+        save_as: "item_high"
+        expect_count: 1
+
+      - step: "Neither item has a PoB yet"
+        action: "assert"
+        target: "item_low"
+        asserts:
+          pob_id:
+            type: "value"
+            operator: "is_falsy"
+
+      - step: "Create PoB for the low-price item"
+        action: "call"
+        target: "item_low"
+        method: "action_create_pob"
+        as_user: "base.user_admin"
+
+      - step: "Create PoB for the high-price item"
+        action: "call"
+        target: "item_high"
+        method: "action_create_pob"
+        as_user: "base.user_admin"
+
+      - step: "Re-fetch both items with fresh pob_id"
+        action: "search"
+        model: "service.contract_fix_item"
+        domain:
+          - ["service_id", "=", "REC: contract.id"]
+          - ["product_id", "=", "REC: product.id"]
+          - ["price_unit", "=", 200000]
+        save_as: "item_low"
+        refresh: true
+        expect_count: 1
+
+      - step: "Assert low-price item's PoB"
+        action: "assert"
+        target: "item_low"
+        asserts:
+          pob_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Re-fetch high-price item with fresh pob_id"
+        action: "search"
+        model: "service.contract_fix_item"
+        domain:
+          - ["service_id", "=", "REC: contract.id"]
+          - ["product_id", "=", "REC: product.id"]
+          - ["price_unit", "=", 500000]
+        save_as: "item_high"
+        refresh: true
+        expect_count: 1
+
+      - step: "Assert high-price item's PoB differs from the low-price one's"
+        action: "assert"
+        target: "item_high"
+        asserts:
+          pob_id:
+            type: "value"
+            operator: "is_truthy"
+          pob_id.id:
+            type: "value"
+            operator: "not_equals"
+            expected: "REC: item_low.pob_id.id"
+
+      - step: "Calling action_create_pob again must not duplicate the PoB"
+        action: "call"
+        target: "item_low"
+        method: "action_create_pob"
+        as_user: "base.user_admin"
+
+      - step: "Assert only one PoB exists for the low price"
+        action: "search"
+        model: "performance_obligation"
+        domain:
+          - ["source_analytic_account_id", "=", "REC: contract.analytic_account_id.id"]
+          - ["product_id", "=", "REC: product.id"]
+          - ["price_unit", "=", 200000]
+        save_as: "pob_low_all"
+        refresh: true
+        expect_count: 1
