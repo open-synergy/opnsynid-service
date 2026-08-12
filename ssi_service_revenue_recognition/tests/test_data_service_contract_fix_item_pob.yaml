@@ -191,7 +191,9 @@ scenarios:
         refresh: true
         expect_count: 1
 
-      - step: "Assert PoB price_unit is per-unit untaxed, price_subtotal matches amount_untaxed"
+      - step:
+          "Assert PoB price_unit is per-unit untaxed, price_subtotal matches
+          amount_untaxed"
         action: "assert"
         target: "pob"
         asserts:
