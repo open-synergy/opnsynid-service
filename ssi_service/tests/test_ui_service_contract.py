@@ -97,6 +97,7 @@ class TestUiServiceContract(HttpSavepointCase):
             "date_start": "2026-01-01",
             "date_end": "2026-12-31",
             "currency_id": cls.env.ref("base.USD").id,
+            "pricelist_id": cls.env.ref("product.list0").id,
         }
 
         # 02-edit
