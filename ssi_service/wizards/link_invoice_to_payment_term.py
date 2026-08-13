@@ -6,11 +6,23 @@ from odoo import api, fields, models
 
 
 class LinkInvoiceToPaymentTerm(models.TransientModel):
+    """Wizard to link an existing invoice to a contract payment term.
+
+    Opened from the **Link Invoice** row button on
+    ``service.contract_fix_item_payment_term`` (state ``uninvoiced``);
+    lets the user pick an already-posted customer invoice instead of
+    generating a new one via ``action_create_invoice``.
+    """
+
     _name = "link_invoice_to_payment_term"
     _description = "Link Invoice To Service Contract Payment Term"
 
     @api.model
     def _default_contract_id(self):
+        """Default ``term_id`` to the record the wizard was opened from.
+
+        :return: int or False, the ``active_id`` from the context.
+        """
         return self.env.context.get("active_id", False)
 
     term_id = fields.Many2one(
@@ -34,6 +46,10 @@ class LinkInvoiceToPaymentTerm(models.TransientModel):
         "term_id",
     )
     def _compute_allowed_invoice_ids(self):
+        """Restrict selectable invoices to posted ones of the partner.
+
+        :return: None, sets ``allowed_invoice_ids`` on each record.
+        """
         AM = self.env["account.move"]
         for record in self:
             criteria = [
@@ -45,10 +61,15 @@ class LinkInvoiceToPaymentTerm(models.TransientModel):
             record.allowed_invoice_ids = result
 
     def action_confirm(self):
+        """Apply the chosen invoice to the payment term (button entry).
+
+        :return: None.
+        """
         for record in self.sudo():
             record._confirm()
 
     def _confirm(self):
+        """Write the selected ``invoice_id`` onto ``term_id``."""
         self.ensure_one()
         self.term_id.write(
             {

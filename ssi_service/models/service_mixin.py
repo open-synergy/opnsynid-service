@@ -6,6 +6,18 @@ from odoo import api, fields, models
 
 
 class ServiceMixin(models.AbstractModel):
+    """Base state machine and fields shared by service documents.
+
+    Combines the confirm/open/done/cancel transaction mixins with
+    partner, pricelist, salesperson, source document, and date-duration
+    fields. State flow: ``draft`` -> ``confirm`` (approval) ->
+    ``open`` (via ``_after_approved_method``) -> ``done``, with
+    ``cancel``/``reject`` as terminal states reachable from the states
+    declared in the policy template. Concrete models such as
+    ``service.contract`` add their own fields and terminate workflow on
+    top of this mixin.
+    """
+
     _name = "service.mixin"
     _inherit = [
         "mixin.transaction_confirm",
@@ -235,6 +247,11 @@ class ServiceMixin(models.AbstractModel):
         "contractor_id",
     )
     def _compute_allowed_contact_contractor_ids(self):
+        """Restrict selectable contacts to the contractor's own contacts.
+
+        :return: None, sets ``allowed_contact_contractor_ids`` on each
+            record.
+        """
         Partner = self.env["res.partner"]
         for record in self:
             result = []
@@ -253,6 +270,12 @@ class ServiceMixin(models.AbstractModel):
 
     @api.depends("policy_template_id")
     def _compute_policy(self):
+        """Recompute the ``*_ok`` policy fields via the parent mixin.
+
+        :return: None. Delegates entirely to
+            ``mixin.policy._compute_policy``; declared here only so
+            ``policy_template_id`` stays a valid dependency trigger.
+        """
         _super = super(ServiceMixin, self)
         _super._compute_policy()
 
@@ -275,6 +298,11 @@ class ServiceMixin(models.AbstractModel):
 
     @api.model
     def _get_under_approval_exceptions(self):
+        """Allow ``name`` to be written while the document is confirmed.
+
+        :return: list of field names exempted from the "document is
+            under approval process" write lock.
+        """
         _super = super(ServiceMixin, self)
         result = _super._get_under_approval_exceptions()
         result.append("name")
@@ -285,6 +313,10 @@ class ServiceMixin(models.AbstractModel):
         "type_id",
     )
     def _compute_allowed_pricelist_ids(self):
+        """Restrict selectable pricelists to the type's allowed currency.
+
+        :return: None, sets ``allowed_pricelist_ids`` on each record.
+        """
         Pricelist = self.env["product.pricelist"]
         for record in self:
             result = False
@@ -304,6 +336,11 @@ class ServiceMixin(models.AbstractModel):
         "fix_item_payment_term_ids.amount_total",
     )
     def _compute_amount(self):
+        """Sum ``fix_item_payment_term_ids`` amounts into the totals.
+
+        :return: None, sets ``amount_untaxed``/``amount_tax``/
+            ``amount_total`` on each record.
+        """
         for record in self:
             amount_untaxed = amount_tax = amount_total = 0.0
             for term in record.fix_item_payment_term_ids:

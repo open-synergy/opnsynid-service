@@ -6,6 +6,13 @@ from odoo import api, fields, models
 
 
 class ServiceContractFixItemPaymentTermDetail(models.Model):
+    """One product line of a service contract payment term.
+
+    Child of ``service.contract_fix_item_payment_term`` (``detail_ids``).
+    Each line is turned into an invoice line by :meth:`_prepare_invoice_line`
+    when its parent term is invoiced.
+    """
+
     _name = "service.contract_fix_item_payment_term_detail"
     _description = "Service Fix Item Payment Term Detail"
     _inherit = [
@@ -34,9 +41,19 @@ class ServiceContractFixItemPaymentTermDetail(models.Model):
         "currency_id",
     )
     def onchange_pricelist_id(self):
-        pass
+        """Placeholder onchange kept for pricelist-related overrides.
+
+        :return: None. Deliberately empty: ``pricelist_id`` is a
+            ``related`` field, so there is nothing to recompute here;
+            the hook exists as an extension point for modules that add
+            pricelist-driven pricing.
+        """
 
     def _prepare_invoice_line(self):
+        """Build the ``(0, 0, {...})`` tuple for this line's invoice line.
+
+        :return: dict of values matching ``account.move.line`` fields.
+        """
         self.ensure_one()
         payment_term = self.term_id
         contract = payment_term.service_id

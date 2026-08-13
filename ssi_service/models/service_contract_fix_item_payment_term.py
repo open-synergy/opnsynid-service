@@ -6,6 +6,14 @@ from odoo import api, fields, models
 
 
 class ServiceContractFixItemPaymentTerm(models.Model):
+    """One payment term line of a service contract.
+
+    Child of ``service.contract`` (``fix_item_payment_term_ids``). Each
+    line can be linked to a customer invoice, either automatically via
+    :meth:`_create_invoice` or manually via :meth:`action_mark_as_manual`;
+    :attr:`state` reflects that invoicing status.
+    """
+
     _name = "service.contract_fix_item_payment_term"
     _inherit = ["service.fix_item_payment_term_mixin"]
     _description = "Service Contract Fix Item Payment Term"
@@ -16,6 +24,10 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         "manually_control",
     )
     def _compute_state(self):
+        """Derive the invoicing state from the contract and invoice link.
+
+        :return: None, sets ``state`` on each record.
+        """
         for record in self:
             if record.service_id.state in ["draft", "confirm", "approve"]:
                 state = "draft"
@@ -70,26 +82,47 @@ class ServiceContractFixItemPaymentTerm(models.Model):
     )
 
     def action_create_invoice(self):
+        """Create and link a customer invoice for each selected line.
+
+        :return: None.
+        """
         for record in self.sudo():
             record._create_invoice()
 
     def action_delete_invoice(self):
+        """Unlink and delete the invoice tied to each selected line.
+
+        :return: None.
+        """
         for record in self.sudo():
             record._delete_invoice()
 
     def action_disconnect_invoice(self):
+        """Detach the invoice from each selected line without deleting it.
+
+        :return: None.
+        """
         for record in self.sudo():
             record._disconnect_invoice()
 
     def action_mark_as_manual(self):
+        """Flag each selected line as manually invoiced.
+
+        :return: None.
+        """
         for record in self.sudo():
             record._mark_as_manual()
 
     def action_unmark_as_manual(self):
+        """Clear the manual-invoicing flag on each selected line.
+
+        :return: None.
+        """
         for record in self.sudo():
             record._unmark_as_manual()
 
     def _mark_as_manual(self):
+        """Set ``manually_control`` to ``True`` on this line."""
         self.ensure_one()
         self.write(
             {
@@ -98,6 +131,7 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         )
 
     def _unmark_as_manual(self):
+        """Set ``manually_control`` to ``False`` on this line."""
         self.ensure_one()
         self.write(
             {
@@ -106,6 +140,10 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         )
 
     def _create_invoice(self):
+        """Create a customer invoice from :meth:`_prepare_invoice_data`.
+
+        :return: None, links the new ``account.move`` to ``invoice_id``.
+        """
         self.ensure_one()
         invoice = self.env["account.move"].create(self._prepare_invoice_data())
         self.write(
@@ -115,6 +153,7 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         )
 
     def _disconnect_invoice(self):
+        """Clear ``invoice_id`` without deleting the linked invoice."""
         self.ensure_one()
         self.write(
             {
@@ -123,16 +162,30 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         )
 
     def _get_fix_item_receivable_journal(self):
+        """Return the journal used for this line's invoice.
+
+        :return: ``account.journal`` recordset, an extension point that
+            modules integrating other journal sources may override.
+        """
         self.ensure_one()
         contract = self.service_id
         return contract.fix_item_receivable_journal_id
 
     def _get_fix_item_receivable_account(self):
+        """Return the receivable account used for this line's invoice.
+
+        :return: ``account.account`` recordset, an extension point that
+            modules integrating other account sources may override.
+        """
         self.ensure_one()
         contract = self.service_id
         return contract.fix_item_receivable_account_id
 
     def _prepare_invoice_data(self):
+        """Build the ``create`` values for this line's invoice.
+
+        :return: dict of values matching ``account.move`` fields.
+        """
         self.ensure_one()
         contract = self.service_id
         if contract.contractor_id:
@@ -164,6 +217,10 @@ class ServiceContractFixItemPaymentTerm(models.Model):
         }
 
     def _delete_invoice(self):
+        """Detach and delete the invoice linked to this line.
+
+        :return: None.
+        """
         self.ensure_one()
         invoice = self.invoice_id
         self.detail_ids.write({"invoice_line_id": False})

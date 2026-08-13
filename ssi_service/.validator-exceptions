@@ -1,0 +1,9 @@
+# Penyimpangan sah untuk res.config.settings — bukan wizard SSI, melainkan
+# inherit dari model core Odoo `res.config.settings`. Memindah berkas ke
+# wizards/, mengganti `_name`, atau menambah ACL *_all_access akan
+# melanggar Prinsip Inti #3 skill odoo-development (larangan rename
+# model) dan kontrak res.config.settings core Odoo. Lihat Keputusan
+# Desain issue open-synergy/opnsynid-service#103.
+module name-wizard-tanpa-notasi-titik|models/res_config_settings.py: _name 'res.config.settings' memakai notasi titik -- res.config.settings inherit model core Odoo, bukan wizard SSI; _name tidak boleh diganti (Prinsip Inti #3 odoo-development).
+module berkas-wizard-berada-di-wizards|models/res_config_settings.py: TransientModel di luar wizards/ -- res.config.settings adalah extension model core Odoo yang secara konvensi SSI ditaruh di models/, bukan wizards/, karena bukan wizard aksi.
+module acl-wizard-satu-user-access-tanpa-all-access|res.config.settings: tidak ada ACL sama sekali -- res.config.settings mewarisi ACL dari model core res.config.settings (base), modul ini hanya menambah field sehingga tidak perlu ACL sendiri.

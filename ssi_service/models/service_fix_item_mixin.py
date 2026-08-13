@@ -6,6 +6,14 @@ from odoo import fields, models
 
 
 class ServiceFixItemMixin(models.AbstractModel):
+    """Shared fields for a service fix item line.
+
+    Provides the product/quantity/amount fields common to any concrete
+    fix item model that links back to a ``service.mixin`` record via
+    ``service_id``. This is an abstract, non-stored contract: concrete
+    models decide how ``service_id`` and the amount fields are computed.
+    """
+
     _name = "service.fix_item_mixin"
     _description = "Service Fix Item Mixin"
     _order = "service_id, sequence, id"

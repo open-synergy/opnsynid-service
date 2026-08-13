@@ -6,6 +6,13 @@ from odoo import fields, models
 
 
 class ServiceType(models.Model):
+    """Master data configuring a category of service contract.
+
+    Restricts which products/product categories, pricelists, and
+    analytic group a ``service.contract`` of this type may use, and
+    supplies the default fix item receivable journal/account.
+    """
+
     _name = "service.type"
     _inherit = [
         "mixin.master_data",

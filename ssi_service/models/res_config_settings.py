@@ -6,6 +6,13 @@ from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
+    """Adds the Service app toggles to General Settings.
+
+    Inherits Odoo core's ``res.config.settings`` (not an SSI wizard) to
+    expose the install-time module flags for ``ssi_service`` and
+    ``ssi_service_quotation``.
+    """
+
     _name = "res.config.settings"
     _inherit = [
         "res.config.settings",
