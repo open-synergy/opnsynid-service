@@ -6,6 +6,13 @@ from odoo import api, fields, models
 
 
 class ServiceFixItemPaymentTermMixin(models.AbstractModel):
+    """Shared fields for a service payment term line.
+
+    Provides ``detail_ids`` (product lines) plus the untaxed/tax/total
+    amounts computed from them, and links back to the parent
+    ``service.mixin`` record via ``service_id``.
+    """
+
     _name = "service.fix_item_payment_term_mixin"
     _description = "Service Fix Item Payment Term Mixin"
     _order = "sequence, id"
@@ -17,6 +24,11 @@ class ServiceFixItemPaymentTermMixin(models.AbstractModel):
         "detail_ids.price_total",
     )
     def _compute_total(self):
+        """Sum ``detail_ids`` amounts into the term's total fields.
+
+        :return: None, sets ``amount_untaxed``/``amount_tax``/
+            ``amount_total`` on each record.
+        """
         for record in self:
             amount_untaxed = amount_tax = amount_total = 0.0
             for detail in record.detail_ids:

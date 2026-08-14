@@ -20,7 +20,6 @@
                         string="Confirm"
                         name="action_confirm"
                         type="object"
-                        class="oe_highlight"
                         confirm="Are you sure?"
                     />
                 or

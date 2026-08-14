@@ -19,6 +19,21 @@ To install this module, you need to:
 5.  Search For *Service*
 6.  Install the module
 
+Work Instruction
+================
+
+* `Create Service Contract <docs/service_contract/01-create.html>`_
+* `Edit Service Contract <docs/service_contract/02-edit.html>`_
+* `Delete Service Contract <docs/service_contract/03-delete.html>`_
+* `Confirm Service Contract <docs/service_contract/04-confirm.html>`_
+* `Approve Service Contract <docs/service_contract/05-approve.html>`_
+* `Reject Service Contract <docs/service_contract/06-reject.html>`_
+* `Finish Service Contract <docs/service_contract/09-finish.html>`_
+* `Cancel Service Contract <docs/service_contract/10-cancel.html>`_
+* `Terminate Service Contract <docs/service_contract/11-terminate.html>`_
+* `Restart Service Contract <docs/service_contract/12-restart.html>`_
+* `Reset Document Number - Service Contract <docs/service_contract/13-reset-number.html>`_
+
 Bug Tracker
 ===========
 

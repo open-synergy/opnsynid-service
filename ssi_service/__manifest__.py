@@ -24,6 +24,7 @@
         "ssi_product_line_account_mixin",
         "ssi_transaction_salesperson_mixin",
         "ssi_cost_accounting",
+        "web_tour",
     ],
     "data": [
         "security/ir_module_category_data.xml",
@@ -40,6 +41,7 @@
         "views/service_type_views.xml",
         "views/service_contract_views.xml",
         "views/service_contract_fix_item_payment_term_views.xml",
+        "views/assets.xml",
     ],
     "demo": [],
 }

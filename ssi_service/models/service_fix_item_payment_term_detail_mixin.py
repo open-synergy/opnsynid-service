@@ -6,6 +6,13 @@ from odoo import fields, models
 
 
 class ServiceFixItemPaymentTermDetailMixin(models.AbstractModel):
+    """Shared fields for a service payment term detail line.
+
+    Extends ``mixin.product_line_account`` with ``term_id`` linking back
+    to the parent ``service.fix_item_payment_term_mixin`` record and a
+    ``currency_id`` related to that parent's contract currency.
+    """
+
     _name = "service.fix_item_payment_term_detail_mixin"
     _description = "Service Fix Item Payment Term Detail Mixin"
     _order = "sequence, product_category_id, product_id, id"

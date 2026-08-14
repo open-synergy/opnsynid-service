@@ -1,3 +1,6 @@
+options:
+  auto_refresh: true
+
 scenarios:
   - name: "Service Type - Create and Verify"
     steps:
@@ -82,11 +85,6 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      - step: "Invalidate cache after confirm"
-        action: "call"
-        target: "contract"
-        method: "invalidate_cache"
-
       - step: "Approve contract"
         action: "call"
         target: "contract"
@@ -96,11 +94,6 @@ scenarios:
           state:
             type: "value"
             expected: "open"
-
-      - step: "Invalidate cache after approve"
-        action: "call"
-        target: "contract"
-        method: "invalidate_cache"
 
       - step: "Assert analytic account created"
         action: "assert"
