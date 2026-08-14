@@ -19,6 +19,12 @@ To install this module, you need to:
 5.  Search For *ServicService Quotatione*
 6.  Install the module
 
+Work Instruction
+================
+
+* `Create Service Contract <docs/service_contract/01-create.html>`_
+* `Approve Service Contract <docs/service_contract/05-approve.html>`_
+
 Bug Tracker
 ===========
 

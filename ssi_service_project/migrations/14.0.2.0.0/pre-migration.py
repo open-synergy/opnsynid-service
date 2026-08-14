@@ -5,6 +5,17 @@ import logging
 
 
 def migrate(cr, version):
+    """Backfill ``project.project`` name/code from their contract.
+
+    For every ``project.project`` created by an auto-create-project
+    contract, copy the contract's **Title**/**Reference** onto the
+    project's ``name``/``code`` so pre-existing projects match the
+    naming produced by :meth:`_prepare_project_data`.
+
+    :param cr: database cursor
+    :param version: previously installed module version, or a falsy
+        value on a fresh install (in which case this is a no-op)
+    """
     if not version:
         return
     logger = logging.getLogger(__name__)

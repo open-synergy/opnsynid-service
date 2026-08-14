@@ -12,10 +12,12 @@
     "depends": [
         "ssi_service",
         "ssi_project_code",
+        "web_tour",
     ],
     "data": [
         "views/service_type_views.xml",
         "views/service_contract_views.xml",
+        "views/assets.xml",
     ],
     "demo": [],
 }

@@ -1,3 +1,6 @@
+options:
+  auto_refresh: true
+
 scenarios:
   - name: "Service Project - Create and Verify with Auto Project"
     steps:
@@ -63,11 +66,6 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      - step: "Invalidate cache after confirm"
-        action: "call"
-        target: "contract"
-        method: "invalidate_cache"
-
       - step: "Approve contract"
         action: "call"
         target: "contract"
@@ -77,11 +75,6 @@ scenarios:
           state:
             type: "value"
             expected: "open"
-
-      - step: "Invalidate cache after approve"
-        action: "call"
-        target: "contract"
-        method: "invalidate_cache"
 
       - step: "Assert project created"
         action: "assert"
