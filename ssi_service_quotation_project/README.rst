@@ -7,6 +7,11 @@ Service Quotation - Project Integration
 =======================================
 
 
+Work Instruction
+================
+
+* `Mark Service Quotation as Win <docs/service_quotation/07-win.html>`_
+
 Installation
 ============
 
