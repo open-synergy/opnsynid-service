@@ -12,11 +12,13 @@
     "depends": [
         "ssi_service_quotation",
         "ssi_operating_unit_mixin",
+        "web_tour",
     ],
     "data": [
         "security/res_group/service_quotation.xml",
         "security/ir_rule/service_quotation.xml",
         "views/service_quotation_views.xml",
+        "views/assets.xml",
     ],
     "demo": [],
 }
