@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestSvcQuotTnc(YamlTransactionCase):
+    """YAML scenario test for the ``service.quotation`` T&C mixin."""
+
     def test_service_quotation_tnc(self):
+        """Run the create/confirm/approve T&C scenario."""
         self.run_yaml_scenario("test_data_service_quotation_tnc.yaml")
