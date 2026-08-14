@@ -7,6 +7,12 @@ Service Quotation + Operating Unit
 ==================================
 
 
+Work Instruction
+================
+
+* `Create Service Quotation <docs/service_quotation/index.html>`_
+
+
 Installation
 ============
 
