@@ -13,7 +13,10 @@
     "depends": [
         "ssi_service_quotation",
         "ssi_state_change_constrain_mixin",
+        "web_tour",
     ],
-    "data": [],
+    "data": [
+        "views/assets.xml",
+    ],
     "demo": [],
 }

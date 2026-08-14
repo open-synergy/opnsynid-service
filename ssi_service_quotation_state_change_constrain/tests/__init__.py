@@ -2,4 +2,7 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from . import test_service_quotation_state_change_constrain
+from . import (
+    test_service_quotation_state_change_constrain,
+    test_ui_service_quotation_state_change_constrain,
+)
