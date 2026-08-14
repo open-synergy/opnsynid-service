@@ -7,6 +7,12 @@ Quotation + Risk Analysis + Lead Integration
 ============================================
 
 
+Work Instruction
+================
+
+* `Create Service Quotation <docs/service_quotation/01-create.html>`_
+
+
 Installation
 ============
 
