@@ -29,7 +29,7 @@ addon | version | maintainers | summary
 [ssi_service_quotation](ssi_service_quotation/) | 14.0.1.16.0 |  | Service Quotation
 [ssi_service_quotation_custom_information](ssi_service_quotation_custom_information/) | 14.0.1.0.0 |  | Service Quotation + Custom Information Integration
 [ssi_service_quotation_documenso_signing](ssi_service_quotation_documenso_signing/) | 14.0.2.0.0 |  | Service Quotation - Documenso Signing Integration
-[ssi_service_quotation_lead](ssi_service_quotation_lead/) | 14.0.1.0.0 |  | Service Quotation - Lead Integration
+[ssi_service_quotation_lead](ssi_service_quotation_lead/) | 14.0.1.0.1 |  | Service Quotation - Lead Integration
 [ssi_service_quotation_operating_unit](ssi_service_quotation_operating_unit/) | 14.0.1.0.1 |  | Service Quotation + Operating Unit
 [ssi_service_quotation_project](ssi_service_quotation_project/) | 14.0.1.0.1 |  | Service Quotation - Project Integration
 [ssi_service_quotation_risk_analysis](ssi_service_quotation_risk_analysis/) | 14.0.1.0.1 |  | Quotation + Risk Analysis Integration
