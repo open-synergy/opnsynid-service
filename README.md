@@ -41,7 +41,7 @@ addon | version | maintainers | summary
 [ssi_service_revenue_recognition_operating_unit](ssi_service_revenue_recognition_operating_unit/) | 14.0.2.0.1 |  | Service - Revenue Recognition + Operating Unit Integration
 [ssi_service_revenue_recognition_project](ssi_service_revenue_recognition_project/) | 14.0.2.0.1 |  | Service - Revenue Recognition + Project Integration
 [ssi_service_risk_analysis](ssi_service_risk_analysis/) | 14.0.1.0.0 |  | Contract + Risk Analysis Integration
-[ssi_service_state_change_constrain](ssi_service_state_change_constrain/) | 14.0.1.0.2 |  | Service Contract + State Change Constrain Integration
+[ssi_service_state_change_constrain](ssi_service_state_change_constrain/) | 14.0.1.0.3 |  | Service Contract + State Change Constrain Integration
 
 [//]: # (end addons)
 
