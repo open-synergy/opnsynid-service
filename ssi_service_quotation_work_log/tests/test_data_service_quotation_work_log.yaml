@@ -61,10 +61,17 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      - step: "Invalidate cache after confirm"
-        action: "call"
+      # WAJIB: memaksa refresh cache (flush + invalidate) sebelum policy
+      # approve dibaca. Tanpa step assert ini, approve_ok terbaca dari
+      # cache yang diisi action_confirm saat approval.approval belum
+      # ada, dan approve gagal secara NONDETERMINISTIK (T-04).
+      - step: "Assert quotation still confirmed (forces cache refresh)"
+        action: "assert"
         target: "quotation"
-        method: "invalidate_cache"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
 
       - step: "Approve quotation"
         action: "call"
