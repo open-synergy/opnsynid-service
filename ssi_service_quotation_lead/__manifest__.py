@@ -12,7 +12,12 @@
     "depends": [
         "ssi_service_quotation",
         "ssi_lead",
+        "web_tour",
     ],
-    "data": ["views/service_quotation_views.xml", "views/crm_lead_views.xml"],
+    "data": [
+        "views/service_quotation_views.xml",
+        "views/crm_lead_views.xml",
+        "views/assets.xml",
+    ],
     "demo": [],
 }

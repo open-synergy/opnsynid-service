@@ -19,6 +19,11 @@ To install this module, you need to:
 5.  Search For *Service Quotation - Lead Integration*
 6.  Install the module
 
+Work Instruction
+================
+
+* `Create Service Quotation <docs/service_quotation/01-create.html>`_
+
 Bug Tracker
 ===========
 
