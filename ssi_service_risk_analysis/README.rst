@@ -7,6 +7,12 @@ Contract + Risk Analysis Integration
 ====================================
 
 
+Work Instruction
+================
+
+* `Create Service Contract <docs/service_contract/index.html>`_
+
+
 Installation
 ============
 
