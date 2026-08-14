@@ -43,7 +43,31 @@ class ServiceContractFixItem(models.Model):
         row's PoB actually looks like, so each distinct view row gets
         its own PoB while rows the view already merged (matching
         product/price) keep sharing one.
+
+        The view's own id is a bare ``ROW_NUMBER() OVER()`` with no
+        ``ORDER BY`` tied to anything immutable and no ``WHERE`` filter
+        at all (see ``init()`` on the base model) -- it is not a stable
+        primary key. The same numeric id can therefore point at a
+        *different* underlying row across two separate ``SELECT``s
+        within the same transaction, once the full, unfiltered set of
+        ``service_contract_fix_item_payment_term_detail`` rows feeding
+        the view (across every contract, not just this one) changes
+        shape. Odoo's ORM record cache is keyed by ``(model, id)`` and
+        has no way to know that; ``self.service_id``/``self.product_id``/
+        ``self.amount_untaxed``/``self.quantity`` read below can silently
+        be served back from an *earlier* cache entry that this exact
+        numeric id happened to hold for a completely different item,
+        matching this method against the wrong PoB (or, deceptively,
+        the *same* PoB two unrelated items both happen to compute a
+        cache hit against). Force a fresh read of exactly the fields
+        this method uses before trusting them, rather than relying on
+        the view's id to still mean the same thing it did earlier in
+        the transaction.
         """
+        self.invalidate_cache(
+            fnames=["service_id", "product_id", "amount_untaxed", "quantity"],
+            ids=self.ids,
+        )
         for record in self:
             result = False
             if record.service_id.analytic_account_id and record.product_id:
