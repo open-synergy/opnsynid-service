@@ -7,6 +7,12 @@ Service Contract + Operating Unit
 =================================
 
 
+Work Instruction
+================
+
+* `Create Service Contract <docs/service_contract/index.html>`_
+
+
 Installation
 ============
 

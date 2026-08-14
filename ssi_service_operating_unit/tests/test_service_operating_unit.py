@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestServiceOperatingUnit(YamlTransactionCase):
+    """Scenario tests for ``service.contract`` with Operating Unit."""
+
     def test_service_operating_unit(self):
+        """Run the create-and-verify scenario for Operating Unit."""
         self.run_yaml_scenario("test_data_service_operating_unit.yaml")
