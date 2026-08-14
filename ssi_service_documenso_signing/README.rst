@@ -25,6 +25,11 @@ Usage
 Open any Service Contract record. A new **Documenso** tab will appear in
 the form view, listing all signature requests linked to that contract.
 
+Work Instruction
+================
+
+* `Approve Service Contract <docs/service_contract/index.html>`_
+
 Bug Tracker
 ===========
 
