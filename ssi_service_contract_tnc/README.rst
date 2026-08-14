@@ -7,6 +7,12 @@ Service Contract - T&C Integration
 ==================================
 
 
+Work Instruction
+================
+
+* `Create Service Contract <docs/service_contract/index.html>`_
+
+
 Installation
 ============
 
