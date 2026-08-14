@@ -25,6 +25,12 @@ Usage
 Open any Service Quotation record. A new **Documenso** tab will appear in
 the form view, listing all signature requests linked to that quotation.
 
+Work Instruction
+================
+
+* `Approve Service Quotation <docs/service_quotation/index.html>`_
+* `Create Signing Request for Service Quotation <docs/service_quotation/index.html>`_
+
 Bug Tracker
 ===========
 
