@@ -12,9 +12,10 @@
     "depends": [
         "ssi_service",
         "ssi_risk_analysis",
+        "web_tour",
     ],
     "data": [
-        # "views/crm_lead_views.xml",
+        "views/assets.xml",
     ],
     "demo": [],
 }

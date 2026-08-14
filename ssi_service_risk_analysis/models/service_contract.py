@@ -6,6 +6,18 @@ from odoo import models
 
 
 class ServiceContract(models.Model):
+    """Attach a risk analysis link to ``service.contract``.
+
+    Inherits ``mixin.risk_analysis`` and enables its auto-injected form
+    page (``_risk_analysis_create_page = True``), giving each service
+    contract a **Risk Analysis** tab where ``risk_analysis_id`` can be
+    selected. ``_risk_analysis_partner_field_name`` points the mixin at
+    ``partner_id`` so the field's selection domain
+    (``allowed_risk_analysis_ids``) is restricted to risk analyses of
+    the contract's own partner. See the ``mixin.risk_analysis``
+    docstring for the fields it contributes.
+    """
+
     _name = "service.contract"
     _inherit = [
         "service.contract",
