@@ -13,7 +13,10 @@
     "depends": [
         "ssi_service_quotation_risk_analysis",
         "ssi_service_quotation_lead",
+        "web_tour",
     ],
-    "data": [],
+    "data": [
+        "views/assets.xml",
+    ],
     "demo": [],
 }
