@@ -1,3 +1,6 @@
+options:
+  auto_refresh: true
+
 scenarios:
   - name: "Service State Change Constrain - Create and Verify"
     steps:
@@ -60,11 +63,6 @@ scenarios:
           state:
             type: "value"
             expected: "confirm"
-
-      - step: "Invalidate cache after confirm"
-        action: "call"
-        target: "contract"
-        method: "invalidate_cache"
 
       - step: "Approve contract"
         action: "call"

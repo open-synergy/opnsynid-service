@@ -9,5 +9,11 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestServiceStateChangeConstrain(YamlTransactionCase):
+    """Test the State Change Constrain + Status Check integration."""
+
     def test_service_state_change_constrain(self):
+        """Run the create/confirm/approve YAML scenario.
+
+        :return: None.
+        """
         self.run_yaml_scenario("test_data_service_state_change_constrain.yaml")
