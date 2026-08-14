@@ -66,6 +66,39 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
         };
     }
 
+    // Fill a Char field without going through RunningTourActionHelper's
+    // "text" run string. That helper resolves the consume event via
+    // Tip.getConsumeEventType(), which only returns "input" when the
+    // anchor itself is a literal <input>/<textarea> tag; FieldChar's own
+    // root element is a <span> (web/static/src/js/fields/basic_fields.js,
+    // FieldChar.tagName = "span"), so it falls through to the
+    // contenteditable branch of _text(), which calls $element.focusIn() —
+    // a jQuery plugin defined only by web_editor
+    // (addons/web_editor/static/src/js/editor/rte.js), not guaranteed to
+    // be loaded here. Set the value directly and dispatch the events the
+    // widget listens for instead, working regardless of whether the
+    // matched anchor is a real <input> or FieldChar's span.
+    function fillCharField(content, trigger, value, extraStepProps) {
+        return Object.assign(
+            {
+                content: content,
+                trigger: trigger,
+                run: function () {
+                    var $el = this.$anchor;
+                    var $input = $el.is("input, textarea")
+                        ? $el
+                        : $el.find("input, textarea").first();
+                    var $target = $input.length ? $input : $el;
+                    $target.val(value);
+                    $target.text(value);
+                    $target[0].dispatchEvent(new InputEvent("input", {bubbles: true}));
+                    $target.trigger("change");
+                },
+            },
+            extraStepProps || {}
+        );
+    }
+
     // IK: docs/service_contract/01-create.md
     tour.register(
         "ssi_service_service_contract_create",
@@ -86,12 +119,12 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
                     // Assertion only.
                 },
             },
-            {
-                content: "Fill in Title",
-                trigger: ".o_field_widget[name='title']",
-                extra_trigger: ".o_form_view.o_form_editable",
-                run: "text TOUR SC Create",
-            },
+            fillCharField(
+                "Fill in Title",
+                ".o_field_widget[name='title']",
+                "TOUR SC Create",
+                {extra_trigger: ".o_form_view.o_form_editable"}
+            ),
             {
                 content: "Select the Partner",
                 trigger: ".o_field_many2one[name='partner_id'] input",
@@ -191,11 +224,11 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
                     // Assertion only.
                 },
             },
-            {
-                content: "Fill in the Term name",
-                trigger: ".o_field_widget[name='name']",
-                run: "text TOUR Term Create",
-            },
+            fillCharField(
+                "Fill in the Term name",
+                ".o_field_widget[name='name']",
+                "TOUR Term Create"
+            ),
             {
                 // FormViewDialog buttons carry only "btn-primary", never
                 // o_form_button_save — see web/static/src/js/views/
@@ -506,17 +539,19 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
             },
             confirmDialogStep(),
             {
-                // The gate is on the h1 title field (display_name, the
-                // read-only counterpart of the "name" field rendered by
-                // mixin_transaction_view_form — see oe_title/h1 in
-                // ssi_transaction_mixin), not the breadcrumb: it is the
-                // element documented to carry the document number, and
-                // setUpClass gives this record a non-"/" name first, so
-                // this selector cannot be true before Reset is clicked.
+                // Service.contract's name field is "/" again, but the h1
+                // title shows display_name, not name directly — and
+                // MixinTransaction.name_get() (ssi_transaction_mixin/
+                // models/mixin_transaction.py) special-cases the "/"
+                // value: when the document number field equals "/", the
+                // displayed name becomes "*" + str(record.id), never the
+                // literal "/" character. setUpClass gives this record a
+                // non-"/" starting name (no leading "*"), so this gate
+                // cannot be true before Reset Document Number runs.
                 content: "Document number is back to /",
                 trigger:
                     ".o_form_view .oe_title h1 " +
-                    ".o_field_widget[name='display_name']:contains(/)",
+                    ".o_field_widget[name='display_name']:contains(*)",
                 run: function () {
                     // Assertion only.
                 },
