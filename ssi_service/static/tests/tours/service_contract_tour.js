@@ -218,8 +218,15 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
                 // prefix with `.modal` here: in_modal defaults to true, so
                 // the trigger is already searched INSIDE the modal — a
                 // `.modal` prefix would look for a modal nested in a modal.
+                // Gate on .o_form_editable too, not just .o_form_view: the
+                // dialog's own field widgets only get a live $input
+                // reference once FieldChar._renderEdit() has actually run
+                // (basic_fields.js) — gating on the bare form container
+                // lets the next step race that render, leaving
+                // FieldChar._getValue() reading .val() off an undefined
+                // this.$input.
                 content: "The line dialog is open",
-                trigger: ".o_form_view",
+                trigger: ".o_form_view.o_form_editable",
                 run: function () {
                     // Assertion only.
                 },
