@@ -6,6 +6,15 @@ from odoo import api, fields, models
 
 
 class ServiceQuotationFixItemPaymentTermDetail(models.Model):
+    """One product line of a service quotation payment term.
+
+    Child of ``service.quotation_fix_item_payment_term``
+    (``detail_ids``). :meth:`_prepare_contract_data` converts this line
+    into the ``create`` values for the matching
+    ``service.contract_fix_item_payment_term_detail`` line when the
+    quotation is won.
+    """
+
     _name = "service.quotation_fix_item_payment_term_detail"
     _description = "Service Fix Item Payment Term Detail"
     _inherit = [
@@ -28,9 +37,20 @@ class ServiceQuotationFixItemPaymentTermDetail(models.Model):
         "currency_id",
     )
     def onchange_pricelist_id(self):
-        pass
+        """Placeholder onchange kept for pricelist-related overrides.
+
+        :return: None. Deliberately empty: ``pricelist_id`` is a
+            ``related`` field, so there is nothing to recompute here;
+            the hook exists as an extension point for modules that add
+            pricelist-driven pricing.
+        """
 
     def _prepare_contract_data(self):
+        """Build the ``(0, 0, {...})`` tuple data for the contract line.
+
+        :return: dict of values matching
+            ``service.contract_fix_item_payment_term_detail`` fields.
+        """
         self.ensure_one()
         return {
             "name": self.name,

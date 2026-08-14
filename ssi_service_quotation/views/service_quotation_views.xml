@@ -332,6 +332,18 @@
                             <field name="amount_tax" />
                             <field name="amount_total" />
                         </tree>
+                        <form>
+                            <group name="fix_item_ids_1" colspan="4" col="2">
+                                <field name="product_id" />
+                                <field name="name" />
+                                <field name="price_unit" />
+                                <field name="quantity" />
+                                <field name="uom_id" />
+                                <field name="amount_untaxed" />
+                                <field name="amount_tax" />
+                                <field name="amount_total" />
+                            </group>
+                        </form>
                     </field>
                     <group name="fix_item_3" colspan="4" col="2">
                         <field name="amount_untaxed" />

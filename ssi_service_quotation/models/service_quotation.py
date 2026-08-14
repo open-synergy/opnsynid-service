@@ -4,8 +4,19 @@
 
 from odoo import api, fields, models
 
+from odoo.addons.ssi_decorator import ssi_decorator
+
 
 class ServiceQuotation(models.Model):
+    """Service quotation transactional document.
+
+    Combines ``service.mixin`` (base state machine, fields shared with
+    ``service.contract``) with ``mixin.transaction_win_lost`` for the
+    ``win``/``lost`` outcome states. Marking a quotation as win creates
+    a linked ``service.contract`` (:meth:`_create_contract`); cancelling
+    it releases that link (:meth:`_cancel_contract`).
+    """
+
     _name = "service.quotation"
     _inherit = [
         "service.mixin",
@@ -96,7 +107,19 @@ class ServiceQuotation(models.Model):
         res += policy_field
         return res
 
+    # Boilerplate — satu-satunya method yang boleh tanpa docstring
+    # bersama _get_policy_field (lihat 10-docstring.md)
+    @ssi_decorator.insert_on_form_view()
+    def _insert_form_element(self, view_arch):
+        if self._automatically_insert_view_element:
+            view_arch = self._reconfigure_statusbar_visible(view_arch)
+        return view_arch
+
     def action_win(self):
+        """Mark the quotation as won and create its linked contract.
+
+        :return: None.
+        """
         _super = super(ServiceQuotation, self)
 
         _super.action_win()
@@ -105,6 +128,11 @@ class ServiceQuotation(models.Model):
             record._create_contract()
 
     def action_cancel(self, cancel_reason):
+        """Cancel the quotation and release its linked contract, if any.
+
+        :param cancel_reason: ``base.cancel_reason`` record.
+        :return: None.
+        """
         _super = super(ServiceQuotation, self)
 
         _super.action_cancel(cancel_reason=cancel_reason)
@@ -113,6 +141,11 @@ class ServiceQuotation(models.Model):
             record._cancel_contract()
 
     def _cancel_contract(self):
+        """Cancel and unlink this quotation's ``contract_id``, if set.
+
+        :return: True if there was no linked contract to cancel; None
+            otherwise (the field is cleared via :meth:`write`).
+        """
         self.ensure_one()
 
         if not self.contract_id:
@@ -123,12 +156,20 @@ class ServiceQuotation(models.Model):
         self.write(self._prepare_cancel_contract())
 
     def _prepare_cancel_contract(self):
+        """Build the ``write`` values that release the linked contract.
+
+        :return: dict, always ``{"contract_id": False}``.
+        """
         self.ensure_one()
         return {
             "contract_id": False,
         }
 
     def _create_contract(self):
+        """Create a ``service.contract`` from this quotation and link it.
+
+        :return: None, writes the new contract's id to ``contract_id``.
+        """
         self.ensure_one()
         obj_contract = self.env["service.contract"]
         data = self._prepare_contract_data()
@@ -143,12 +184,23 @@ class ServiceQuotation(models.Model):
         )
 
     def _compute_contract_onchange(self, temp_record):
+        """Run the contract's default-filling onchanges on a new record.
+
+        :param temp_record: ``service.contract`` in-memory record built
+            with :meth:`~odoo.models.Model.new`.
+        :return: the same ``temp_record``, with its journal/account/
+            analytic group onchange defaults applied.
+        """
         temp_record.onchange_fix_item_receivable_journal_id()
         temp_record.onchange_fix_item_receivable_account_id()
         temp_record.onchange_analytic_group_id()
         return temp_record
 
     def _prepare_contract_data(self):
+        """Build the ``create`` values for the linked contract.
+
+        :return: dict of values matching ``service.contract`` fields.
+        """
         self.ensure_one()
         fix_item_payment_term_ids = []
         for payment_term in self.fix_item_payment_term_ids:
@@ -180,6 +232,10 @@ class ServiceQuotation(models.Model):
         }
 
     def action_recompute_price(self):
+        """Recompute ``price_unit`` on every draft quotation's lines.
+
+        :return: None.
+        """
         for rec in self.sudo().filtered(lambda s: s.state == "draft"):
             for term_id in rec.fix_item_payment_term_ids:
                 for detail_id in term_id.detail_ids:

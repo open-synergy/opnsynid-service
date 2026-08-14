@@ -6,6 +6,14 @@ from odoo import fields, models
 
 
 class ServiceQuotationFixItemPaymentTerm(models.Model):
+    """One payment term line of a service quotation.
+
+    Child of ``service.quotation`` (``fix_item_payment_term_ids``).
+    :meth:`_prepare_contract_data` converts this line (and its
+    ``detail_ids``) into the ``create`` values for the matching
+    ``service.contract`` payment term when the quotation is won.
+    """
+
     _name = "service.quotation_fix_item_payment_term"
     _inherit = ["service.fix_item_payment_term_mixin"]
     _description = "Service Quotation Fix Item Payment Term"
@@ -20,6 +28,11 @@ class ServiceQuotationFixItemPaymentTerm(models.Model):
     )
 
     def _prepare_contract_data(self):
+        """Build the ``(0, 0, {...})`` tuple data for the contract term.
+
+        :return: dict of values matching
+            ``service.contract_fix_item_payment_term`` fields.
+        """
         self.ensure_one()
         detail_ids = []
         for detail in self.detail_ids:

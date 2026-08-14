@@ -6,6 +6,13 @@ from odoo import fields, models
 
 
 class ServiceContract(models.Model):
+    """Adds the originating quotation link to ``service.contract``.
+
+    Extension point only: the field is set once by
+    ``service.quotation._create_contract()`` when a quotation is marked
+    as won, and never written elsewhere.
+    """
+
     _name = "service.contract"
     _inherit = [
         "service.contract",
