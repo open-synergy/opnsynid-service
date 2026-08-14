@@ -1,3 +1,6 @@
+options:
+  auto_refresh: true
+
 scenarios:
   - name:
       "Service Documenso Signing Approval - Create and Verify (Normal Approval Fallback)"
@@ -62,10 +65,14 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      - step: "Invalidate cache after confirm"
-        action: "call"
+      - step: "Assert contract state after confirm (force cache refresh)"
+        action: "assert"
         target: "contract"
-        method: "invalidate_cache"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
 
       - step: "Approve contract"
         action: "call"

@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestServiceDocumensoSigning(YamlTransactionCase):
+    """Cover the Documenso signing approval flow on ``service.contract``."""
+
     def test_service_documenso_signing(self):
+        """Run the Documenso signing approval scenario."""
         self.run_yaml_scenario("test_data_service_documenso_signing.yaml")
