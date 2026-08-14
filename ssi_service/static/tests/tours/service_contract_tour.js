@@ -66,34 +66,25 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
         };
     }
 
-    // Fill a Char field without going through RunningTourActionHelper's
-    // "text" run string. That helper resolves the consume event via
-    // Tip.getConsumeEventType(), which only returns "input" when the
-    // anchor itself is a literal <input>/<textarea> tag; FieldChar's own
-    // root element is a <span> (web/static/src/js/fields/basic_fields.js,
-    // FieldChar.tagName = "span"), so it falls through to the
-    // contenteditable branch of _text(), which calls $element.focusIn() —
-    // a jQuery plugin defined only by web_editor
-    // (addons/web_editor/static/src/js/editor/rte.js), not guaranteed to
-    // be loaded here. Set the value directly and dispatch the events the
-    // widget listens for instead, working regardless of whether the
-    // matched anchor is a real <input> or FieldChar's span.
+    // Fill a Char field the same way every other CI-passing SSI tour does
+    // (e.g. ssi-loan's loan_type_tour.js, ssi-va's va_biller_tour.js):
+    // bare `.o_field_widget[name='x']`, no " input" suffix, run: "text ...".
+    // This works because InputField.init() (web/static/src/js/fields/
+    // basic_fields.js) sets `this.tagName = 'input'` whenever
+    // `this.mode === 'edit'`, so FieldChar's *root* element — the one
+    // `_renderEdit()` hands to `_prepareInput()`, which becomes `this.$el`
+    // AND `this.$input` — is already a literal <input> once the field is
+    // genuinely in edit mode. There is no separate nested <input> to
+    // select, and no need to hand-dispatch events: Tip.getConsumeEventType()
+    // sees a real <input type="text">, returns "input", and
+    // RunningTourActionHelper._text() takes its normal `.val(text)` +
+    // native event branch.
     function fillCharField(content, trigger, value, extraStepProps) {
         return Object.assign(
             {
                 content: content,
                 trigger: trigger,
-                run: function () {
-                    var $el = this.$anchor;
-                    var $input = $el.is("input, textarea")
-                        ? $el
-                        : $el.find("input, textarea").first();
-                    var $target = $input.length ? $input : $el;
-                    $target.val(value);
-                    $target.text(value);
-                    $target[0].dispatchEvent(new InputEvent("input", {bubbles: true}));
-                    $target.trigger("change");
-                },
+                run: "text " + value,
             },
             extraStepProps || {}
         );
@@ -218,15 +209,21 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
                 // prefix with `.modal` here: in_modal defaults to true, so
                 // the trigger is already searched INSIDE the modal — a
                 // `.modal` prefix would look for a modal nested in a modal.
-                // Gate on .o_form_editable too, not just .o_form_view: the
-                // dialog's own field widgets only get a live $input
-                // reference once FieldChar._renderEdit() has actually run
-                // (basic_fields.js) — gating on the bare form container
-                // lets the next step race that render, leaving
-                // FieldChar._getValue() reading .val() off an undefined
-                // this.$input.
-                content: "The line dialog is open",
-                trigger: ".o_form_view.o_form_editable",
+                //
+                // Gate on the "name" field's own rendered tag, not just
+                // .o_form_editable on the outer container: InputField.init()
+                // (web/static/src/js/fields/basic_fields.js) only sets
+                // `this.tagName = 'input'` once `this.mode === 'edit'` for
+                // THAT WIDGET, and _renderEdit() -> _prepareInput() is what
+                // actually turns this.$el into the live this.$input. The
+                // dialog's outer form can already carry o_form_editable
+                // while an individual field widget is still mid-render (in
+                // which case it's still a plain <span>, not <input>) —
+                // gating on the container alone lets the next step race
+                // that per-field render, leaving FieldChar._getValue()
+                // reading .val() off an undefined this.$input.
+                content: "The line dialog's Term name field is ready",
+                trigger: "input.o_field_widget[name='name']",
                 run: function () {
                     // Assertion only.
                 },
