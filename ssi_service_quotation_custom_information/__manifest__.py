@@ -12,7 +12,10 @@
     "depends": [
         "ssi_service_quotation",
         "ssi_custom_information_mixin",
+        "web_tour",
     ],
-    "data": [],
+    "data": [
+        "views/assets.xml",
+    ],
     "demo": [],
 }
