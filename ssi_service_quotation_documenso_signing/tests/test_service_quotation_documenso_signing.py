@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestSvcQuotDocumensoSigning(YamlTransactionCase):
+    """Test the Documenso signing mixin on ``service.quotation``."""
+
     def test_service_quotation_documenso_signing(self):
+        """Run the normal-approval-fallback scenario."""
         self.run_yaml_scenario("test_data_service_quotation_documenso_signing.yaml")

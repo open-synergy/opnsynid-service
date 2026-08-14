@@ -1,3 +1,6 @@
+options:
+  auto_refresh: true
+
 scenarios:
   - name:
       "Service Quotation Documenso Signing Approval - Create and Verify (Normal Approval
@@ -62,11 +65,6 @@ scenarios:
           state:
             type: "value"
             expected: "confirm"
-
-      - step: "Invalidate cache after confirm"
-        action: "call"
-        target: "quotation"
-        method: "invalidate_cache"
 
       - step: "Approve quotation"
         action: "call"
