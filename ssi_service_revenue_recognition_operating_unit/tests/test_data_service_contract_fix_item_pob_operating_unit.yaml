@@ -1,0 +1,221 @@
+options:
+  auto_refresh: true
+
+scenarios:
+  - name:
+      "PoB is stamped with the contract's own Operating Unit, not the acting user's
+      default"
+    steps:
+      - step: "Get income account"
+        action: "search"
+        model: "account.account"
+        domain: [["user_type_id.internal_group", "=", "income"]]
+        save_as: "income_account"
+        limit: 1
+
+      - step: "Get generic unit of measure"
+        action: "ref"
+        xml_id: "uom.product_uom_unit"
+        save_as: "uom"
+
+      - step: "Get default pricelist"
+        action: "ref"
+        xml_id: "product.list0"
+        save_as: "pricelist"
+
+      - step: "Get the acting user's own default operating unit (Main Operating Unit)"
+        action: "ref"
+        xml_id: "operating_unit.main_operating_unit"
+        save_as: "admin_ou"
+
+      - step: "Create partner for the contract's own operating unit"
+        action: "create"
+        model: "res.partner"
+        save_as: "contract_ou_partner"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Partner - PoB OU Contract"
+
+      - step:
+          "Create the contract's own operating unit, distinct from the acting user's
+          default"
+        action: "create"
+        model: "operating.unit"
+        save_as: "contract_ou"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Operating Unit - PoB OU Contract"
+          code: "POBOU1"
+          company_id: "REF: base.main_company"
+          partner_id: "REC: contract_ou_partner.id"
+
+      - step: "Create test partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Partner - PoB OU"
+          is_company: true
+
+      - step: "Create test service type"
+        action: "create"
+        model: "service.type"
+        save_as: "service_type"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Service Type - PoB OU"
+          code: "POBOU"
+
+      - step: "Create test product"
+        action: "create"
+        model: "product.product"
+        save_as: "product"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Lumpsum Service - PoB OU"
+          type: "service"
+          uom_id: "REC: uom.id"
+          uom_po_id: "REC: uom.id"
+
+      - step: "Create service contract with an explicit, non-default operating unit"
+        action: "create"
+        model: "service.contract"
+        save_as: "contract"
+        as_user: "base.user_admin"
+        values:
+          title: "Test Service Contract - PoB OU"
+          partner_id: "REC: partner.id"
+          type_id: "REC: service_type.id"
+          manager_id: "REF: base.user_admin"
+          salesperson_id: "REF: base.user_admin"
+          pricelist_id: "REC: pricelist.id"
+          currency_id: "REC: company.currency_id.id"
+          date: "2026-01-01"
+          date_start: "2026-01-01"
+          date_end: "2026-12-31"
+          operating_unit_id: "REC: contract_ou.id"
+
+      - step:
+          "Assert the contract's operating unit differs from the acting user's own
+          default"
+        action: "assert"
+        target: "contract"
+        asserts:
+          operating_unit_id:
+            type: "m2o"
+            expected: "REC: contract_ou"
+          operating_unit_id.id:
+            type: "value"
+            operator: "not_equals"
+            expected: "REC: admin_ou.id"
+
+      - step: "Confirm contract"
+        action: "call"
+        target: "contract"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+
+      - step: "Assert confirmed (forces refresh before approve reads policy)"
+        action: "assert"
+        target: "contract"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Approve contract (opens it, auto-creates analytic account)"
+        action: "call"
+        target: "contract"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        context:
+          bypass_policy_check: true
+
+      - step: "Assert contract open with its own analytic account"
+        action: "assert"
+        target: "contract"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+          analytic_account_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Create payment term"
+        action: "create"
+        model: "service.contract_fix_item_payment_term"
+        save_as: "term"
+        as_user: "base.user_admin"
+        values:
+          service_id: "REC: contract.id"
+          name: "Term 1"
+          sequence: 10
+
+      - step: "Create payment term detail"
+        action: "create"
+        model: "service.contract_fix_item_payment_term_detail"
+        save_as: "detail"
+        as_user: "base.user_admin"
+        values:
+          term_id: "REC: term.id"
+          product_id: "REC: product.id"
+          name: "REC: product.name"
+          account_id: "REC: income_account.id"
+          price_unit: 500
+          quantity: 1
+          uom_quantity: 1
+          uom_id: "REC: uom.id"
+          sequence: 10
+
+      - step: "Fetch the contract fix item view row"
+        action: "search"
+        model: "service.contract_fix_item"
+        domain:
+          - ["service_id", "=", "REC: contract.id"]
+          - ["product_id", "=", "REC: product.id"]
+        save_as: "item"
+        refresh: true
+        expect_count: 1
+
+      - step: "Create the PoB from the item, acting as the admin user"
+        action: "call"
+        target: "item"
+        method: "action_create_pob"
+        as_user: "base.user_admin"
+
+      - step: "Assert item now links to a PoB"
+        action: "assert"
+        target: "item"
+        refresh: true
+        asserts:
+          pob_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Fetch the created PoB"
+        action: "search"
+        model: "performance_obligation"
+        domain:
+          - ["source_analytic_account_id", "=", "REC: contract.analytic_account_id.id"]
+          - ["product_id", "=", "REC: product.id"]
+        save_as: "pob"
+        refresh: true
+        expect_count: 1
+
+      - step:
+          "Assert the PoB's operating unit matches the CONTRACT's, not the acting user's
+          own default"
+        action: "assert"
+        target: "pob"
+        asserts:
+          operating_unit_id:
+            type: "m2o"
+            expected: "REC: contract_ou"
+          operating_unit_id.id:
+            type: "value"
+            operator: "not_equals"
+            expected: "REC: admin_ou.id"
