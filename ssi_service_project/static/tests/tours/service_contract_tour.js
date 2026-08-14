@@ -55,8 +55,13 @@ odoo.define("ssi_service_project.service_contract_tour", function (require) {
             // Additional Fields (docs/service_contract/01-create.md,
             // delta of ssi_service_project) — the Auto Create Project
             // and Project fields added by this module are rendered on
-            // the create form. Delta-only tour: it stops here, it
-            // does not fill any field and does not continue to Save.
+            // the create form, inside the "Analytic & Project" tab.
+            // Delta-only tour: it stops here, it does not fill any
+            // field and does not continue to Save.
+            {
+                content: "Open the Analytic & Project tab",
+                trigger: ".o_notebook .nav-link:contains(Analytic & Project)",
+            },
             {
                 content: "Auto Create Project field is displayed",
                 trigger: ".o_field_widget[name='auto_create_project']",
