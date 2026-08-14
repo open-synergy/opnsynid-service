@@ -6,6 +6,13 @@ from odoo import api, fields, models
 
 
 class CrmLead(models.Model):
+    """Extend ``crm.lead`` with service quotation linkage.
+
+    Adds ``quotation_ids`` so a CRM lead can list every
+    ``service.quotation`` created for it, plus a computed estimated
+    revenue rolled up from the quotations that are still open.
+    """
+
     _name = "crm.lead"
     _inherit = [
         "crm.lead",
@@ -31,6 +38,10 @@ class CrmLead(models.Model):
 
     @api.model
     def _default_service_currency_id(self):
+        """Return the default currency for ``service_currency_id``.
+
+        :return: the current company's currency (``res.currency``).
+        """
         return self.env.user.company_id.currency_id
 
     @api.depends(
@@ -39,6 +50,12 @@ class CrmLead(models.Model):
         "quotation_ids.state",
     )
     def _compute_service_estimated_revenue(self):
+        """Sum untaxed amounts of the lead's still-open quotations.
+
+        Quotations in state ``cancel`` or ``lost`` are excluded, and
+        only quotations sharing ``service_currency_id`` are summed —
+        amounts in another currency are not converted.
+        """
         for record in self:
             result = 0.0
             for quotation in record.quotation_ids.filtered(

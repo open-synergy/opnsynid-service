@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestSvcQuotLead(YamlTransactionCase):
+    """Test the ``crm.lead`` / ``service.quotation`` link scenarios."""
+
     def test_service_quotation_lead(self):
+        """Run the create, confirm and approve scenario."""
         self.run_yaml_scenario("test_data_service_quotation_lead.yaml")
