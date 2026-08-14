@@ -26,29 +26,20 @@ class TestUiServiceContract(HttpSavepointCase):
         contract.sudo().with_context(bypass_policy_check=True).action_confirm()
 
     @classmethod
-    def _to_open(cls, contract):
-        """Move a confirmed contract to ``open`` by approving as admin.
+    def _force_state(cls, contract, state):
+        """Set a contract's state directly, bypassing the workflow.
 
-        :param contract: ``service.contract`` recordset in ``confirm``.
-        :return: None. Runs ``action_approve_approval`` as
-            ``base.user_admin`` (an approver in the approval template)
-            so the mixin's own approver check passes for real, then lets
-            the mixin auto-trigger ``action_open``.
+        :param contract: ``service.contract`` recordset.
+        :param state: str, the target ``state`` value.
+        :return: None. Used only to set up a tour's Pre-Condition
+            starting state (``open``/``reject``) — the mixin has no
+            ``state``-level constraint, and the tour under test only
+            needs the record to genuinely be in that state, not to
+            have arrived there through a fully simulated approval
+            (which would require impersonating a specific approver
+            outside the browser session the tour itself runs in).
         """
-        contract.sudo().with_user(cls.admin).with_context(
-            bypass_policy_check=True
-        ).action_approve_approval()
-
-    @classmethod
-    def _to_reject(cls, contract):
-        """Move a confirmed contract to ``reject`` as admin.
-
-        :param contract: ``service.contract`` recordset in ``confirm``.
-        :return: None.
-        """
-        contract.sudo().with_user(cls.admin).with_context(
-            bypass_policy_check=True
-        ).action_reject_approval()
+        contract.sudo().write({"state": state})
 
     @classmethod
     def setUpClass(cls):
@@ -132,8 +123,7 @@ class TestUiServiceContract(HttpSavepointCase):
                 ],
             )
         )
-        cls._to_confirm(cls.contract_finish)
-        cls._to_open(cls.contract_finish)
+        cls._force_state(cls.contract_finish, "open")
         # 10-cancel (any state allows it; draft is the simplest)
         cls.contract_cancel = cls.env["service.contract"].create(
             dict(base_values, title="TOUR SC Cancel")
@@ -142,18 +132,19 @@ class TestUiServiceContract(HttpSavepointCase):
         cls.contract_terminate = cls.env["service.contract"].create(
             dict(base_values, title="TOUR SC Terminate")
         )
-        cls._to_confirm(cls.contract_terminate)
-        cls._to_open(cls.contract_terminate)
+        cls._force_state(cls.contract_terminate, "open")
         # 12-restart: rejected
         cls.contract_restart = cls.env["service.contract"].create(
             dict(base_values, title="TOUR SC Restart")
         )
-        cls._to_confirm(cls.contract_restart)
-        cls._to_reject(cls.contract_restart)
-        # 13-reset-number
+        cls._force_state(cls.contract_restart, "reject")
+        # 13-reset-number: give it a non-"/" name first, so the tour's
+        # Post-Condition assertion (name back to "/") only becomes true
+        # after Reset Document Number actually runs, not before.
         cls.contract_reset = cls.env["service.contract"].create(
             dict(base_values, title="TOUR SC Reset")
         )
+        cls.contract_reset.sudo().write({"name": "TOUR/RESET/000001"})
 
     def test_create(self):
         """Run the create tour for ``service.contract``.

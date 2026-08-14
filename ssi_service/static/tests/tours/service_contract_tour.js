@@ -179,11 +179,40 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
                     ".o_field_x2many_list_row_add a",
             },
             {
+                // The field carries both an inline <tree> AND an inline
+                // <form>, so "Add a line" opens the line in a FormViewDialog
+                // (a modal) instead of an inline editable row. Do NOT
+                // prefix with `.modal` here: in_modal defaults to true, so
+                // the trigger is already searched INSIDE the modal — a
+                // `.modal` prefix would look for a modal nested in a modal.
+                content: "The line dialog is open",
+                trigger: ".o_form_view",
+                run: function () {
+                    // Assertion only.
+                },
+            },
+            {
                 content: "Fill in the Term name",
+                trigger: ".o_field_widget[name='name']",
+                run: "text TOUR Term Create",
+            },
+            {
+                // FormViewDialog buttons carry only "btn-primary", never
+                // o_form_button_save — see web/static/src/js/views/
+                // view_dialogs.js FormViewDialog.init(). Multi-select mode
+                // (new record) puts "Save & Close" first, so match its label.
+                content: "Save & Close the line dialog",
+                trigger: ".modal-footer button.btn-primary:contains('Save & Close')",
+                in_modal: true,
+            },
+            {
+                content: "The line was added",
                 trigger:
                     ".o_field_widget[name='fix_item_payment_term_ids'] " +
-                    ".o_selected_row .o_field_widget[name='name']",
-                run: "text TOUR Term Create",
+                    ".o_data_row:contains(TOUR Term Create)",
+                run: function () {
+                    // Assertion only.
+                },
             },
             {
                 content: "Save the record",
@@ -477,8 +506,17 @@ odoo.define("ssi_service.service_contract_tour", function (require) {
             },
             confirmDialogStep(),
             {
+                // The gate is on the h1 title field (display_name, the
+                // read-only counterpart of the "name" field rendered by
+                // mixin_transaction_view_form — see oe_title/h1 in
+                // ssi_transaction_mixin), not the breadcrumb: it is the
+                // element documented to carry the document number, and
+                // setUpClass gives this record a non-"/" name first, so
+                // this selector cannot be true before Reset is clicked.
                 content: "Document number is back to /",
-                trigger: ".breadcrumb-item.active:contains(/)",
+                trigger:
+                    ".o_form_view .oe_title h1 " +
+                    ".o_field_widget[name='display_name']:contains(/)",
                 run: function () {
                     // Assertion only.
                 },
