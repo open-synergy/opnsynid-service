@@ -7,6 +7,14 @@ Service Contract + State Change Constrain Integration
 =====================================================
 
 
+Work Instruction
+================
+
+* `Create Service Contract <docs/service_contract/index.html>`_
+* `Confirm Service Contract <docs/service_contract/index.html>`_
+* `Approve Service Contract <docs/service_contract/index.html>`_
+
+
 Installation
 ============
 
