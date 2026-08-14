@@ -6,6 +6,13 @@ from odoo import fields, models
 
 
 class ServiceType(models.Model):
+    """
+    Adds the auto project creation default to the service type.
+    The value configured here is copied onto a new service contract's
+    ``auto_create_project`` field via onchange when **Type** is
+    selected.
+    """
+
     _name = "service.type"
     _inherit = [
         "service.type",
