@@ -34,7 +34,7 @@ addon | version | maintainers | summary
 [ssi_service_quotation_project](ssi_service_quotation_project/) | 14.0.1.0.1 |  | Service Quotation - Project Integration
 [ssi_service_quotation_risk_analysis](ssi_service_quotation_risk_analysis/) | 14.0.1.0.0 |  | Quotation + Risk Analysis Integration
 [ssi_service_quotation_risk_analysis_lead](ssi_service_quotation_risk_analysis_lead/) | 14.0.1.0.0 |  | Quotation + Risk Analysis + Lead Integration
-[ssi_service_quotation_state_change_constrain](ssi_service_quotation_state_change_constrain/) | 14.0.1.0.4 |  | Service Quotation + State Change Constrain Integration
+[ssi_service_quotation_state_change_constrain](ssi_service_quotation_state_change_constrain/) | 14.0.1.0.5 |  | Service Quotation + State Change Constrain Integration
 [ssi_service_quotation_tnc](ssi_service_quotation_tnc/) | 14.0.1.0.1 |  | Service Quotation - T&C Integration
 [ssi_service_quotation_work_log](ssi_service_quotation_work_log/) | 14.0.1.0.1 |  | Service Quotation - Work Log Integration
 [ssi_service_revenue_recognition](ssi_service_revenue_recognition/) | 14.0.2.2.2 |  | Service - Revenue Recognition
