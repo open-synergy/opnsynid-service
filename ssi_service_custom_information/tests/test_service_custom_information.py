@@ -9,5 +9,12 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestServiceCustomInformation(YamlTransactionCase):
+    """
+    Test custom information support added to ``service.contract``.
+    Covers creating a contract and confirming/approving it while the
+    custom info template/value fields are present.
+    """
+
     def test_service_custom_information(self):
+        """Run the create-confirm-approve custom info scenario."""
         self.run_yaml_scenario("test_data_service_custom_information.yaml")

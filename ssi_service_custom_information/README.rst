@@ -7,6 +7,12 @@ Service Contract + Custom Information Integration
 =================================================
 
 
+Work Instruction
+================
+
+* `Create Service Contract <docs/service_contract/01-create.html>`_
+
+
 Installation
 ============
 
