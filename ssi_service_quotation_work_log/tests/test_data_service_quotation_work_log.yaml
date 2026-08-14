@@ -61,13 +61,17 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      # WAJIB: memaksa refresh cache (flush + invalidate) sebelum policy
-      # approve dibaca. Tanpa step assert ini, approve_ok terbaca dari
-      # cache yang diisi action_confirm saat approval.approval belum
-      # ada, dan approve gagal secara NONDETERMINISTIK (T-04).
+      # WAJIB: refresh: true memaksa _refresh() pustaka (flush + invalidate)
+      # sebelum policy approve dibaca. Tanpa refresh eksplisit di sini,
+      # approve_ok terbaca dari cache yang diisi action_confirm saat
+      # approval.approval belum ada, dan approve gagal secara
+      # NONDETERMINISTIK (T-04). Refresh disetel per-step, bukan lewat
+      # options: {auto_refresh: true} berkas, agar step ber-as_user lain
+      # di skenario ini tidak ikut memicu re-read ber-ACL (T-05).
       - step: "Assert quotation still confirmed (forces cache refresh)"
         action: "assert"
         target: "quotation"
+        refresh: true
         asserts:
           state:
             type: "value"
