@@ -7,6 +7,11 @@ Service Contract - Work Log Integration
 =======================================
 
 
+Work Instruction
+================
+
+* `Create Service Contract <docs/service_contract/01-create.html>`_
+
 Installation
 ============
 
