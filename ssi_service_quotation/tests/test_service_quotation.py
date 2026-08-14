@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestServiceQuotation(YamlTransactionCase):
+    """Cover the ``service.quotation`` YAML scenario."""
+
     def test_service_quotation(self):
+        """Run the quotation create/confirm/approve/win scenario."""
         self.run_yaml_scenario("test_data_service_quotation.yaml")

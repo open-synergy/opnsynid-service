@@ -22,6 +22,7 @@
         "ssi_transaction_pricelist_mixin",
         "ssi_product_line_account_mixin",
         "ssi_service",
+        "web_tour",
     ],
     "data": [
         "security/ir_module_category_data.xml",
@@ -35,6 +36,7 @@
         "wizards/copy_quotation_term_views.xml",
         "views/service_quotation_views.xml",
         "views/service_contract_views.xml",
+        "views/assets.xml",
     ],
     "demo": [],
 }

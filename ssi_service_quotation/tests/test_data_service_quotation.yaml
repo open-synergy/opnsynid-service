@@ -1,3 +1,6 @@
+options:
+  auto_refresh: true
+
 scenarios:
   - name: "Service Quotation - Full Workflow: draft to win"
     steps:
@@ -61,11 +64,6 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      - step: "Invalidate cache after confirm"
-        action: "call"
-        target: "quotation"
-        method: "invalidate_cache"
-
       - step: "Approve quotation"
         action: "call"
         target: "quotation"
@@ -75,11 +73,6 @@ scenarios:
           state:
             type: "value"
             expected: "open"
-
-      - step: "Invalidate cache after approve"
-        action: "call"
-        target: "quotation"
-        method: "invalidate_cache"
 
       - step: "Mark quotation as win"
         action: "call"
@@ -92,11 +85,6 @@ scenarios:
           state:
             type: "value"
             expected: "win"
-
-      - step: "Invalidate cache after win"
-        action: "call"
-        target: "quotation"
-        method: "invalidate_cache"
 
       - step: "Assert contract created"
         action: "assert"

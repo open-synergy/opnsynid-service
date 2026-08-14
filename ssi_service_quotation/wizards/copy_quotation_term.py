@@ -6,6 +6,14 @@ from odoo import api, fields, models
 
 
 class CopyQuotationTerm(models.TransientModel):
+    """Wizard to duplicate a quotation payment term as a new line.
+
+    Opened from the **Copy Term** row button on
+    ``service.quotation_fix_item_payment_term``; copies the selected
+    term (and its detail lines) under a new name/sequence, optionally
+    overriding the quantity on every copied detail line.
+    """
+
     _name = "copy_quotation_term"
     _description = "Copy Quotation Term"
 
@@ -35,9 +43,17 @@ class CopyQuotationTerm(models.TransientModel):
 
     @api.model
     def _default_term_id(self):
+        """Default ``term_id`` to the record the wizard was opened from.
+
+        :return: int or False, the ``active_id`` from the context.
+        """
         return self.env.context.get("active_id", False)
 
     def action_confirm(self):
+        """Copy ``term_id`` with the wizard's values (button entry).
+
+        :return: None.
+        """
         self.ensure_one()
         new_term = self.term_id.copy(
             {

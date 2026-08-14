@@ -19,6 +19,20 @@ To install this module, you need to:
 5.  Search For *ServicService Quotatione*
 6.  Install the module
 
+Work Instruction
+================
+
+* `Create Service Quotation <docs/service_quotation/01-create.html>`_
+* `Edit Service Quotation <docs/service_quotation/02-edit.html>`_
+* `Delete Service Quotation <docs/service_quotation/03-delete.html>`_
+* `Confirm Service Quotation <docs/service_quotation/04-confirm.html>`_
+* `Approve Service Quotation <docs/service_quotation/05-approve.html>`_
+* `Reject Service Quotation <docs/service_quotation/06-reject.html>`_
+* `Mark Service Quotation as Win <docs/service_quotation/07-win.html>`_
+* `Mark Service Quotation as Lost <docs/service_quotation/08-lost.html>`_
+* `Cancel Service Quotation <docs/service_quotation/09-cancel.html>`_
+* `Restart Service Quotation <docs/service_quotation/10-restart.html>`_
+
 Bug Tracker
 ===========
 
