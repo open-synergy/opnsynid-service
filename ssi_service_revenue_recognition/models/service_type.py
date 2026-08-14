@@ -6,6 +6,13 @@ from odoo import fields, models
 
 
 class ServiceType(models.Model):
+    """Add Performance Obligation defaults to service type.
+
+    Configures the default analytic group used when a contract of
+    this type creates its Performance Obligations, and which products
+    or product categories should have their PoB auto-created.
+    """
+
     _name = "service.type"
     _inherit = [
         "service.type",

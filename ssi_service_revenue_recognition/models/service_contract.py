@@ -8,6 +8,14 @@ from odoo.addons.ssi_decorator import ssi_decorator
 
 
 class ServiceContract(models.Model):
+    """Add Performance Obligation revenue recognition to service contract.
+
+    Links a contract's analytic account to the Performance Obligations
+    (PoB) generated from its fix items, tracks the total PoB amount
+    against the contract's own untaxed amount, and lets the budget be
+    locked once it should no longer be recomputed from fix items.
+    """
+
     _name = "service.contract"
     _inherit = ["service.contract"]
 
@@ -48,6 +56,12 @@ class ServiceContract(models.Model):
 
     @api.depends("analytic_account_id")
     def _compute_pob_ids(self):
+        """Resolve the Performance Obligations sourced from this contract.
+
+        Searches ``performance_obligation`` by
+        ``source_analytic_account_id`` since a PoB does not itself point
+        back to the contract that generated it.
+        """
         PoB = self.env["performance_obligation"]
         for record in self:
             if record.analytic_account_id:
@@ -62,6 +76,11 @@ class ServiceContract(models.Model):
         "amount_untaxed",
     )
     def _compute_amount_diff_pob(self):
+        """Compare the contract's untaxed amount against total PoB amount.
+
+        A positive result means the contract's fix items have not yet
+        been fully turned into Performance Obligations.
+        """
         for record in self:
             record.amount_diff_pob = (
                 record.amount_untaxed - record.analytic_account_id.amount_total_pob
@@ -83,22 +102,30 @@ class ServiceContract(models.Model):
             self.analytic_account_id.group_id = self.pob_analytic_group_id
 
     def action_lock_budget(self):
+        """Lock the contract's budget so it stops being recomputed."""
         for record in self.sudo():
             record._lock_budget()
 
     def action_unlock_budget(self):
+        """Unlock the contract's budget so it can be recomputed again."""
         for record in self.sudo():
             record._unlock_budget()
 
     def _lock_budget(self):
+        """Set ``lock_budget`` to ``True`` on this single contract."""
         self.ensure_one()
         self.write({"lock_budget": True})
 
     def _unlock_budget(self):
+        """Set ``lock_budget`` to ``False`` on this single contract."""
         self.ensure_one()
         self.write({"lock_budget": False})
 
     def action_open_pob(self):
+        """Open Performance Obligations sourced from this contract.
+
+        :return: ``ir.actions.act_window`` dict on ``performance_obligation``
+        """
         self.ensure_one()
         result = {
             "name": "Performance Obligations",
