@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestSvcQuotWorkLog(YamlTransactionCase):
+    """Scenario tests for work log tracking on ``service.quotation``."""
+
     def test_service_quotation_work_log(self):
+        """Run the create-and-verify scenario for work log tracking."""
         self.run_yaml_scenario("test_data_service_quotation_work_log.yaml")

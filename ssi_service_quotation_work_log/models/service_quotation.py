@@ -6,6 +6,13 @@ from odoo import models
 
 
 class ServiceQuotation(models.Model):
+    """
+    Adds work log tracking to service quotations.
+    Lets users record ``hr.work_log`` entries directly on the
+    quotation, estimate the work required, and see the realized,
+    remaining, and excess work computed from those entries.
+    """
+
     _name = "service.quotation"
     _inherit = [
         "service.quotation",
