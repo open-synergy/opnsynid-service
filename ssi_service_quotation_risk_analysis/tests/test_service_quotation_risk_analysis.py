@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestSvcQuotRiskAnalysis(YamlTransactionCase):
+    """YAML scenario test for the ``service.quotation`` risk analysis link."""
+
     def test_service_quotation_risk_analysis(self):
+        """Run the create/confirm/approve risk analysis scenario."""
         self.run_yaml_scenario("test_data_service_quotation_risk_analysis.yaml")

@@ -7,6 +7,13 @@ Quotation + Risk Analysis Integration
 =====================================
 
 
+Work Instruction
+================
+
+* `Create Service Quotation <docs/service_quotation/01-create.html>`_
+* `Mark Service Quotation as Win <docs/service_quotation/07-win.html>`_
+
+
 Installation
 ============
 
