@@ -7,6 +7,13 @@ from odoo.exceptions import UserError
 
 
 class ServiceContractFixItem(models.Model):
+    """Add Performance Obligation (PoB) creation to fix item lines.
+
+    Each fix item line can be turned into a Performance Obligation
+    for revenue recognition; ``pob_id`` resolves the PoB already
+    created for a line (if any), and ``action_create_pob`` creates it.
+    """
+
     _name = "service.contract_fix_item"
     _inherit = "service.contract_fix_item"
 
@@ -86,10 +93,16 @@ class ServiceContractFixItem(models.Model):
         return self.amount_untaxed / self.quantity
 
     def action_create_pob(self):
+        """Create the Performance Obligation for each selected line."""
         for record in self.sudo():
             record._create_pob()
 
     def _create_pob(self):
+        """Create the PoB for this single line, unless one already exists.
+
+        Extension point: override ``_prepare_pob_data`` to change what
+        gets written on the created ``performance_obligation`` record.
+        """
         self.ensure_one()
         if self.pob_id:
             return True
@@ -108,6 +121,15 @@ class ServiceContractFixItem(models.Model):
         self.invalidate_cache(fnames=["pob_id"], ids=self.ids)
 
     def _prepare_pob_data(self):
+        """Build the ``performance_obligation`` values for this line.
+
+        Extension point: override to add/change fields on the PoB
+        created by ``_create_pob``.
+
+        :return: dict of ``performance_obligation`` values
+        :raises UserError: if the manual fulfillment field reference
+            from ``ssi_revenue_recognition`` cannot be resolved
+        """
         self.ensure_one()
         xmlid = (
             "ssi_revenue_recognition."
