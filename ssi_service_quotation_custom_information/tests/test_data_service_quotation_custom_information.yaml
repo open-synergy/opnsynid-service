@@ -61,10 +61,14 @@ scenarios:
             type: "value"
             expected: "confirm"
 
-      - step: "Invalidate cache after confirm"
-        action: "call"
+      - step: "Force cache refresh before approve (see T-04)"
+        action: "assert"
         target: "quotation"
-        method: "invalidate_cache"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
 
       - step: "Approve quotation"
         action: "call"

@@ -19,6 +19,12 @@ To install this module, you need to:
 5.  Search For *Service Quotation + Custom Information Integration*
 6.  Install the module
 
+Work Instruction
+================
+
+* `Create Service Quotation <docs/service_quotation/01-create.html>`_
+* `Mark Service Quotation as Win <docs/service_quotation/07-win.html>`_
+
 Bug Tracker
 ===========
 

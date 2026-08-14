@@ -6,6 +6,13 @@ from odoo import api, models
 
 
 class ServiceQuotation(models.Model):
+    """
+    Adds custom information (``mixin.custom_info``) support to service
+    quotations. Lets each service type carry its own custom info
+    template, and propagates the filled-in values to the ``service.contract``
+    generated when the quotation is won.
+    """
+
     _name = "service.quotation"
     _inherit = [
         "service.quotation",
@@ -17,11 +24,27 @@ class ServiceQuotation(models.Model):
         "type_id",
     )
     def onchange_custom_info_template_id(self):
+        """Reset the custom info template based on the selected type.
+
+        Clears ``custom_info_template_id`` first, then re-assigns it
+        from the template configured on ``type_id`` (if any) via
+        ``_get_template_custom_info``.
+        """
         self.custom_info_template_id = False
         if self.type_id:
             self.custom_info_template_id = self._get_template_custom_info()
 
     def _create_contract(self):
+        """Copy filled custom info values into the generated contract.
+
+        Extends the base contract creation: after ``super()`` builds
+        ``contract_id``, this removes any custom info values the
+        contract creation already generated from its own template,
+        reloads the template on the contract, then copies over the
+        values entered on this quotation — matched by
+        ``detail_id.property_id`` — so the contract starts with the
+        same custom info the quotation had.
+        """
         self.ensure_one()
         _super = super(ServiceQuotation, self)
         _super._create_contract()

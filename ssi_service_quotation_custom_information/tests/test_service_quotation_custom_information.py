@@ -9,5 +9,12 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestSvcQuotCustomInfo(YamlTransactionCase):
+    """Cover custom info on ``service.quotation`` end to end.
+
+    Exercises creating a quotation, confirming and approving it, and
+    verifying the custom info flow via the YAML scenario below.
+    """
+
     def test_service_quotation_custom_information(self):
+        """Run the create/confirm/approve custom info scenario."""
         self.run_yaml_scenario("test_data_service_quotation_custom_information.yaml")
