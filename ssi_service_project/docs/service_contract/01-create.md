@@ -1,7 +1,7 @@
 # Create Service Contract
 
-> **Module:** ssi_service_project **Extends:** ssi_service — model `service.contract`,
-> aksi `01-create`
+> **Module:** ssi_service_project\
+> **Extends:** ssi_service — model `service.contract`, aksi `01-create`
 
 ## Additional Fields
 

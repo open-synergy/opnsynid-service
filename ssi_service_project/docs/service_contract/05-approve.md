@@ -1,7 +1,7 @@
 # Approve Service Contract
 
-> **Module:** ssi_service_project **Extends:** ssi_service — model `service.contract`,
-> aksi `05-approve`
+> **Module:** ssi_service_project\
+> **Extends:** ssi_service — model `service.contract`, aksi `05-approve`
 
 ## Additional Post-Condition
 
