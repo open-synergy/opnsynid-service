@@ -447,3 +447,202 @@ scenarios:
         save_as: "pob_low_all"
         refresh: true
         expect_count: 1
+
+  - name:
+      "pob_id still resolves when the per-unit price does not divide evenly
+      (OFS/26/000024)"
+    steps:
+      - step: "Get income account"
+        action: "search"
+        model: "account.account"
+        domain: [["user_type_id.internal_group", "=", "income"]]
+        save_as: "income_account"
+        limit: 1
+
+      - step: "Get generic unit of measure"
+        action: "ref"
+        xml_id: "uom.product_uom_unit"
+        save_as: "uom"
+
+      - step: "Get default pricelist"
+        action: "ref"
+        xml_id: "product.list0"
+        save_as: "pricelist"
+
+      - step: "Create 11% price-included sale tax"
+        action: "create"
+        model: "account.tax"
+        save_as: "tax11"
+        as_user: "base.user_admin"
+        values:
+          name: "Test PPN 11% Incl - PoB non-terminating price"
+          amount: 11.0
+          amount_type: "percent"
+          type_tax_use: "sale"
+          price_include: true
+          company_id: "REC: company.id"
+
+      - step: "Create test partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Partner - PoB non-terminating price"
+          is_company: true
+
+      - step: "Create test service type"
+        action: "create"
+        model: "service.type"
+        save_as: "service_type"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Service Type - PoB non-terminating price"
+          code: "POBPU3"
+
+      - step: "Create test product"
+        action: "create"
+        model: "product.product"
+        save_as: "product"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Lumpsum Service - PoB non-terminating price"
+          type: "service"
+          uom_id: "REC: uom.id"
+          uom_po_id: "REC: uom.id"
+
+      - step: "Create service contract"
+        action: "create"
+        model: "service.contract"
+        save_as: "contract"
+        as_user: "base.user_admin"
+        values:
+          title: "Test Service Contract - PoB non-terminating price"
+          partner_id: "REC: partner.id"
+          type_id: "REC: service_type.id"
+          manager_id: "REF: base.user_admin"
+          salesperson_id: "REF: base.user_admin"
+          pricelist_id: "REC: pricelist.id"
+          currency_id: "REC: company.currency_id.id"
+          date: "2026-01-01"
+          date_start: "2026-01-01"
+          date_end: "2026-12-31"
+
+      - step: "Confirm contract"
+        action: "call"
+        target: "contract"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+
+      - step: "Assert confirmed (forces refresh before approve reads policy)"
+        action: "assert"
+        target: "contract"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Approve contract (opens it, auto-creates analytic account)"
+        action: "call"
+        target: "contract"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        context:
+          bypass_policy_check: true
+
+      - step: "Assert contract open"
+        action: "assert"
+        target: "contract"
+        refresh: true
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+
+      - step: "Create payment term"
+        action: "create"
+        model: "service.contract_fix_item_payment_term"
+        save_as: "term"
+        as_user: "base.user_admin"
+        values:
+          service_id: "REC: contract.id"
+          name: "Term 1"
+          sequence: 10
+
+      - step:
+          "Create payment term detail (qty 3, tax-inclusive unit price 1000 -- untaxed
+          total 3000 / 1.11 does not divide evenly by 3)"
+        action: "create"
+        model: "service.contract_fix_item_payment_term_detail"
+        save_as: "detail"
+        as_user: "base.user_admin"
+        values:
+          term_id: "REC: term.id"
+          product_id: "REC: product.id"
+          name: "REC: product.name"
+          account_id: "REC: income_account.id"
+          price_unit: 1000
+          quantity: 3
+          uom_quantity: 3
+          uom_id: "REC: uom.id"
+          tax_ids:
+            - - 6
+              - 0
+              - - "REC: tax11.id"
+          sequence: 10
+
+      - step: "Fetch the contract fix item view row"
+        action: "search"
+        model: "service.contract_fix_item"
+        domain:
+          - ["service_id", "=", "REC: contract.id"]
+          - ["product_id", "=", "REC: product.id"]
+        save_as: "item"
+        refresh: true
+        expect_count: 1
+
+      - step: "Item has no PoB yet"
+        action: "assert"
+        target: "item"
+        asserts:
+          pob_id:
+            type: "value"
+            operator: "is_falsy"
+
+      - step: "Create the PoB from the item"
+        action: "call"
+        target: "item"
+        method: "action_create_pob"
+        as_user: "base.user_admin"
+
+      - step:
+          "Assert item links to the PoB right after creation, in the same compute pass
+          that just created it"
+        action: "assert"
+        target: "item"
+        refresh: true
+        asserts:
+          pob_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step:
+          "Re-fetch the item as a fresh row (new compute, same as reopening the contract
+          form later)"
+        action: "search"
+        model: "service.contract_fix_item"
+        domain:
+          - ["service_id", "=", "REC: contract.id"]
+          - ["product_id", "=", "REC: product.id"]
+        save_as: "item"
+        refresh: true
+        expect_count: 1
+
+      - step: "Assert the fresh compute still resolves the same PoB"
+        action: "assert"
+        target: "item"
+        asserts:
+          pob_id:
+            type: "value"
+            operator: "is_truthy"

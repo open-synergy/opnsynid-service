@@ -50,11 +50,21 @@ class ServiceContractFixItem(models.Model):
         row's PoB actually looks like, so each distinct view row gets
         its own PoB while rows the view already merged (matching
         product/price) keep sharing one.
+
+        ``price_unit`` is rounded to the currency's precision before
+        the search (OFS/26/000024): ``_get_pob_price_unit()`` is a
+        plain division that rarely lands on a round number, while the
+        PoB's own ``price_unit`` -- a ``Monetary`` field -- was
+        already rounded by Odoo when it got stored. Comparing the raw
+        division result against that rounded value with ``=`` silently
+        drops the match on any line whose amount does not divide
+        evenly by its quantity, making an existing PoB look unlinked.
         """
         for record in self:
             result = False
             if record.service_id.analytic_account_id and record.product_id:
                 PoB = self.env["performance_obligation"]
+                price_unit = record.currency_id.round(record._get_pob_price_unit())
                 criteria = [
                     (
                         "source_analytic_account_id",
@@ -62,7 +72,7 @@ class ServiceContractFixItem(models.Model):
                         record.service_id.analytic_account_id.id,
                     ),
                     ("product_id", "=", record.product_id.id),
-                    ("price_unit", "=", record._get_pob_price_unit()),
+                    ("price_unit", "=", price_unit),
                 ]
                 pobs = PoB.search(criteria)
                 if pobs:
