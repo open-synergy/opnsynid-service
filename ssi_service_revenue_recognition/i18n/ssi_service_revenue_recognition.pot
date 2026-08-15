@@ -35,16 +35,6 @@ msgid "# PoB"
 msgstr ""
 
 #. module: ssi_service_revenue_recognition
-#: model:ir.model.fields,field_description:ssi_service_revenue_recognition.field_service_contract__pob_cost_revenue_count
-msgid "# PoB Cost/Revenue"
-msgstr ""
-
-#. module: ssi_service_revenue_recognition
-#: model_terms:ir.ui.view,arch_db:ssi_service_revenue_recognition.service_contract_view_form_rr
-msgid "<span class=\"o_stat_text\">PoB Cost/Rev</span>"
-msgstr ""
-
-#. module: ssi_service_revenue_recognition
 #: model:ir.model.fields,field_description:ssi_service_revenue_recognition.field_service_type__auto_create_pob_product_categ_ids
 msgid "Auto Create PoB Product Categories"
 msgstr ""
