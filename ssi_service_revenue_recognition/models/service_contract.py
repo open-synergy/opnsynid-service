@@ -49,10 +49,6 @@ class ServiceContract(models.Model):
         compute="_compute_amount_diff_pob",
         store=True,
     )
-    pob_cost_revenue_count = fields.Integer(
-        string="# PoB Cost/Revenue",
-        related="analytic_account_id.pob_cost_revenue_count",
-    )
 
     @api.depends("analytic_account_id")
     def _compute_pob_ids(self):
@@ -137,16 +133,6 @@ class ServiceContract(models.Model):
             ],
         }
         return result
-
-    def action_open_pob_cost_revenue(self):
-        """Open analytic lines from this contract's PoBs' own accounts.
-
-        Delegates to the contract's own analytic account, which owns
-        the aggregation logic (a contract's AA is just one possible
-        source of PoBs among several document types).
-        """
-        self.ensure_one()
-        return self.analytic_account_id.action_open_pob_cost_revenue()
 
     @ssi_decorator.post_open_action()
     def _10_assign_source_analytic_to_pob(self):

@@ -21,6 +21,7 @@ On the **Analytic & Project** tab, this module adds two fields:
   Obligations already created from it, both read-only) and the list of those Performance
   Obligations. Clicking **PoB(s)** opens the full list in its own view. This tab has
   nothing to fill in and is not a Flow step.
-- A **PoB Cost/Rev** smart button (`action_open_pob_cost_revenue`) is added to the
-  button box. It opens the analytic lines posted to this contract's Performance
-  Obligations' own analytic accounts. Navigation only; nothing is written.
+- The core **Cost/Revenue** smart button on the contract's analytic account (see
+  `ssi_revenue_recognition`) already includes analytic lines posted to this contract's
+  Performance Obligations' own analytic accounts, since those accounts sit as children
+  of the contract's account (`account_analytic_parent`).

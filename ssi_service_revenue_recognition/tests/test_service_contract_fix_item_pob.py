@@ -37,6 +37,12 @@ class TestServiceContractFixItemPob(YamlTransactionCase):
     ``price_subtotal`` matches ``amount_untaxed`` again regardless of
     quantity. See ``_get_pob_price_unit`` in
     ``service_contract_fix_item.py``.
+
+    Also covers OFS/26/000024's reopened complaint: ``_compute_pob_id``
+    matched ``price_unit`` with a raw, unrounded division result
+    against the PoB's own (currency-rounded) stored value, so a line
+    whose untaxed amount does not divide evenly by its quantity never
+    found its own already-created PoB.
     """
 
     def test_service_contract_fix_item_pob(self):
